@@ -1,2 +1,146 @@
 @import '/./node_modules/bootstrap/scss/bootstrap.scss';
 
+
+//Fonts
+@font-face {
+    font-family: 'Lemon-Bold';
+    src: local('lemon-milk'), url(./fonts/LEMONMILK-Bold.otf) format('truetype');
+  }
+@font-face {
+    font-family: 'Lemon-Medium';
+    src: local('lemon-milk'), url(./fonts/LEMONMILK-Medium.otf) format('truetype');
+}
+@font-face {
+    font-family: 'Lemon-Regular';
+    src: local('lemon-milk'), url(./fonts/LEMONMILK-Regular.otf) format('truetype');
+}
+@font-face {
+    font-family: 'Lemon-Light';
+    src: local('lemon-milk'), url(./fonts/LEMONMILK-Light.otf) format('truetype');
+}
+@font-face {
+    font-family: 'Montserrat-Regular';
+    src: local('Montserrat'), url(./fonts/Montserrat-Regular.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'Montserrat-Light';
+    src: local('Montserrat'), url(./fonts/Montserrat-Light.ttf) format('truetype');
+}
+
+//Colors
+$background: #F6F6F4;
+$brown: #6B6054;
+$dark-blue: #0C1B31;
+$blue: #1f4d8f;
+$dark: #0A0908;
+$white: #FFFFFF;
+$soft-purple: #F2F0FA;
+$light-blue: #EBF6FE;
+
+html, body {
+    height: 100vh;
+}
+
+body {
+    background: $background;
+    font-family: 'Montserrat-Regular';
+    font-size: .75rem;
+    color: $blue;
+    height: 100%;
+}
+
+.navbar {
+    background: $background;
+    border-bottom: 1px solid rgba(38, 38, 38, 0.1);
+    height: 10vh;
+    min-height: 65px;
+    width: 100%;
+    z-index: 2;
+}
+.navbar-nav {
+    a {
+        color: $blue;
+        
+        &:active, &:focus, &:visited {
+            color: $blue!important; 
+        }
+        &:hover {
+            color: $brown!important;
+        }
+    }
+}
+
+.navbar-brand {
+    font-family: 'Lemon-Medium';
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+    padding-right: 2rem;
+    margin-left: 1rem;
+    color: $blue;
+    
+    &:active, &:focus, &:visited  {
+        color: $blue!important; 
+    }
+    &:hover {
+        color: $brown!important;
+    }
+}
+.layout {
+    height: 90%;
+    min-height: 80vh;
+    .banner-left {
+        font-family: 'Lemon-Regular';
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .banner-right {
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: fixed;
+        z-index: -1;
+        @media(min-width: 678px){
+            position: relative;
+            border-left: 1px solid rgba(38, 38, 38, 0.1);
+        }
+        
+    }
+}
+
+//Animation 
+.animation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    filter:blur(3px);
+    -o-filter:blur(3px);
+    -ms-filter:blur(3x);
+    -moz-filter:blur(3px);
+    -webkit-filter:blur(3px);
+    .top {
+        animation: rotate 15s infinite linear;
+    }
+    .middle {
+        animation: rotate 18s infinite reverse linear;
+    }
+    .bottom {
+        animation: rotate 20s infinite linear;
+    }
+    .blobs {
+        transition: transform 5s;
+    }
+    .blobs:hover {
+        transform: translate(100px, 100px) scale(0.0);
+    }
+    @keyframes rotate {
+    0% {
+        transform: translate(100px, 100px) rotate(0deg);
+    }
+    100% {
+        transform: translate(100px, 100px) rotate(359deg);
+    }
+    } 
+}

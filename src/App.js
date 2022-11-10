@@ -1,15 +1,12 @@
 import React from "react";
-import Banner from "./banner";
-import Projects from "./projects";
-import Footer from "./footer";
+import Layout from './components/layout'
+import { Container, Row, Col } from 'react-bootstrap';
+// import { Link, animateScroll as scroll } from "react-scroll";
 
 const App = () => {
-    return ( 
-      <div>
-        <Banner/>
-        <Projects/>
-        <Footer/>
-      </div>
-    )
+    return (
+        < Layout />
+    );
 };
+
 export default App;
