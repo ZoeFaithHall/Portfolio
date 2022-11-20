@@ -11,6 +11,10 @@
     src: local('lemon-milk'), url(./fonts/LEMONMILK-Medium.otf) format('truetype');
 }
 @font-face {
+    font-family: 'Lemon-Medium-Italic';
+    src: local('lemon-milk'), url(./fonts/LEMONMILK-MediumItalic.otf) format('truetype');
+}
+@font-face {
     font-family: 'Lemon-Regular';
     src: local('lemon-milk'), url(./fonts/LEMONMILK-Regular.otf) format('truetype');
 }
@@ -88,12 +92,35 @@ body {
 .layout {
     height: 90%;
     min-height: 80vh;
+    
     .banner-left {
-        font-family: 'Lemon-Regular';
+        font-family: 'Lemon-Light';
         height: 90vh;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
+        padding: 1rem;
+
+        h1 {
+            font-size: calc(.5rem + .5vw);
+
+            span {
+                display: flex;
+                flex-direction: column;
+                font-size: calc(.25rem + .5vw);
+                line-height: normal;
+            }
+        }
+        h2 {
+            font-size: calc(1.75rem + .5vw);
+            :nth-child(2){
+                display: flex;
+                flex-direction: column;
+                font-family: 'Lemon-Medium';
+                letter-spacing: .15rem;
+            }
+        }
+        
     }
     .banner-right {
         height: 90vh;
@@ -102,7 +129,7 @@ body {
         justify-content: center;
         position: fixed;
         z-index: -1;
-        @media(min-width: 678px){
+        @media(min-width: 768px){
             position: relative;
             border-left: 1px solid rgba(38, 38, 38, 0.1);
         }

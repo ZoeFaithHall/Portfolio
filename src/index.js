@@ -5,8 +5,9 @@ import App from './App';
 import '../src/style.scss';
 import Navigation from './components/navigation'
 import Layout from './components/layout'
-import Projects from './components/projects'
-import Contact from './components/contact'
+import Projects from './views/projects'
+import Contact from './views/contact'
+import Process from './views/process'
  
 ReactDOM.render( 
   <React.StrictMode>
@@ -18,6 +19,7 @@ ReactDOM.render(
       <Route path="/layout" element= { <Layout/>} />
       <Route path="/projects" element= { <Projects/> } />
       <Route path="/contact" element= { <Contact/> } />
+      <Route path="/process" element= { <Process/> } />
     </Routes>
 
   </Router>

@@ -13,10 +13,10 @@ const Navigation = () => {
              <Navbar.Brand>Z</Navbar.Brand>
         </LinkContainer>
         <Nav>
-        <LinkContainer to="./projects">
+        <LinkContainer to="../views/projects">
             <Nav.Link>Projects</Nav.Link>
         </LinkContainer>
-        <LinkContainer to="./contact">
+        <LinkContainer to="../views/contact">
             <Nav.Link>Contact</Nav.Link>
         </LinkContainer>
             
