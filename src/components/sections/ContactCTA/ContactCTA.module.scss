@@ -1,0 +1,55 @@
+.root {
+  background: $color-accent;
+  color: $color-text-inverse;
+  padding-block: $space-32;
+}
+
+.inner {
+  @include container($container-2xl);
+  @include stack($space-12);
+  align-items: center;
+  text-align: center;
+}
+
+.heading {
+  color: $color-text-inverse;
+  max-width: 18ch;
+}
+
+.cta {
+  display: inline-flex;
+  padding: $space-5 $space-10;
+  background: $color-ink-950;
+  color: $color-ink-100;
+  border-radius: $radius-full;
+  font-family: $font-mono;
+  font-size: $text-base;
+  letter-spacing: $tracking-wide;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform $duration-fast $ease-out;
+
+  &:hover { transform: translateY(-2px); }
+  &:focus-visible { @include focus-ring($color-ink-950); }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-8;
+  width: 100%;
+  max-width: $container-lg;
+  padding-top: $space-12;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  text-align: left;
+
+  @include breakpoint(md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

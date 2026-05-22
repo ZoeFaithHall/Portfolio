@@ -1,0 +1,37 @@
+.root {
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+  background: rgba($color-bg, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid $color-border;
+}
+
+.inner {
+  @include container($container-2xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.brand {
+  font-family: $font-display;
+  font-weight: $font-weight-black;
+  font-size: $text-lg;
+  letter-spacing: $tracking-tight;
+  color: $color-text;
+  text-decoration: none;
+
+  &:focus-visible {
+    @include focus-ring;
+    border-radius: $radius-sm;
+  }
+}
+
+.list {
+  @include cluster($space-1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}

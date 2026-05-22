@@ -1,0 +1,46 @@
+// Web fonts — swap CDN imports for self-hosted in production
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Syne:wght@500;700;800&display=swap');
+
+html {
+  font-size: 16px;
+  font-family: $font-body;
+  font-weight: $font-weight-light;
+  color: $color-text;
+  background-color: $color-bg;
+}
+
+body {
+  font-family: $font-body;
+  font-size: $text-base;
+  line-height: $leading-normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-display;
+  font-weight: $font-weight-black;
+  line-height: $leading-tight;
+  letter-spacing: $tracking-tight;
+}
+
+code, kbd, samp, pre {
+  font-family: $font-mono;
+  font-size: 0.9em;
+}
+
+a {
+  color: $color-link;
+  text-decoration: none;
+  transition: color $duration-fast $ease-out;
+
+  &:hover { color: $color-link-hover; }
+
+  &:focus-visible {
+    @include focus-ring;
+    border-radius: $radius-sm;
+  }
+}
+
+::selection {
+  background: $color-accent;
+  color: $color-text-inverse;
+}

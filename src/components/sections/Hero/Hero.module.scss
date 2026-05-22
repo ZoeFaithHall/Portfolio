@@ -1,0 +1,70 @@
+.root {
+  position: relative;
+  min-height: 100dvh;
+  background: $color-bg;
+  display: flex;
+  align-items: stretch;
+  overflow: clip;
+}
+
+.inner {
+  @include container($container-2xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: $space-16 $space-12;
+  min-height: 100dvh;
+}
+
+.wordmark {
+  @include fluid-type(5rem, 22rem);
+  font-weight: $font-weight-black;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: $color-text;
+
+  @supports (animation-timeline: scroll()) {
+    animation: wordmark-dock linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 80vh;
+  }
+}
+
+@keyframes wordmark-dock {
+  from { transform: translateY(0)     scale(1);    opacity: 1; }
+  to   { transform: translateY(-30vh) scale(0.15); opacity: 0; }
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-6;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.tagline {
+  font-family: $font-mono;
+  font-size: $text-md;
+  letter-spacing: $tracking-wide;
+  max-width: 40ch;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-4 $space-6;
+  background: $color-text;
+  color: $color-bg;
+  border-radius: $radius-full;
+  font-family: $font-mono;
+  font-size: $text-sm;
+  letter-spacing: $tracking-wide;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform $duration-fast $ease-out;
+
+  &:hover { transform: translateY(-2px); }
+  &:focus-visible { @include focus-ring; }
+}

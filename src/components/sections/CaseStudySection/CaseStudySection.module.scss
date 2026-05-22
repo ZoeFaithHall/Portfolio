@@ -1,0 +1,158 @@
+.root {
+  position: relative;
+  min-height: 200vh;
+  background: var(--case-bg);
+  color: var(--case-text);
+  padding-block: $space-32;
+  overflow: clip; // contain pinned artifact
+}
+
+// Sticky client/year band ----------------------------------------------------
+.band {
+  position: sticky;
+  top: 72px; // header height
+  z-index: $z-sticky - 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $space-3 $gutter;
+  background: var(--case-band);
+  color: var(--case-text);
+  border-block: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.years {
+  opacity: 0.6;
+}
+
+// 65/35 split grid -----------------------------------------------------------
+.grid {
+  @include container($container-2xl);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-12;
+  padding-top: $space-16;
+
+  @include breakpoint(lg) {
+    grid-template-columns: 65fr 35fr;
+    gap: $space-16;
+  }
+}
+
+// Display type column --------------------------------------------------------
+.display {
+  position: relative;
+  z-index: 2;
+}
+
+.frame {
+  color: var(--case-accent);
+  @include fluid-type(3rem, 9rem);
+  font-weight: $font-weight-black;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin-bottom: $space-4;
+}
+
+.frameSub {
+  color: var(--case-text);
+  opacity: 0.55;
+  @include fluid-type(1.5rem, 3rem);
+  font-weight: $font-weight-light;
+  letter-spacing: -0.01em;
+}
+
+// Right info rail ------------------------------------------------------------
+.rail {
+  position: relative;
+  @include stack($space-6);
+
+  @include breakpoint(lg) {
+    position: sticky;
+    top: calc(72px + #{$space-12}); // header + band
+    align-self: start;
+    max-height: calc(100vh - 72px - #{$space-12});
+    overflow-y: auto;
+    padding-right: $space-4;
+
+    // Hide scrollbar but keep scrollable
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+  }
+}
+
+.counter {
+  font-size: $text-lg;
+  letter-spacing: $tracking-wide;
+}
+
+.counterCurrent {
+  color: var(--case-accent);
+}
+
+.counterTotal {
+  opacity: 0.4;
+}
+
+.paragraph {
+  color: var(--case-text);
+  opacity: 0.85;
+}
+
+.meta {
+  @include stack($space-5);
+  margin: 0;
+  padding-top: $space-4;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.metaBlock {
+  @include stack($space-1);
+
+  dt { margin: 0; }
+  dd { margin: 0; }
+}
+
+.tagList {
+  @include stack($space-1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+// Pinned visual artifact slot ------------------------------------------------
+.artifact {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+
+  // Pin the artifact during the section's scroll range.
+  // Wrap any content in a div; this container is the pinning context.
+  > * {
+    position: sticky;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 60%;
+    max-height: 80vh;
+  }
+}
+
+// Scroll-driven reveal where supported (progressive enhancement) -------------
+@supports (animation-timeline: view()) {
+  .frame {
+    view-timeline-name: --case-frame;
+    view-timeline-axis: block;
+    animation: case-frame-rise linear both;
+    animation-timeline: --case-frame;
+    animation-range: entry 0% cover 30%;
+  }
+
+  @keyframes case-frame-rise {
+    from { transform: translateY(40px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+}

@@ -1,0 +1,6 @@
+// Entry point — imported once in src/main.tsx.
+// Per-component styles live in *.module.scss files alongside their components.
+
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/global';

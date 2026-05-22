@@ -1,0 +1,75 @@
+.root {
+  color: $color-text;
+  margin: 0;
+}
+
+.muted {
+  color: $color-text-muted;
+}
+
+.variant--display-1 {
+  font-family: $font-display;
+  font-weight: $font-weight-black;
+  @include fluid-type(2.5rem, 5rem);
+  line-height: $leading-tight;
+  letter-spacing: $tracking-tight;
+}
+
+.variant--display-2 {
+  font-family: $font-display;
+  font-weight: $font-weight-black;
+  @include fluid-type(2rem, 3.5rem);
+  line-height: $leading-tight;
+  letter-spacing: $tracking-tight;
+}
+
+.variant--heading-1 {
+  font-family: $font-display;
+  font-weight: $font-weight-bold;
+  font-size: $text-3xl;
+  line-height: $leading-tight;
+}
+
+.variant--heading-2 {
+  font-family: $font-display;
+  font-weight: $font-weight-bold;
+  font-size: $text-2xl;
+  line-height: $leading-snug;
+}
+
+.variant--heading-3 {
+  font-family: $font-display;
+  font-weight: $font-weight-bold;
+  font-size: $text-xl;
+  line-height: $leading-snug;
+}
+
+.variant--body {
+  font-family: $font-body;
+  font-weight: $font-weight-light;
+  font-size: $text-base;
+  line-height: $leading-normal;
+}
+
+.variant--body-sm {
+  font-family: $font-body;
+  font-weight: $font-weight-light;
+  font-size: $text-sm;
+  line-height: $leading-normal;
+}
+
+.variant--caption {
+  font-family: $font-body;
+  font-weight: $font-weight-regular;
+  font-size: $text-xs;
+  line-height: $leading-normal;
+  color: $color-text-muted;
+}
+
+.variant--mono {
+  font-family: $font-mono;
+  font-weight: $font-weight-regular;
+  font-size: $text-sm;
+  letter-spacing: $tracking-wide;
+  text-transform: uppercase;
+}

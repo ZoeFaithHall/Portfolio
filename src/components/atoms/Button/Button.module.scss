@@ -1,0 +1,68 @@
+.root {
+  @include button-reset;
+  @include focus-visible;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  font-family: $font-body;
+  font-weight: $font-weight-medium;
+  letter-spacing: $tracking-normal;
+  border-radius: $radius-md;
+  transition:
+    background-color $duration-fast $ease-out,
+    color $duration-fast $ease-out,
+    border-color $duration-fast $ease-out,
+    transform $duration-fast $ease-out;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Variants --------------------------------------------------------------------
+.variant--primary {
+  background: $color-accent;
+  color: $color-text-inverse;
+
+  &:hover:not(:disabled) {
+    background: $color-accent-hover;
+  }
+}
+
+.variant--secondary {
+  background: transparent;
+  color: $color-text;
+  border: 1px solid $color-border;
+
+  &:hover:not(:disabled) {
+    background: $color-surface-alt;
+    border-color: $color-accent;
+  }
+}
+
+.variant--ghost {
+  background: transparent;
+  color: $color-text-muted;
+
+  &:hover:not(:disabled) {
+    color: $color-text;
+  }
+}
+
+// Sizes -----------------------------------------------------------------------
+.size--sm {
+  padding: $space-2 $space-3;
+  font-size: $text-sm;
+}
+
+.size--md {
+  padding: $space-3 $space-5;
+  font-size: $text-base;
+}
+
+.size--lg {
+  padding: $space-4 $space-6;
+  font-size: $text-md;
+}

@@ -1,0 +1,18 @@
+.root {
+  color: $color-link;
+  text-decoration: none;
+  transition: color $duration-fast $ease-out;
+  border-radius: $radius-sm;
+
+  &:hover { color: $color-link-hover; }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+.underline {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}

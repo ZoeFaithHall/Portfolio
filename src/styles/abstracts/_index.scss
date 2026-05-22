@@ -1,0 +1,6 @@
+// Forward all abstracts so a single `@use '@/styles/abstracts' as *;` exposes everything.
+// This file is auto-injected into every .scss module via vite.config.ts.
+
+@forward 'functions';
+@forward 'variables';
+@forward 'mixins';

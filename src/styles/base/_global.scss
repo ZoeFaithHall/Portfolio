@@ -1,0 +1,59 @@
+.container {
+  @include container;
+}
+
+.container--narrow {
+  @include container($container-md);
+}
+
+.container--wide {
+  @include container($container-2xl);
+}
+
+.sr-only {
+  @include sr-only;
+}
+
+// Skip to main content link
+.skip-link {
+  @include sr-only;
+
+  &:focus {
+    position: fixed;
+    top: $space-4;
+    left: $space-4;
+    width: auto;
+    height: auto;
+    padding: $space-2 $space-4;
+    background: $color-accent;
+    color: $color-text-inverse;
+    z-index: $z-toast;
+    clip: auto;
+  }
+}
+
+// Lenis adds this class; hint browsers to optimize and disable native smooth scroll
+html.lenis {
+  height: auto;
+}
+
+html.lenis,
+html.lenis body {
+  overflow: clip;
+}
+
+html.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+html.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+html.lenis-stopped {
+  overflow: clip;
+}
+
+html.lenis-smooth iframe {
+  pointer-events: none;
+}

@@ -1,0 +1,121 @@
+// =============================================================================
+// Design tokens
+// Single source of truth. Override theme values in /styles/themes/*.
+// =============================================================================
+
+// Color -----------------------------------------------------------------------
+// Neutral scale (replace with your brand palette)
+$color-ink-0:    #ffffff;
+$color-ink-50:   #fafaf9;
+$color-ink-100:  #f0ece4;
+$color-ink-200:  #e8e0d0;
+$color-ink-400:  #a8a29e;
+$color-ink-600:  #57534e;
+$color-ink-800:  #2c2926;
+$color-ink-900:  #141210;
+$color-ink-950:  #0c0c0c;
+
+$color-accent:        #c9a96e;
+$color-accent-hover:  #d4b87d;
+
+// Semantic tokens — components should reference these, not raw scale values
+$color-bg:            $color-ink-950;
+$color-surface:       $color-ink-900;
+$color-surface-alt:   $color-ink-800;
+$color-border:        rgba($color-ink-100, 0.08);
+$color-text:          $color-ink-100;
+$color-text-muted:    $color-ink-400;
+$color-text-inverse:  $color-ink-950;
+$color-link:          $color-accent;
+$color-link-hover:    $color-accent-hover;
+
+// Typography ------------------------------------------------------------------
+$font-display: 'Syne', system-ui, sans-serif;
+$font-body:    'DM Sans', system-ui, sans-serif;
+$font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+$font-weight-light:   300;
+$font-weight-regular: 400;
+$font-weight-medium:  500;
+$font-weight-bold:    700;
+$font-weight-black:   800;
+
+// Type scale (rem-based, fluid via clamp() in mixins)
+$text-xs:   0.75rem;   // 12
+$text-sm:   0.875rem;  // 14
+$text-base: 1rem;      // 16
+$text-md:   1.125rem;  // 18
+$text-lg:   1.25rem;   // 20
+$text-xl:   1.5rem;    // 24
+$text-2xl:  2rem;      // 32
+$text-3xl:  2.5rem;    // 40
+$text-4xl:  3.5rem;    // 56
+$text-5xl:  5rem;      // 80
+
+$leading-tight:  1.15;
+$leading-snug:   1.3;
+$leading-normal: 1.5;
+$leading-loose:  1.75;
+
+$tracking-tight:  -0.02em;
+$tracking-normal: 0;
+$tracking-wide:   0.08em;
+
+// Spacing scale (4px base) ----------------------------------------------------
+$space-0:   0;
+$space-1:   0.25rem;
+$space-2:   0.5rem;
+$space-3:   0.75rem;
+$space-4:   1rem;
+$space-5:   1.25rem;
+$space-6:   1.5rem;
+$space-8:   2rem;
+$space-10:  2.5rem;
+$space-12:  3rem;
+$space-16:  4rem;
+$space-20:  5rem;
+$space-24:  6rem;
+$space-32:  8rem;
+
+// Layout ----------------------------------------------------------------------
+$container-sm:  640px;
+$container-md:  768px;
+$container-lg:  1024px;
+$container-xl:  1200px;
+$container-2xl: 1440px;
+
+$gutter:        $space-6;
+
+// Radius ----------------------------------------------------------------------
+$radius-sm:   2px;
+$radius-md:   4px;
+$radius-lg:   8px;
+$radius-xl:   16px;
+$radius-full: 9999px;
+
+// Motion ----------------------------------------------------------------------
+$ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+$ease-in-out:  cubic-bezier(0.65, 0, 0.35, 1);
+$duration-fast:   150ms;
+$duration-base:   240ms;
+$duration-slow:   480ms;
+
+// Elevation -------------------------------------------------------------------
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+$shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
+$shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.35);
+
+// Z-index scale ---------------------------------------------------------------
+$z-base:    0;
+$z-raised:  10;
+$z-sticky:  100;
+$z-overlay: 500;
+$z-modal:   1000;
+$z-toast:   2000;
+
+// Breakpoints -----------------------------------------------------------------
+$bp-sm:  640px;
+$bp-md:  768px;
+$bp-lg:  1024px;
+$bp-xl:  1200px;
+$bp-2xl: 1440px;
