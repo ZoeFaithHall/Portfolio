@@ -1,3 +1,4 @@
+import { Text } from '@/components/atoms/Text';
 import styles from './AnnouncementCard.module.scss';
 
 export type AnnouncementTheme = {
@@ -14,9 +15,10 @@ export type AnnouncementCardProps = {
 };
 
 /**
- * Centered eyebrow + display title + tagline card.
- * Fills its parent container (parent decides height — used both as a
- * full-bleed absolute layer in Intro and as a 100vh card in ChapterIntro).
+ * Mirrors Philosophy's 65/35 layout: bold statement-style title on the left,
+ * eyebrow + tagline rail on the right. Fills its parent container; parent
+ * decides vertical sizing (Intro's wipe layer = 100vh; ChapterIntro's .card
+ * = 100vh − 3rem band).
  */
 export function AnnouncementCard({ eyebrow, title, tagline, theme }: AnnouncementCardProps) {
   return (
@@ -24,12 +26,19 @@ export function AnnouncementCard({ eyebrow, title, tagline, theme }: Announcemen
       className={styles.root}
       style={{ background: theme.bg, color: theme.text }}
     >
-      <div className={styles.inner}>
-        <p className={styles.eyebrow}>{eyebrow}</p>
-        <h2 className={styles.title} style={{ color: theme.accent }}>
+      <div className={styles.grid}>
+        <Text
+          as="h2"
+          variant="display-2"
+          className={styles.title}
+          style={{ color: theme.accent }}
+        >
           {title}
-        </h2>
-        <p className={styles.tagline}>{tagline}</p>
+        </Text>
+        <aside className={styles.rail}>
+          <Text variant="mono" className={styles.eyebrow}>{eyebrow}</Text>
+          <Text variant="body" className={styles.tagline}>{tagline}</Text>
+        </aside>
       </div>
     </div>
   );
