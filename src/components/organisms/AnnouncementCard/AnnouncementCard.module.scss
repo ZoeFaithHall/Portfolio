@@ -1,0 +1,42 @@
+@use "../../../styles/abstracts" as *;
+
+.root {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: $space-12 $gutter;
+}
+
+.inner {
+  text-align: center;
+  max-width: 60rem;
+}
+
+.eyebrow {
+  font-family: $font-mono;
+  font-size: $text-xs;
+  letter-spacing: $tracking-wide;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin: 0 0 $space-6;
+}
+
+.title {
+  font-family: $font-display;
+  font-weight: $font-weight-black;
+  @include fluid-type(4rem, 10rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.tagline {
+  font-family: $font-display;
+  font-weight: $font-weight-light;
+  font-style: italic;
+  @include fluid-type(1.25rem, 2rem);
+  letter-spacing: -0.01em;
+  margin: $space-6 0 0;
+  opacity: 0.75;
+}

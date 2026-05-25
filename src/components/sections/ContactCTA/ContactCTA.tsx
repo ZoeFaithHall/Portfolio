@@ -1,4 +1,5 @@
 import { Text } from '@/components/atoms/Text';
+import { Link } from '@/components/atoms/Link';
 import styles from './ContactCTA.module.scss';
 
 export function ContactCTA() {
@@ -8,9 +9,9 @@ export function ContactCTA() {
         <Text as="h2" variant="display-1" className={styles.heading}>
           Let&rsquo;s build something durable.
         </Text>
-        <a href="mailto:hi@zoehall.dev" className={styles.cta}>
+        <Link to="mailto:hi@zoehall.dev" className={styles.cta}>
           get in touch
-        </a>
+        </Link>
         <div className={styles.row}>
           <div>
             <Text variant="caption" muted>available for</Text>
@@ -23,7 +24,7 @@ export function ContactCTA() {
           <div>
             <Text variant="caption" muted>consulting via</Text>
             <Text variant="body">
-              <a href="https://runelab.co" className={styles.link}>Rune Lab</a>
+              <Link to="https://runelab.co" className={styles.link}>Rune Lab</Link>
             </Text>
           </div>
         </div>

@@ -2,23 +2,23 @@
 
 .root {
   position: sticky;
-  z-index: 5;
-  width: 100%;
-  background: $color-surface-strong;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  top: 0;
+  z-index: $z-sticky - 1;
 
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 
-  padding: $space-6;
+  height: 3rem;
+  padding: 0 $gutter;
+
+  background: $color-surface;
+  color: $color-text;
 
   font-family: $font-mono;
   font-size: $text-xs;
-  font-weight: 500;
   letter-spacing: $tracking-wide;
   text-transform: uppercase;
-  color: $color-text;
 }
 
 .label {
