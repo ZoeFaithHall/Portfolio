@@ -1,9 +1,9 @@
-import Text from '@components/atoms/Text';
+import { Text } from '@/components/atoms/Text';
 import styles from './ContactCTA.module.scss';
 
-export default function ContactCTA() {
+export function ContactCTA() {
   return (
-    <section id="contact" className={styles.root}>
+    <section id="contact" className={styles.root} data-surface="light">
       <div className={styles.inner}>
         <Text as="h2" variant="display-1" className={styles.heading}>
           Let&rsquo;s build something durable.

@@ -1,0 +1,28 @@
+.root {
+  position: relative;
+  display: block;
+
+  &[data-surface='light'] .imgLight { opacity: 1; }
+  &[data-surface='dark']  .imgDark  { opacity: 1; }
+}
+
+.img {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.imgLight {
+  position: relative;
+}
+
+.imgDark {
+  position: absolute;
+  inset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .img { transition: none; }
+}

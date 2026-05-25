@@ -1,3 +1,5 @@
+@use "../../../styles/abstracts" as *;
+
 .main {
   // Sections handle their own backgrounds and padding.
   // No container or padding here so sections can bleed full-width.

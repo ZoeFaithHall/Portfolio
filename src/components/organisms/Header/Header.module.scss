@@ -1,37 +1,49 @@
+@use '../../../styles/abstracts' as *;
+
 .root {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  inset: 0 0 auto 0;
   z-index: $z-sticky;
-  background: rgba($color-bg, 0.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid $color-border;
-}
-
-.inner {
-  @include container($container-2xl);
+  pointer-events: none;
+  height: $space-12;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 72px;
-}
+  flex-direction: row;
+  align-items: start;
+  justify-content: center;
+  padding: 0 $space-4 0;
 
-.brand {
-  font-family: $font-display;
-  font-weight: $font-weight-black;
-  font-size: $text-lg;
-  letter-spacing: $tracking-tight;
-  color: $color-text;
-  text-decoration: none;
-
-  &:focus-visible {
-    @include focus-ring;
-    border-radius: $radius-sm;
+  > * {
+    pointer-events: auto;
   }
 }
 
-.list {
-  @include cluster($space-1);
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.wordmark {
+  position: absolute;
+  top: $space-16!important; // override inline styles for scroll effect
+  line-height: 0;
+  z-index: 1;
+  transform-origin: top left;
+  top: calc(#{$space-4} * var(--wordmark-progress, 0));
+  left: calc(#{$space-6} * var(--wordmark-progress, 0));
+
+  // PNG scales by width; height follows aspect ratio automatically
+  width: calc(
+    96vw * (1 - var(--wordmark-progress, 0)) +
+    10rem * var(--wordmark-progress, 0)
+  );
+}
+
+.wordmarkImg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.nav {
+  grid-column: 2;
+  position: relative;
+  top: $space-3;
+  display: flex;
+  gap: $space-6;
+  z-index: 2;
 }

@@ -1,70 +1,72 @@
+@use '../../../styles/abstracts' as *;
+
 .root {
   position: relative;
   min-height: 100dvh;
   background: $color-bg;
-  display: flex;
-  align-items: stretch;
   overflow: clip;
 }
 
-.inner {
-  @include container($container-2xl);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-block: $space-16 $space-12;
-  min-height: 100dvh;
-}
+.image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: $color-bg;
 
-.wordmark {
-  @include fluid-type(5rem, 22rem);
-  font-weight: $font-weight-black;
-  line-height: 0.85;
-  letter-spacing: -0.04em;
-  color: $color-text;
-
-  @supports (animation-timeline: scroll()) {
-    animation: wordmark-dock linear both;
-    animation-timeline: scroll(root);
-    animation-range: 0 80vh;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 }
 
-@keyframes wordmark-dock {
-  from { transform: translateY(0)     scale(1);    opacity: 1; }
-  to   { transform: translateY(-30vh) scale(0.15); opacity: 0; }
-}
-
-.footer {
+.bottom {
+  position: absolute;
+  bottom: $space-8;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  padding: 0 $space-6;
   display: flex;
-  flex-wrap: wrap;
-  gap: $space-6;
-  align-items: flex-end;
   justify-content: space-between;
+  align-items: flex-end;
+  gap: $space-6;
+
+  @media (max-width: $bp-md) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .tagline {
-  font-family: $font-mono;
-  font-size: $text-md;
-  letter-spacing: $tracking-wide;
-  max-width: 40ch;
+  margin: 0;
+  font-family: $font-display;
+  font-weight: $font-weight-regular;
+  font-size: clamp(2rem, 5.5vw, 5rem);
+  line-height: 0.9;
+  letter-spacing: -0.025em;
+  color: $color-text;
+  max-width: 22ch;
 }
 
 .cta {
   display: inline-flex;
   align-items: center;
-  gap: $space-2;
   padding: $space-4 $space-6;
+  background: $color-bg;
+  color: $color-text;
+  border-radius: $radius-full;
+  font-family: $font-body;
+  font-size: $text-base;
+  font-weight: $font-weight-medium;
+  text-decoration: none;
+  white-space: nowrap;
   background: $color-text;
   color: $color-bg;
-  border-radius: $radius-full;
-  font-family: $font-mono;
-  font-size: $text-sm;
-  letter-spacing: $tracking-wide;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: transform $duration-fast $ease-out;
 
-  &:hover { transform: translateY(-2px); }
-  &:focus-visible { @include focus-ring; }
+  &:hover {
+    background: $color-accent;
+    color: $color-bg;
+  }
 }

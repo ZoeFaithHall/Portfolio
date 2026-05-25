@@ -1,67 +1,108 @@
 // =============================================================================
-// Design tokens
-// Single source of truth. Override theme values in /styles/themes/*.
+// Design tokens — single source of truth.
 // =============================================================================
 
-// Color -----------------------------------------------------------------------
-// Neutral scale (replace with your brand palette)
-$color-ink-0:    #ffffff;
-$color-ink-50:   #fafaf9;
-$color-ink-100:  #f0ece4;
-$color-ink-200:  #e8e0d0;
-$color-ink-400:  #a8a29e;
-$color-ink-600:  #57534e;
-$color-ink-800:  #2c2926;
-$color-ink-900:  #141210;
-$color-ink-950:  #0c0c0c;
+// =============================================================================
+// Color — base palette
+// =============================================================================
 
-$color-accent:        #c9a96e;
-$color-accent-hover:  #d4b87d;
+$color-space-indigo:    #2B2D42;
+$color-lavender-grey:   #8D99AE;
+$color-platinum:        #EDF2F4;
+$color-strawberry-red:  #EF233C;
+$color-classic-crimson: #D80032;
 
-// Semantic tokens — components should reference these, not raw scale values
-$color-bg:            $color-ink-950;
-$color-surface:       $color-ink-900;
-$color-surface-alt:   $color-ink-800;
-$color-border:        rgba($color-ink-100, 0.08);
-$color-text:          $color-ink-100;
-$color-text-muted:    $color-ink-400;
-$color-text-inverse:  $color-ink-950;
-$color-link:          $color-accent;
-$color-link-hover:    $color-accent-hover;
+// Derived alpha variants for subtle surfaces, borders, overlays
 
-// Typography ------------------------------------------------------------------
-$font-display: 'Syne', system-ui, sans-serif;
-$font-body:    'DM Sans', system-ui, sans-serif;
-$font-mono:    'JetBrains Mono', ui-monospace, monospace;
+$color-indigo-08:    rgba($color-space-indigo, 0.08);
+$color-indigo-12:    rgba($color-space-indigo, 0.12);
+$color-indigo-20:    rgba($color-space-indigo, 0.20);
+$color-indigo-50:    rgba($color-space-indigo, 0.50);
 
-$font-weight-light:   300;
+$color-lavender-08:  rgba($color-lavender-grey, 0.08);
+$color-lavender-20:  rgba($color-lavender-grey, 0.20);
+$color-lavender-40:  rgba($color-lavender-grey, 0.40);
+
+$color-red-soft:     rgba($color-strawberry-red, 0.12);
+$color-crimson-soft: rgba($color-classic-crimson, 0.10);
+
+// =============================================================================
+// Color — semantic tokens
+// =============================================================================
+
+// Surfaces and structure
+$color-bg:              $color-platinum;
+$color-surface:         $color-lavender-08;
+$color-surface-strong:  $color-lavender-20;
+$color-border:          $color-indigo-12;
+$color-border-strong:   $color-indigo-20;
+
+// Text
+$color-text:            $color-space-indigo;
+$color-text-muted:      $color-lavender-grey;
+$color-text-subtle:     $color-indigo-50;
+$color-text-inverse:    $color-platinum;
+
+// Accents and interaction
+$color-accent:          $color-strawberry-red;
+$color-accent-hover:    $color-classic-crimson;
+$color-accent-soft:     $color-red-soft;
+
+$color-signature:       $color-classic-crimson;
+$color-signature-soft:  $color-crimson-soft;
+
+$color-link:            $color-strawberry-red;
+$color-link-hover:      $color-classic-crimson;
+$color-focus:           $color-strawberry-red;
+
+// Inverse (dark surfaces, hero overlays, footers)
+$color-bg-inverse:      $color-space-indigo;
+$color-surface-inverse: rgba($color-platinum, 0.06);
+
+$color-case-fleetio:  $color-surface;
+$color-case-keystone: $color-surface-strong;
+$color-case-curion:   $color-accent-soft;
+
+// =============================================================================
+// Typography
+// =============================================================================
+
+$font-display:  'Instrument Sans', system-ui, sans-serif;
+$font-body:     'Instrument Sans', system-ui, sans-serif;
+$font-mono:     'JetBrains Mono', ui-monospace, monospace;
+$font-wordmark: 'Anton', 'Arial Narrow', sans-serif;
+
+$font-weight-light:   400;
 $font-weight-regular: 400;
 $font-weight-medium:  500;
 $font-weight-bold:    700;
-$font-weight-black:   800;
+$font-weight-black:   400;
 
-// Type scale (rem-based, fluid via clamp() in mixins)
-$text-xs:   0.75rem;   // 12
-$text-sm:   0.875rem;  // 14
-$text-base: 1rem;      // 16
-$text-md:   1.125rem;  // 18
-$text-lg:   1.25rem;   // 20
-$text-xl:   1.5rem;    // 24
-$text-2xl:  2rem;      // 32
-$text-3xl:  2.5rem;    // 40
-$text-4xl:  3.5rem;    // 56
-$text-5xl:  5rem;      // 80
+$text-xs:   0.75rem;
+$text-sm:   0.875rem;
+$text-base: 1rem;
+$text-md:   1.125rem;
+$text-lg:   1.25rem;
+$text-xl:   1.5rem;
+$text-2xl:  2rem;
+$text-3xl:  2.5rem;
+$text-4xl:  3.5rem;
+$text-5xl:  5rem;
 
-$leading-tight:  1.15;
-$leading-snug:   1.3;
-$leading-normal: 1.5;
-$leading-loose:  1.75;
+$leading-display: 0.85;
+$leading-tight:   1.15;
+$leading-snug:    1.3;
+$leading-normal:  1.5;
+$leading-loose:   1.75;
 
 $tracking-tight:  -0.02em;
 $tracking-normal: 0;
 $tracking-wide:   0.08em;
 
-// Spacing scale (4px base) ----------------------------------------------------
+// =============================================================================
+// Spacing (4px base)
+// =============================================================================
+
 $space-0:   0;
 $space-1:   0.25rem;
 $space-2:   0.5rem;
@@ -77,35 +118,50 @@ $space-20:  5rem;
 $space-24:  6rem;
 $space-32:  8rem;
 
-// Layout ----------------------------------------------------------------------
+// =============================================================================
+// Layout
+// =============================================================================
+
 $container-sm:  640px;
 $container-md:  768px;
 $container-lg:  1024px;
 $container-xl:  1200px;
 $container-2xl: 1440px;
 
-$gutter:        $space-6;
+$gutter: $space-6;
 
-// Radius ----------------------------------------------------------------------
+// =============================================================================
+// Radius
+// =============================================================================
+
 $radius-sm:   2px;
 $radius-md:   4px;
 $radius-lg:   8px;
 $radius-xl:   16px;
 $radius-full: 9999px;
 
-// Motion ----------------------------------------------------------------------
-$ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
-$ease-in-out:  cubic-bezier(0.65, 0, 0.35, 1);
-$duration-fast:   150ms;
-$duration-base:   240ms;
-$duration-slow:   480ms;
+// =============================================================================
+// Motion
+// =============================================================================
 
-// Elevation -------------------------------------------------------------------
-$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
-$shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
-$shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.35);
+$ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+$ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+$duration-fast: 150ms;
+$duration-base: 240ms;
+$duration-slow: 480ms;
 
-// Z-index scale ---------------------------------------------------------------
+// =============================================================================
+// Elevation
+// =============================================================================
+
+$shadow-sm: 0 1px 2px rgba($color-space-indigo, 0.08);
+$shadow-md: 0 4px 12px rgba($color-space-indigo, 0.10);
+$shadow-lg: 0 16px 40px rgba($color-space-indigo, 0.14);
+
+// =============================================================================
+// Z-index
+// =============================================================================
+
 $z-base:    0;
 $z-raised:  10;
 $z-sticky:  100;
@@ -113,7 +169,10 @@ $z-overlay: 500;
 $z-modal:   1000;
 $z-toast:   2000;
 
-// Breakpoints -----------------------------------------------------------------
+// =============================================================================
+// Breakpoints
+// =============================================================================
+
 $bp-sm:  640px;
 $bp-md:  768px;
 $bp-lg:  1024px;

@@ -1,0 +1,30 @@
+@use '../../../styles/abstracts' as *;
+
+.root {
+  position: sticky;
+  z-index: 5;
+  width: 100%;
+  background: $color-surface-strong;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: $space-6;
+
+  font-family: $font-mono;
+  font-size: $text-xs;
+  font-weight: 500;
+  letter-spacing: $tracking-wide;
+  text-transform: uppercase;
+  color: $color-text;
+}
+
+.label {
+  // primary section identifier
+}
+
+.meta {
+  opacity: 0.6;
+}

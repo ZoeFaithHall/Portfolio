@@ -1,0 +1,82 @@
+@use "../../../styles/abstracts" as *;
+
+.root {
+  position: relative;
+  height: 200vh;
+}
+
+.pinned {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  isolation: isolate;
+}
+
+// Animated "case studies" band — z-index above Philosophy's sticky band so
+// it wins the visual stack at top:0 once the wipe completes.
+.wipeBand {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3rem;
+  z-index: $z-sticky;
+  display: flex;
+  align-items: center;
+  padding: 0 $gutter;
+  background: #2B2D42;
+  color: #EDF2F4;
+  font-family: $font-mono;
+  font-size: $text-xs;
+  letter-spacing: $tracking-wide;
+  text-transform: uppercase;
+}
+
+.announcement {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: $space-12 $gutter;
+  background: #2B2D42;
+  color: #EDF2F4;
+}
+
+.announcementInner {
+  text-align: center;
+  max-width: 60rem;
+}
+
+.eyebrow {
+  font-family: $font-mono;
+  font-size: $text-xs;
+  letter-spacing: $tracking-wide;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin: 0 0 $space-6;
+}
+
+.title {
+  font-family: $font-display;
+  font-weight: $font-weight-black;
+  @include fluid-type(4rem, 10rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  margin: 0;
+  color: #EF233C;
+}
+
+.tagline {
+  font-family: $font-display;
+  font-weight: $font-weight-light;
+  font-style: italic;
+  @include fluid-type(1.25rem, 2rem);
+  letter-spacing: -0.01em;
+  margin: $space-6 0 0;
+  opacity: 0.75;
+}

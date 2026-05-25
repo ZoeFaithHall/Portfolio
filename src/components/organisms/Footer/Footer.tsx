@@ -1,8 +1,8 @@
-import Text from '@components/atoms/Text';
-import Link from '@components/atoms/Link';
+import { Text } from '@/components/atoms/Text';
+import { Link } from '@/components/atoms/Link';
 import styles from './Footer.module.scss';
 
-export default function Footer() {
+export function Footer() {
   const year = new Date().getFullYear();
 
   return (

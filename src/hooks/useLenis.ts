@@ -1,30 +1,33 @@
 import { useEffect } from 'react';
 import Lenis from 'lenis';
 
-/**
- * Initialize Lenis smooth scroll at the root.
- * Mount once at the top of the app tree. Respects prefers-reduced-motion.
- */
-export function useLenis() {
+export const useLenis = () => {
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
     const lenis = new Lenis({
-      duration: 1.2,
+      // The main knob: how much the page moves per wheel tick.
+      // 1.0 = default, 0.6 = noticeably slower, 0.4 = very slow.
+      wheelMultiplier: 0.8,
+
+      // How long the smooth scroll easing lasts after you stop scrolling.
+      // Higher = longer glide. Default 1.2.
+      duration: 2.5,
+
+      // How tightly the visible scroll tracks your input.
+      // Lower = smoother but laggier. Default 0.1.
+      lerp: 0.04,
+
+      // Easing curve for the glide.
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
     });
 
-    let rafId: number;
-    function raf(time: number) {
+    const raf = (time: number) => {
       lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
 
     return () => {
-      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
   }, []);
-}
+};
