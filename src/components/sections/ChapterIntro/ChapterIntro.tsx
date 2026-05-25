@@ -1,4 +1,5 @@
-import type { CSSProperties } from 'react';
+import { SectionBand } from '@/components/molecules/SectionBand';
+import { AnnouncementCard } from '@/components/organisms/AnnouncementCard';
 import styles from './ChapterIntro.module.scss';
 
 export type ChapterIntroProps = {
@@ -16,35 +17,27 @@ export type ChapterIntroProps = {
 };
 
 /**
- * 100vh announcement section with a sticky band at the top.
- * Used standalone (e.g., Tech Stack between the case studies and Bento).
+ * Sticky band + full-viewport AnnouncementCard. Used for the Tech Stack
+ * announcement (and any future chapter announcements that sit standalone
+ * outside the Intro wipe).
  */
 export function ChapterIntro({ id, eyebrow, title, tagline, surface, theme }: ChapterIntroProps) {
-  const vars = {
-    '--chapter-bg': theme.bg,
-    '--chapter-text': theme.text,
-    '--chapter-accent': theme.accent,
-    '--chapter-band-bg': theme.band.bg,
-    '--chapter-band-color': theme.band.color,
-  } as CSSProperties;
-
   return (
     <section
       id={id}
       className={styles.root}
       data-surface={surface}
-      style={vars}
       aria-labelledby={`${id}-title`}
+      style={{ background: theme.bg, color: theme.text }}
     >
-      <div className={styles.band}>
-        <span>{title}</span>
-      </div>
+      <SectionBand label={title} theme={theme.band} />
       <div className={styles.card}>
-        <div className={styles.inner}>
-          <p className={styles.eyebrow}>{eyebrow}</p>
-          <h2 id={`${id}-title`} className={styles.title}>{title}</h2>
-          <p className={styles.tagline}>{tagline}</p>
-        </div>
+        <AnnouncementCard
+          eyebrow={eyebrow}
+          title={title}
+          tagline={tagline}
+          theme={{ bg: theme.bg, text: theme.text, accent: theme.accent }}
+        />
       </div>
     </section>
   );

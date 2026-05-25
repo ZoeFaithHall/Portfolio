@@ -1,0 +1,1 @@
+export { PinnedHero } from './PinnedHero';

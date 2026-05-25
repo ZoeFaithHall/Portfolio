@@ -5,23 +5,6 @@
   height: 100vh;
 }
 
-.band {
-  position: sticky;
-  top: 0;
-  z-index: $z-sticky - 1;
-  display: flex;
-  align-items: center;
-  height: 3rem;
-  padding: 0 $gutter;
-  background: $color-surface;
-  color: $color-text;
-  border-block: 1px solid $color-border;
-  font-family: $font-mono;
-  font-size: $text-xs;
-  letter-spacing: $tracking-wide;
-  text-transform: uppercase;
-}
-
 .grid {
   @include container($container-2xl);
   display: grid;

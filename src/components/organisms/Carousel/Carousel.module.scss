@@ -1,0 +1,80 @@
+@use "../../../styles/abstracts" as *;
+
+.root {
+  background: var(--case-bg);
+  color: var(--case-text);
+  padding: $space-16 0;
+}
+
+.heading {
+  @include fluid-type(2rem, 4rem);
+  font-weight: $font-weight-black;
+  padding: 0 $gutter;
+  margin: 0 0 $space-8;
+}
+
+.track {
+  display: flex;
+  gap: $space-4;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: $gutter;
+  padding: 0 $gutter $space-4;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+.card {
+  flex: 0 0 auto;
+  width: min(70vw, 60rem);
+  scroll-snap-align: start;
+}
+
+.cardImage {
+  aspect-ratio: 4 / 3;
+  border-radius: $radius-lg;
+  background: color-mix(in oklab, var(--case-bg) 70%, var(--case-band));
+}
+
+.cardCopy {
+  padding-top: $space-6;
+  @include stack($space-2);
+}
+
+.cardTitle {
+  margin: 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-3;
+  padding: 0 $gutter;
+  margin-top: $space-6;
+}
+
+.controlButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid currentColor;
+  border-radius: $radius-full;
+  background: transparent;
+  color: inherit;
+  font-size: $text-lg;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color $duration-fast $ease-out, color $duration-fast $ease-out;
+
+  &:hover {
+    background: var(--case-text);
+    color: var(--case-bg);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--case-accent);
+    outline-offset: 2px;
+  }
+}

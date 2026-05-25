@@ -2,63 +2,10 @@
 
 .root {
   position: relative;
-  background: var(--chapter-bg);
-  color: var(--chapter-text);
 }
 
-.band {
-  position: sticky;
-  top: 0;
-  z-index: $z-sticky - 1;
-  display: flex;
-  align-items: center;
-  height: 3rem;
-  padding: 0 $gutter;
-  background: var(--chapter-band-bg);
-  color: var(--chapter-band-color);
-  font-family: $font-mono;
-  font-size: $text-xs;
-  letter-spacing: $tracking-wide;
-  text-transform: uppercase;
-}
-
+// Card wrapper sizes the inner AnnouncementCard to fill the remaining
+// viewport after the sticky band (3rem).
 .card {
   min-height: calc(100vh - 3rem);
-  display: grid;
-  place-items: center;
-  padding: $space-12 $gutter;
-}
-
-.inner {
-  text-align: center;
-  max-width: 60rem;
-}
-
-.eyebrow {
-  font-family: $font-mono;
-  font-size: $text-xs;
-  letter-spacing: $tracking-wide;
-  text-transform: uppercase;
-  opacity: 0.55;
-  margin: 0 0 $space-6;
-}
-
-.title {
-  font-family: $font-display;
-  font-weight: $font-weight-black;
-  @include fluid-type(4rem, 10rem);
-  line-height: 0.9;
-  letter-spacing: -0.03em;
-  margin: 0;
-  color: var(--chapter-accent);
-}
-
-.tagline {
-  font-family: $font-display;
-  font-weight: $font-weight-light;
-  font-style: italic;
-  @include fluid-type(1.25rem, 2rem);
-  letter-spacing: -0.01em;
-  margin: $space-6 0 0;
-  opacity: 0.75;
 }
