@@ -1,14 +1,15 @@
+import type { ReactNode } from 'react';
 import styles from './NavItem.module.scss';
 
-export type NavItemProps = {
+interface NavItemProps {
   href: string;
-  label: string;
-};
+  children: ReactNode;
+}
 
-export default function NavItem({ href, label }: NavItemProps) {
+export const NavItem = ({ href, children }: NavItemProps) => {
   return (
     <a href={href} className={styles.root}>
-      {label}
+      {children}
     </a>
   );
-}
+};

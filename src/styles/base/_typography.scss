@@ -1,5 +1,11 @@
 // Web fonts — swap CDN imports for self-hosted in production
+@use '../abstracts' as *;
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Syne:wght@500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif&family=JetBrains+Mono:wght@400;500&display=swap');
+
+$font-display: 'Instrument Serif', Georgia, serif;
+$font-body:    'Instrument Sans', system-ui, sans-serif;
+$font-mono:    'JetBrains Mono', ui-monospace, monospace;
 
 html {
   font-size: 16px;
@@ -21,6 +27,8 @@ h1, h2, h3, h4, h5, h6 {
   line-height: $leading-tight;
   letter-spacing: $tracking-tight;
 }
+
+$leading-display: 0.85;
 
 code, kbd, samp, pre {
   font-family: $font-mono;
@@ -44,3 +52,4 @@ a {
   background: $color-accent;
   color: $color-text-inverse;
 }
+

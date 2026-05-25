@@ -1,22 +1,19 @@
-import Text from '@components/atoms/Text';
 import styles from './Hero.module.scss';
 
-export default function Hero() {
+export const Hero = () => {
   return (
-    <section id="hero" className={styles.root}>
-      <div className={styles.inner}>
-        <Text as="h1" variant="display-1" className={styles.wordmark}>
-          zoë hall
-        </Text>
-        <div className={styles.footer}>
-          <Text variant="body" className={styles.tagline}>
-            Your engineers aren&rsquo;t the bottleneck.
-          </Text>
-          <a href="#work" className={styles.cta}>
-            see the work
-          </a>
-        </div>
+    <section id="hero" className={styles.root} data-surface="light">
+      <div className={styles.image} aria-hidden="true">
+        {/* Replace with <img src="/hero.jpg" alt="" /> when ready */}
+      </div>
+      <div className={styles.bottom}>
+        <p className={styles.tagline}>
+          lorem ipsum dolor sit amet, consectetur adipiscing.
+        </p>
+        <a href="#work" className={styles.cta}>
+          see the work
+        </a>
       </div>
     </section>
   );
-}
+};

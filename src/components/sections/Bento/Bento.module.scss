@@ -1,6 +1,8 @@
+@use "../../../styles/abstracts" as *;
+
 .root {
   @include container($container-2xl);
-  padding-block: $space-32;
+
   @include stack($space-16);
 }
 

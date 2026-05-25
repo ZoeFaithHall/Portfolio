@@ -1,21 +1,18 @@
 import type { ReactNode } from 'react';
-import Header from '@components/organisms/Header';
-import Footer from '@components/organisms/Footer';
+import { Header } from '@/components/organisms/Header';
+import { Footer } from '@/components/organisms/Footer';
 import styles from './PageLayout.module.scss';
 
-export type PageLayoutProps = {
+interface PageLayoutProps {
   children: ReactNode;
-};
-
-export default function PageLayout({ children }: PageLayoutProps) {
-  return (
-    <>
-      <a href="#hero" className="skip-link">Skip to main content</a>
-      <Header />
-      <main id="main" className={styles.main}>
-        {children}
-      </main>
-      <Footer />
-    </>
-  );
 }
+
+export const PageLayout = ({ children }: PageLayoutProps) => {
+  return (
+    <div className={styles.root}>
+      <Header />
+      <main className={styles.main}>{children}</main>
+      <Footer />
+    </div>
+  );
+};

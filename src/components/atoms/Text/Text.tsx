@@ -21,7 +21,7 @@ export type TextProps = HTMLAttributes<HTMLElement> & {
   children: ReactNode;
 };
 
-export default function Text({
+export function Text({
   as = 'p',
   variant = 'body',
   muted = false,

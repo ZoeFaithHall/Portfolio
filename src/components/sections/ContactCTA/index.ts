@@ -1,1 +1,1 @@
-export { default } from './ContactCTA';
+export { ContactCTA } from './ContactCTA';

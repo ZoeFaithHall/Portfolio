@@ -1,4 +1,4 @@
-import Text from '@components/atoms/Text';
+import { Text } from '@/components/atoms/Text';
 import styles from './Bento.module.scss';
 
 const cells = [
@@ -10,9 +10,9 @@ const cells = [
   { value: '13M', caption: 'Pennsylvania residents on Keystone' },
 ];
 
-export default function Bento() {
+export function Bento() {
   return (
-    <section id="numbers" className={styles.root} aria-labelledby="numbers-heading">
+    <section id="numbers" className={styles.root} data-surface="light" aria-labelledby="numbers-heading">
       <Text as="h2" variant="display-2" id="numbers-heading" className={styles.heading}>
         by the numbers
       </Text>

@@ -12,7 +12,7 @@ function isExternal(to: string): boolean {
   return /^(https?:)?\/\//.test(to) || to.startsWith('mailto:') || to.startsWith('tel:');
 }
 
-export default function Link({ to, children, underline = false, className, ...rest }: LinkProps) {
+export function Link({ to, children, underline = false, className, ...rest }: LinkProps) {
   const classes = cn(styles.root, underline && styles.underline, className);
 
   if (isExternal(to)) {

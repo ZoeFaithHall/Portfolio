@@ -6,20 +6,20 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@components': path.resolve(__dirname, './src/components'),
-      '@styles': path.resolve(__dirname, './src/styles'),
-      '@hooks': path.resolve(__dirname, './src/hooks'),
-      '@utils': path.resolve(__dirname, './src/utils'),
-      '@types': path.resolve(__dirname, './src/types'),
-      '@data': path.resolve(__dirname, './src/data'),
+      '@': path.resolve(import.meta.dirname, './src'),
+      '@components': path.resolve(import.meta.dirname, './src/components'),
+      '@styles': path.resolve(import.meta.dirname, './src/styles'),
+      '@hooks': path.resolve(import.meta.dirname, './src/hooks'),
+      '@utils': path.resolve(import.meta.dirname, './src/utils'),
+      '@types': path.resolve(import.meta.dirname, './src/types'),
+      '@data': path.resolve(import.meta.dirname, './src/data'),
     },
   },
   css: {
     preprocessorOptions: {
       scss: {
-        // Auto-inject abstracts (variables, mixins, functions) into every .scss file
-        additionalData: `@use "@/styles/abstracts" as *;`,
+        additionalData: `@use "styles/abstracts" as *;\n`,
+        loadPaths: [path.resolve(import.meta.dirname, './src')],
         api: 'modern-compiler',
       },
     },

@@ -1,1 +1,1 @@
-export { default } from './Philosophy';
+export { Philosophy } from './Philosophy';

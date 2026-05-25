@@ -1,75 +1,67 @@
-import type { CaseStudy } from '@types';
+import type { CaseStudy } from '@/types';
 
-/**
- * Three case studies, each with its own theme. The punchWord renders in the
- * accent color at display size; the frame ("without heroics") is the shared spine.
- */
 export const caseStudies: readonly CaseStudy[] = [
   {
     slug: 'fleetio',
     client: 'Fleetio',
     years: '2022 — 2026',
-    punchWord: 'scale',
-    frame: 'without heroics',
-    description: [
-      'Lead Frontend Architect through Fleetio\'s growth from Series B to a $6B valuation. Sole architect scaled to a team of twelve, supporting 14M+ cumulative users across three years.',
-      'Zero production UI defects in three years. Build times from 28 minutes to 2. Accessibility from 64 to 98. Revenue attainment from 67% to 134% in two quarters.',
-    ],
+    statement:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
     role: 'Lead Frontend Architect',
     scale: ['14M+ users', '$6B valuation', '0 production defects', '1 → 12 team'],
     stack: ['React', 'TypeScript', 'Design systems', 'Accessibility'],
+    carousel: [
+      { title: 'Lorem ipsum',    caption: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+      { title: 'Dolor sit amet', caption: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.' },
+      { title: 'Consectetur',    caption: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.' },
+    ],
     theme: {
-      bg: '#1a1612',
-      text: '#f0ece4',
-      accent: '#d4a45c',
-      band: '#2a2218',
+      bg: '#C5CFDC',
+      text: '#2B2D42',
+      accent: '#EF233C',
+      band: '#8D99AE',
     },
   },
   {
     slug: 'keystone',
     client: 'Tyler Technologies / Keystone',
     years: '2020 — 2022',
-    punchWord: 'access',
-    frame: 'without heroics',
-    description: [
-      'Frontend Architect on the Keystone Design System, serving 13M Pennsylvania residents through state government applications.',
-      'Separate work on an emergency notification platform alerting 4.6M Louisiana residents in real time. Accessibility and reliability as infrastructure, not afterthoughts.',
-    ],
+    statement:
+      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.',
     role: 'Frontend Architect',
     scale: ['13M PA residents', '4.6M alerts', 'WCAG 2.1 AA'],
     stack: ['Design systems', 'React', 'Tokens', 'Component library'],
+    carousel: [
+      { title: 'Excepteur sint',    caption: 'Occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.' },
+      { title: 'Anim id est',       caption: 'Laborum et dolorum fuga harum quidem rerum facilis est et expedita.' },
+      { title: 'Nemo enim ipsam',   caption: 'Voluptatem quia voluptas sit aspernatur aut odit aut fugit consequuntur.' },
+    ],
     theme: {
-      bg: '#1a1d22',
-      text: '#e6ecf0',
-      accent: '#7eb5c4',
-      band: '#22272d',
+      bg: '#EDF2F4',
+      text: '#2B2D42',
+      accent: '#EF233C',
+      band: '#C5CFDC',
     },
   },
   {
     slug: 'curion',
     client: 'Curion',
     years: '2026',
-    punchWord: 'judgment',
-    frame: 'without heroics',
-    description: [
-      'AI architecture engagement at StealthX. Encoded the decisions of sixteen domain experts into deterministic gate logic, with the probabilistic layer handling only what humans had agreed should be inferred.',
-      '67+ gate-level decision rules across 10 logic gates. 13,395 historical records analyzed. The result reads as expert judgment, but the system is auditable line by line.',
-    ],
+    statement:
+      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
     role: 'AI Architect (1099)',
     scale: ['16 domain experts', '67+ decision rules', '13,395 records'],
     stack: ['Decision systems', 'TypeScript', 'Deterministic gates', 'LLM boundaries'],
+    carousel: [
+      { title: 'Magni dolores',     caption: 'Eos qui ratione voluptatem sequi nesciunt neque porro quisquam est.' },
+      { title: 'Numquam eius',      caption: 'Modi tempora incidunt ut labore et dolore magnam aliquam quaerat.' },
+      { title: 'Voluptatem',        caption: 'Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse.' },
+    ],
     theme: {
-      bg: '#181420',
-      text: '#ece4f0',
-      accent: '#b794d9',
-      band: '#241c30',
+      bg: '#F5D8DD',
+      text: '#2B2D42',
+      accent: '#D80032',
+      band: '#D80032',
     },
   },
-];
-
-export const navAnchors = [
-  { href: '#philosophy', label: 'Philosophy' },
-  { href: '#work', label: 'Work' },
-  { href: '#numbers', label: 'Numbers' },
-  { href: '#contact', label: 'Contact' },
 ];

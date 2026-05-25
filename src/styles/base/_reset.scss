@@ -1,4 +1,6 @@
 // Modern reset — based on Andy Bell's modern-css-reset, trimmed
+@use '../abstracts' as *;
+
 *,
 *::before,
 *::after {
