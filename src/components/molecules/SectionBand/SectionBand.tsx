@@ -1,4 +1,6 @@
 import type { CSSProperties } from 'react';
+import { Text } from '@/components/atoms/Text';
+import { cn } from '@utils/cn';
 import styles from './SectionBand.module.scss';
 
 export type SectionBandProps = {
@@ -20,12 +22,11 @@ export const SectionBand = ({ label, meta, theme, className }: SectionBandProps)
     ? { background: theme.bg, color: theme.color }
     : undefined;
   return (
-    <div
-      className={`${styles.root}${className ? ` ${className}` : ''}`}
-      style={style}
-    >
-      <span className={styles.label}>{label}</span>
-      {meta && <span className={styles.meta}>{meta}</span>}
+    <div className={cn(styles.root, className)} style={style}>
+      <Text as="span" variant="caption" className={styles.label}>{label}</Text>
+      {meta && (
+        <Text as="span" variant="caption" className={styles.meta}>{meta}</Text>
+      )}
     </div>
   );
 };

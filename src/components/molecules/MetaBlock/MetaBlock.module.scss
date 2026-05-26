@@ -1,0 +1,13 @@
+@use "../../../styles/abstracts" as *;
+
+.root {
+  @include stack($space-2);
+}
+
+.label {
+  margin: 0;
+}
+
+.value {
+  margin: 0;
+}

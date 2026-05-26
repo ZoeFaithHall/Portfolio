@@ -1,6 +1,8 @@
 import { Text } from '@/components/atoms/Text';
 import { SectionBand } from '@/components/molecules/SectionBand';
 import { IntroGrid } from '@/components/molecules/IntroGrid';
+import { TagList } from '@/components/molecules/TagList';
+import { MetaBlock } from '@/components/molecules/MetaBlock';
 import { PinnedHero } from '@/components/organisms/PinnedHero';
 import { Carousel } from '@/components/organisms/Carousel';
 import { themeVars } from '@/utils/themeVars';
@@ -40,35 +42,20 @@ export function CaseDetail({ study, index, total }: CaseDetailProps) {
         rail={
           <>
             <Text variant="mono" className={styles.counter}>
-              <span className={styles.counterCurrent}>{current}</span>
-              <span className={styles.counterTotal}>/{totalPadded}</span>
+              <Text as="span" variant="mono" className={styles.counterCurrent}>{current}</Text>
+              <Text as="span" variant="mono" className={styles.counterTotal}>/{totalPadded}</Text>
             </Text>
 
             <dl className={styles.meta}>
-              <div className={styles.metaBlock}>
-                <dt><Text variant="caption" muted>role</Text></dt>
-                <dd><Text variant="body">{study.role}</Text></dd>
-              </div>
-              <div className={styles.metaBlock}>
-                <dt><Text variant="caption" muted>scale</Text></dt>
-                <dd>
-                  <ul className={styles.tagList} role="list">
-                    {study.scale.map((item) => (
-                      <li key={item}><Text variant="caption">{item}</Text></li>
-                    ))}
-                  </ul>
-                </dd>
-              </div>
-              <div className={styles.metaBlock}>
-                <dt><Text variant="caption" muted>stack</Text></dt>
-                <dd>
-                  <ul className={styles.tagList} role="list">
-                    {study.stack.map((item) => (
-                      <li key={item}><Text variant="caption">{item}</Text></li>
-                    ))}
-                  </ul>
-                </dd>
-              </div>
+              <MetaBlock label="role">
+                <Text variant="body">{study.role}</Text>
+              </MetaBlock>
+              <MetaBlock label="scale">
+                <TagList items={study.scale} ariaLabel="scale" />
+              </MetaBlock>
+              <MetaBlock label="stack">
+                <TagList items={study.stack} ariaLabel="stack" />
+              </MetaBlock>
             </dl>
           </>
         }

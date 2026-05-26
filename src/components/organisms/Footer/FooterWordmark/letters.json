@@ -1,0 +1,108 @@
+{
+  "text": "Zoë Hall",
+  "source": {
+    "width": 2750,
+    "height": 576
+  },
+  "baseline_y": 553,
+  "cap_height_y": 115,
+  "padding": 16,
+  "words": [
+    {
+      "text": "Zoë",
+      "letters": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "text": "Hall",
+      "letters": [
+        4,
+        5,
+        6,
+        7
+      ]
+    }
+  ],
+  "letters": [
+    {
+      "index": 1,
+      "char": "Z",
+      "slug": "z",
+      "x": 4,
+      "y": 99,
+      "width": 328,
+      "height": 469,
+      "file": "01-z.png",
+      "file_light": "01-z-light.png"
+    },
+    {
+      "index": 2,
+      "char": "O",
+      "slug": "o",
+      "x": 318,
+      "y": 93,
+      "width": 395,
+      "height": 479,
+      "file": "02-o.png",
+      "file_light": "02-o-light.png"
+    },
+    {
+      "index": 3,
+      "char": "Ë",
+      "slug": "e-umlaut",
+      "x": 744,
+      "y": 4,
+      "width": 321,
+      "height": 565,
+      "file": "03-e-umlaut.png",
+      "file_light": "03-e-umlaut-light.png"
+    },
+    {
+      "index": 4,
+      "char": "H",
+      "slug": "h",
+      "x": 1312,
+      "y": 97,
+      "width": 388,
+      "height": 472,
+      "file": "04-h.png",
+      "file_light": "04-h-light.png"
+    },
+    {
+      "index": 5,
+      "char": "A",
+      "slug": "a",
+      "x": 1718,
+      "y": 99,
+      "width": 390,
+      "height": 470,
+      "file": "05-a.png",
+      "file_light": "05-a-light.png"
+    },
+    {
+      "index": 6,
+      "char": "L",
+      "slug": "l-1",
+      "x": 2127,
+      "y": 99,
+      "width": 302,
+      "height": 470,
+      "file": "06-l-1.png",
+      "file_light": "06-l-1-light.png"
+    },
+    {
+      "index": 7,
+      "char": "L",
+      "slug": "l-2",
+      "x": 2444,
+      "y": 99,
+      "width": 302,
+      "height": 470,
+      "file": "07-l-2.png",
+      "file_light": "07-l-2-light.png"
+    }
+  ]
+}

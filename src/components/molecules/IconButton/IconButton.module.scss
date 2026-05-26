@@ -1,0 +1,22 @@
+@use "../../../styles/abstracts" as *;
+
+// Overrides Button's text padding to make a square click target with a
+// circular outline. Color inherits so themed surfaces (--case-text) work.
+.root {
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 1px solid currentColor;
+  border-radius: $radius-full;
+  color: inherit;
+
+  &:hover:not(:disabled) {
+    background: currentColor;
+
+    // Invert the icon stroke against the filled background. We can't use
+    // currentColor for both bg and icon, so flip via opacity trick: the
+    // child icon picks up the parent's background via a CSS variable set
+    // here, falling back to inherit for non-themed contexts.
+    color: var(--surface-bg, canvas);
+  }
+}
