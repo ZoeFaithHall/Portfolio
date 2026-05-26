@@ -1,11 +1,5 @@
 @use "../../../styles/abstracts" as *;
 
-.root {
-  width: 100%;
-  min-height: 100%;
-}
-
-// 65/35 split, matches Philosophy's grid exactly.
 .grid {
   @include container($container-2xl);
   display: grid;
@@ -19,8 +13,7 @@
   }
 }
 
-// Statement-style title (matches Philosophy's .statement sizing).
-.title {
+.statement {
   @include fluid-type(2rem, 5rem);
   font-weight: $font-weight-black;
   line-height: 1;
@@ -31,16 +24,4 @@
 
 .rail {
   @include stack($space-6);
-}
-
-.eyebrow {
-  font-size: $text-xs;
-  letter-spacing: $tracking-wide;
-  text-transform: uppercase;
-  opacity: 0.55;
-}
-
-.tagline {
-  font-size: $text-md;
-  line-height: $leading-snug;
 }

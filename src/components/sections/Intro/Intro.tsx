@@ -1,16 +1,18 @@
 import { useRef } from 'react';
 import { useScroll, useTransform, useMotionValueEvent, motion } from 'motion/react';
-import { Philosophy } from '@/components/sections/Philosophy';
-import { AnnouncementCard } from '@/components/organisms/AnnouncementCard';
+import { Text } from '@/components/atoms/Text';
+import { IntroGrid } from '@/components/molecules/IntroGrid';
+import { introData } from '@/data/intro';
 import styles from './Intro.module.scss';
 
 const SURFACE_THRESHOLD = 0.94;
-const CASE_STUDIES_THEME = { bg: '#2B2D42', text: '#EDF2F4', accent: '#EF233C' };
 
 /**
- * Two-layer wipe: Philosophy (base) → Case Studies announcement (clipPath
- * wipes up). The wipe band animates separately from `top: 100%` to `top: 0`.
- * Content stays in the same place; only the band reveals the next layer.
+ * Two-layer wipe: Philosophy (base) → Case Studies intro (clipPath wipes
+ * over). Both layers occupy the SAME pinned 100vh viewport — scrolling
+ * transitions them via clipPath, never pushing content out of view. After
+ * the wipe completes, the pin releases and the next section (case details)
+ * enters in normal document flow.
  */
 export const Intro = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -21,7 +23,6 @@ export const Intro = () => {
 
   const wipeY = useTransform(scrollYProgress, [0, 1], [100, 0], { clamp: true });
   const clipPath = useTransform(wipeY, (v) => `inset(${v}% 0 0 0)`);
-  const bandTop = useTransform(wipeY, (v) => `${v}%`);
 
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
     if (!ref.current) return;
@@ -31,24 +32,61 @@ export const Intro = () => {
     }
   });
 
+  const phil = introData.philosophy;
+  const cs = introData.caseStudies;
+
   return (
     <div ref={ref} className={styles.root} data-surface="light">
       <div className={styles.pinned}>
-        <div className={styles.layer}>
-          <Philosophy />
-        </div>
-
-        <motion.div className={styles.layer} style={{ clipPath }}>
-          <AnnouncementCard
-            eyebrow="chapter 02"
-            title="case studies"
-            tagline="where the philosophy gets tested"
-            theme={CASE_STUDIES_THEME}
+        <section
+          id="philosophy"
+          className={styles.layer}
+          data-surface="light"
+          aria-labelledby="philosophy-heading"
+        >
+          <IntroGrid
+            band={phil.band}
+            statement={phil.statement}
+            statementId="philosophy-heading"
+            rail={
+              <>
+                {phil.paragraphs.map((p, i) => (
+                  <Text key={i} variant="body" muted={p.muted}>
+                    {p.text}
+                  </Text>
+                ))}
+                <ul className={styles.tags} role="list">
+                  {phil.tags.map((tag) => (
+                    <li key={tag}>
+                      <Text variant="caption">{tag}</Text>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            }
           />
-        </motion.div>
-        <motion.div className={styles.wipeBand} style={{ top: bandTop }}>
-          <span>case studies</span>
-        </motion.div>
+        </section>
+
+        <motion.section
+          id="case-studies"
+          className={styles.layer}
+          data-surface="dark"
+          style={{ clipPath, background: cs.theme.bg, color: cs.theme.text }}
+          aria-labelledby="case-studies-heading"
+        >
+          <IntroGrid
+            band={cs.band}
+            statement={cs.statement}
+            statementColor={cs.statementColor}
+            statementId="case-studies-heading"
+            rail={
+              <>
+                <Text variant="mono">{cs.eyebrow}</Text>
+                <Text variant="body">{cs.tagline}</Text>
+              </>
+            }
+          />
+        </motion.section>
       </div>
     </div>
   );

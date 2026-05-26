@@ -18,22 +18,16 @@
   isolation: isolate;
 }
 
-// Animated wipe band — same visual shape as SectionBand, but absolutely
-// positioned and motion-animated rather than sticky. z-index above
-// Philosophy's SectionBand so it wins the visual stack at top:0.
-.wipeBand {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 3rem;
-  z-index: $z-sticky;
-  display: flex;
-  align-items: center;
-  padding: 0 $gutter;
-  background: #2B2D42;
-  color: #EDF2F4;
-  font-family: $font-mono;
-  font-size: $text-xs;
-  letter-spacing: $tracking-wide;
-  text-transform: uppercase;
+// Pill list for Philosophy's rail tags.
+.tags {
+  @include cluster($space-2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    padding: $space-1 $space-3;
+    border: 1px solid $color-border;
+    border-radius: $radius-full;
+  }
 }
