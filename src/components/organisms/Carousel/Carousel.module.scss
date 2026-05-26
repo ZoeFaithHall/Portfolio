@@ -53,22 +53,11 @@
   margin-top: $space-6;
 }
 
+// Carousel-specific override of IconButton hover/focus to thread the
+// case-study theme tokens through. IconButton owns the round shape +
+// border; we only retheme the inversion on hover here.
 .controlButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  border: 1px solid currentColor;
-  border-radius: $radius-full;
-  background: transparent;
-  color: inherit;
-  font-size: $text-lg;
-  line-height: 1;
-  cursor: pointer;
-  transition: background-color $duration-fast $ease-out, color $duration-fast $ease-out;
-
-  &:hover {
+  &:hover:not(:disabled) {
     background: var(--case-text);
     color: var(--case-bg);
   }

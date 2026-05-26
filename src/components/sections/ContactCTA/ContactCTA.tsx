@@ -1,5 +1,6 @@
 import { Text } from '@/components/atoms/Text';
 import { Link } from '@/components/atoms/Link';
+import { MetaBlock } from '@/components/molecules/MetaBlock';
 import styles from './ContactCTA.module.scss';
 
 export function ContactCTA() {
@@ -12,22 +13,19 @@ export function ContactCTA() {
         <Link to="mailto:hi@zoehall.dev" className={styles.cta}>
           get in touch
         </Link>
-        <div className={styles.row}>
-          <div>
-            <Text variant="caption" muted>available for</Text>
+        <dl className={styles.row}>
+          <MetaBlock label="available for">
             <Text variant="body">Staff, Principal, Lead, Director</Text>
-          </div>
-          <div>
-            <Text variant="caption" muted>based in</Text>
+          </MetaBlock>
+          <MetaBlock label="based in">
             <Text variant="body">Harrisburg · remote</Text>
-          </div>
-          <div>
-            <Text variant="caption" muted>consulting via</Text>
+          </MetaBlock>
+          <MetaBlock label="consulting via">
             <Text variant="body">
               <Link to="https://runelab.co" className={styles.link}>Rune Lab</Link>
             </Text>
-          </div>
-        </div>
+          </MetaBlock>
+        </dl>
       </div>
     </section>
   );

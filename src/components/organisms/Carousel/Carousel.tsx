@@ -1,4 +1,6 @@
 import { Text } from '@/components/atoms/Text';
+import Icon from '@/components/atoms/Icon';
+import { IconButton } from '@/components/molecules/IconButton';
 import { useCarouselScroll } from '@/hooks/useCarouselScroll';
 import type { CarouselItem } from '@/types';
 import styles from './Carousel.module.scss';
@@ -9,6 +11,18 @@ export type CarouselProps = {
   heading: string;
   items: readonly CarouselItem[];
 };
+
+const ChevronLeft = (
+  <Icon>
+    <path d="M15 18l-6-6 6-6" />
+  </Icon>
+);
+
+const ChevronRight = (
+  <Icon>
+    <path d="M9 18l6-6-6-6" />
+  </Icon>
+);
 
 /**
  * Horizontal scroll-snap track with arrow-button controls.
@@ -41,22 +55,18 @@ export function Carousel({ id, heading, items }: CarouselProps) {
         ))}
       </div>
       <div className={styles.controls}>
-        <button
-          type="button"
-          className={styles.controlButton}
+        <IconButton
+          label="Previous"
+          icon={ChevronLeft}
           onClick={() => scrollByCard(-1)}
-          aria-label="Previous"
-        >
-          ‹
-        </button>
-        <button
-          type="button"
           className={styles.controlButton}
+        />
+        <IconButton
+          label="Next"
+          icon={ChevronRight}
           onClick={() => scrollByCard(1)}
-          aria-label="Next"
-        >
-          ›
-        </button>
+          className={styles.controlButton}
+        />
       </div>
     </section>
   );

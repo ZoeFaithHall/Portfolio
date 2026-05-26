@@ -14,15 +14,20 @@
 
   background: $color-surface;
   color: $color-text;
+}
 
+// Typography lives on the label/meta directly so Text's variant class
+// (applied to the span) doesn't override the band's identity via the
+// cascade. `color: inherit` is critical — variant--caption sets
+// color: $color-text-muted, which would otherwise wash out the themed
+// band text on dark/light surfaces.
+.label,
+.meta {
   font-family: $font-mono;
   font-size: $text-xs;
   letter-spacing: $tracking-wide;
   text-transform: uppercase;
-}
-
-.label {
-  // primary section identifier
+  color: inherit;
 }
 
 .meta {

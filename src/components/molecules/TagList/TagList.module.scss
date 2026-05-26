@@ -1,0 +1,15 @@
+@use "../../../styles/abstracts" as *;
+
+.root {
+  @include cluster($space-2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  padding: $space-1 $space-3;
+  border: 1px solid currentColor;
+  border-radius: $radius-full;
+  opacity: 0.85;
+}

@@ -1,4 +1,4 @@
-@use '../abstracts' as *;
+@use '../../../styles/abstracts' as *;
 
 .root {
   @include button-reset;
@@ -39,7 +39,7 @@
   border: 1px solid $color-border;
 
   &:hover:not(:disabled) {
-    background: $color-surface-alt;
+    background: $color-surface-strong;
     border-color: $color-accent;
   }
 }

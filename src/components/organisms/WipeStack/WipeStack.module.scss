@@ -1,0 +1,20 @@
+@use "../../../styles/abstracts" as *;
+
+.root {
+  position: relative;
+  // height is set inline (N * 100vh) so the outer scroll range scales
+  // with the number of layers.
+}
+
+.pinned {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  isolation: isolate;
+}

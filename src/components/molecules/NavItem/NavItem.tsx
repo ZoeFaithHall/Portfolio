@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Link } from '@/components/atoms/Link';
 import styles from './NavItem.module.scss';
 
 interface NavItemProps {
@@ -8,8 +9,8 @@ interface NavItemProps {
 
 export const NavItem = ({ href, children }: NavItemProps) => {
   return (
-    <a href={href} className={styles.root}>
+    <Link to={href} className={styles.root}>
       {children}
-    </a>
+    </Link>
   );
 };

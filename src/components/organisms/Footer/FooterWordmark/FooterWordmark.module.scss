@@ -1,0 +1,15 @@
+.root {
+  position: relative;
+  width: 100%;
+  // height comes from inline aspect-ratio
+}
+
+.letter {
+  position: absolute;
+  display: block;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  // Prevent any subpixel rendering hiccups during the y transform
+  will-change: transform, opacity;
+}
