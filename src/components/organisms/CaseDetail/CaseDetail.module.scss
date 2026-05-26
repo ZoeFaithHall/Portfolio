@@ -1,0 +1,49 @@
+@use "../../../styles/abstracts" as *;
+
+.root {
+  position: relative;
+  background: var(--case-bg);
+  color: var(--case-text);
+}
+
+// Intro rail styling for the case study counter + metadata.
+.counter {
+  font-size: $text-lg;
+  letter-spacing: $tracking-wide;
+}
+
+.counterCurrent {
+  color: var(--case-accent);
+}
+
+.counterTotal {
+  opacity: 0.4;
+}
+
+.meta {
+  @include stack($space-5);
+  margin: 0;
+  padding-top: $space-4;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.metaBlock {
+  @include stack($space-2);
+
+  dt { margin: 0; }
+  dd { margin: 0; }
+}
+
+.tagList {
+  @include cluster($space-2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    padding: $space-1 $space-3;
+    border: 1px solid currentColor;
+    border-radius: $radius-full;
+    opacity: 0.85;
+  }
+}
