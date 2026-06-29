@@ -1,0 +1,1 @@
+export { CaseStudyCarousel } from './CaseStudyCarousel';

@@ -1,0 +1,7 @@
+// Each layer fills its WipeStack slot. The clip + position is handled
+// by WipeStack; this just makes the inner <section> use the full layer
+// height so backgrounds + bands extend edge-to-edge.
+.layerFill {
+  width: 100%;
+  height: 100%;
+}

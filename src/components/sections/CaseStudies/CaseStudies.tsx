@@ -2,9 +2,9 @@ import { CaseDetail } from '@/components/organisms/CaseDetail';
 import { caseStudies } from '@/data/casestudies';
 
 /**
- * Renders every case study as a CaseDetail in document flow. The Case
- * Studies announcement intro lives in the Intro wipe section above, so
- * this is purely the case detail loop.
+ * Renders every case study as a CaseDetail in document flow. Each
+ * CaseDetail owns its own pinned hero + carousel; this section is
+ * purely the loop.
  */
 export function CaseStudies() {
   return (

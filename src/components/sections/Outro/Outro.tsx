@@ -6,19 +6,23 @@ import { introData } from '@/data/intro';
 import styles from './Outro.module.scss';
 
 /**
- * Two closing announce layers wiped in sequence: Tech Stack (base) →
- * By The Numbers (clips over). Mirrors Intro's structure: WipeStack owns
- * pin + clip + surface; this section just provides the two layer contents
- * + the surface sequence.
+ * Two closing announce layers: Tech Stack (base) → By The Numbers (rises
+ * over). WipeStack owns the pin + rise + surface flip + anchor spacers.
+ *
+ * Anchor ids (`tech-stack`, `numbers`) live on WipeStack's spacers so
+ * clicking those nav links lands at the right scroll position. The
+ * inner sections intentionally have no id.
  */
 export const Outro = () => {
   const ts = introData.techStack;
   const numbers = introData.numbers;
 
   return (
-    <WipeStack surfaces={['light', 'light']}>
+    <WipeStack
+      surfaces={['light', 'light']}
+      anchorIds={['tech-stack', 'numbers']}
+    >
       <section
-        id="tech-stack"
         className={styles.layerFill}
         data-surface="light"
         aria-labelledby="tech-stack-heading"
@@ -39,7 +43,6 @@ export const Outro = () => {
       </section>
 
       <section
-        id="numbers"
         className={styles.layerFill}
         data-surface="light"
         aria-labelledby="numbers-heading"

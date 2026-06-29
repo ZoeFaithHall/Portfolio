@@ -5,3 +5,10 @@
   width: 100%;
   height: 100%;
 }
+
+.marqueeStack {
+  display: flex;
+  flex-direction: column;
+  margin-top: $space-24;
+  gap: $space-12;
+}

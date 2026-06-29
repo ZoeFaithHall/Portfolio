@@ -3,9 +3,9 @@ import Icon from '@/components/atoms/Icon';
 import { IconButton } from '@/components/molecules/IconButton';
 import { useCarouselScroll } from '@/hooks/useCarouselScroll';
 import type { CarouselItem } from '@/types';
-import styles from './Carousel.module.scss';
+import styles from './CaseStudyCarousel.module.scss';
 
-export type CarouselProps = {
+export type CaseStudyCarouselProps = {
   /** Unique id used for the heading's id (for aria-labelledby pairing). */
   id: string;
   heading: string;
@@ -28,7 +28,7 @@ const ChevronRight = (
  * Horizontal scroll-snap track with arrow-button controls.
  * Reads --case-bg / --case-text / --case-band from a themed parent wrapper.
  */
-export function Carousel({ id, heading, items }: CarouselProps) {
+export function CaseStudyCarousel({ id, heading, items }: CaseStudyCarouselProps) {
   const { trackRef, scrollByCard } = useCarouselScroll();
   const headingId = `${id}-carousel-heading`;
 

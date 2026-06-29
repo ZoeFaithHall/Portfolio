@@ -1,10 +1,9 @@
 import { Text } from '@/components/atoms/Text';
-import { SectionBand } from '@/components/molecules/SectionBand';
 import { IntroGrid } from '@/components/molecules/IntroGrid';
 import { TagList } from '@/components/molecules/TagList';
 import { MetaBlock } from '@/components/molecules/MetaBlock';
 import { PinnedHero } from '@/components/organisms/PinnedHero';
-import { Carousel } from '@/components/organisms/Carousel';
+import { CaseStudyCarousel } from '@/components/organisms/CaseStudyCarousel';
 import { themeVars } from '@/utils/themeVars';
 import type { CaseStudy } from '@/types';
 import styles from './CaseDetail.module.scss';
@@ -17,11 +16,13 @@ export type CaseDetailProps = {
 
 /**
  * One case study end-to-end:
- *   sticky band → intro (IntroGrid: statement + counter + role/scale/stack rail)
- *   → pinned hero → carousel
+ *   intro grid (statement + counter/role/scale/stack)
+ *   → pinned hero (image expansion + statement overlay)
+ *   → carousel ("take a closer look")
  *
- * Pulls everything from a single `study: CaseStudy` data row. Theme tokens
- * flow to descendant organisms via CSS custom properties set by themeVars().
+ * SectionBands intentionally absent here — they were stacking across
+ * sibling case studies (each one sticky at top:0). The Case Studies
+ * intro layer in WipeStack is the only place a band lives now.
  */
 export function CaseDetail({ study, index, total }: CaseDetailProps) {
   const current = String(index).padStart(2, '0');
@@ -29,12 +30,6 @@ export function CaseDetail({ study, index, total }: CaseDetailProps) {
 
   return (
     <article id={study.slug} className={styles.root} style={themeVars(study.theme)}>
-      <SectionBand
-        label={study.client}
-        meta={study.years}
-        theme={{ bg: study.theme.band, color: study.theme.text }}
-      />
-
       <IntroGrid
         statement={study.statement}
         statementId={`${study.slug}-heading`}
@@ -47,6 +42,12 @@ export function CaseDetail({ study, index, total }: CaseDetailProps) {
             </Text>
 
             <dl className={styles.meta}>
+              <MetaBlock label="client">
+                <Text variant="body">{study.client}</Text>
+              </MetaBlock>
+              <MetaBlock label="years">
+                <Text variant="body">{study.years}</Text>
+              </MetaBlock>
               <MetaBlock label="role">
                 <Text variant="body">{study.role}</Text>
               </MetaBlock>
@@ -62,7 +63,7 @@ export function CaseDetail({ study, index, total }: CaseDetailProps) {
       />
 
       <PinnedHero study={study} />
-      <Carousel id={study.slug} heading="Take a closer look." items={study.carousel} />
+      <CaseStudyCarousel id={study.slug} heading="Take a closer look." items={study.carousel} />
     </article>
   );
 }

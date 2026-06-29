@@ -26,11 +26,22 @@
   top: calc(#{$space-4} * var(--wordmark-progress, 0));
   left: calc(#{$space-6} * var(--wordmark-progress, 0));
 
-  // PNG scales by width; height follows aspect ratio automatically
   width: calc(
     96vw * (1 - var(--wordmark-progress, 0)) +
     10rem * var(--wordmark-progress, 0)
   );
+}
+
+.wordmarkLink {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  line-height: 0;
+  border-radius: $radius-sm;
+
+  &:focus-visible {
+    @include focus-ring;
+  }
 }
 
 .wordmarkImg {
