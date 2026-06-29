@@ -4,7 +4,6 @@ import { Hero } from '@/components/sections/Hero';
 import { Intro } from '@/components/sections/Intro';
 import { CaseStudies } from '@/components/sections/CaseStudies';
 import { Outro } from '@/components/sections/Outro';
-import { ContactCTA } from '@/components/sections/ContactCTA';
 import { useLenis } from '@/hooks/useLenis';
 import styles from './PageLayout.module.scss';
 
@@ -27,7 +26,6 @@ export const PageLayout = () => {
         <Intro />
         <CaseStudies />
         <Outro />
-        <ContactCTA />
       </main>
       <Footer />
     </div>

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, type RefObject } from 'react';
 import {
   motion,
   useScroll,
@@ -15,24 +15,33 @@ interface Props {
    * `light` → dark wordmark, `dark` → light wordmark.
    */
   surface?: 'light' | 'dark';
-  /** Optional override of the cascade duration in scroll-progress units. Default 0.7. */
+  /** Optional override of the cascade duration in scroll-progress units. Default 0.85. */
   cascade?: number;
-  /** Optional override of how long each letter takes to land. Default 0.3. */
+  /** Optional override of how long each letter takes to land. Default 0.4. */
   perLetter?: number;
+  /**
+   * Element whose scroll range drives the animation. Defaults to the
+   * wordmark itself, which is ~300px tall — usually too short for the
+   * cascade to be visible at normal scroll speeds. Pass a taller parent
+   * (e.g., the Footer) so the cascade unfolds over more scroll.
+   */
+  scrollTargetRef?: RefObject<HTMLElement | null>;
 }
 
 export const FooterWordmark = ({
   surface = 'dark',
-  cascade = 0.7,
-  perLetter = 0.3,
+  cascade = 0.85,
+  perLetter = 0.4,
+  scrollTargetRef,
 }: Props) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ownRef = useRef<HTMLDivElement>(null);
   const prefersReduced = useReducedMotion();
 
-  // Progress runs from 0 when the top of the wordmark hits the viewport bottom
-  // to 1 when the wordmark settles at its resting position.
+  // Drive scroll from a parent if one was passed, otherwise from the
+  // wordmark element itself.
+  const target = scrollTargetRef ?? ownRef;
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target,
     offset: ['start end', 'end end'],
   });
 
@@ -40,7 +49,7 @@ export const FooterWordmark = ({
 
   return (
     <div
-      ref={ref}
+      ref={ownRef}
       className={styles.root}
       style={{ aspectRatio: `${W} / ${H}` }}
       role="img"

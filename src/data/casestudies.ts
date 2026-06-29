@@ -21,6 +21,7 @@ export const caseStudies: readonly CaseStudy[] = [
       accent: '#EF233C',
       band: '#8D99AE',
     },
+    heroImage: '/images/casestudy/fleetio.jpg',
   },
   {
     slug: 'keystone',
@@ -42,6 +43,7 @@ export const caseStudies: readonly CaseStudy[] = [
       accent: '#EF233C',
       band: '#C5CFDC',
     },
+    heroImage: '/images/casestudy/keystone.jpg',
   },
   {
     slug: 'curion',
@@ -63,5 +65,6 @@ export const caseStudies: readonly CaseStudy[] = [
       accent: '#D80032',
       band: '#D80032',
     },
+    heroImage: '/images/casestudy/curion.jpg',
   },
 ];

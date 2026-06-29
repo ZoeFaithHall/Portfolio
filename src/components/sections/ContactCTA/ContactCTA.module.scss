@@ -1,15 +1,14 @@
 @use "../../../styles/abstracts" as *;
 
 .root {
-  background: $color-surface-strong;
   color: $color-space-indigo;
 }
 
 .inner {
-  @include container($container-2xl);
   @include stack($space-12);
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
+  justify-content: flex-start;
 }
 
 .heading {

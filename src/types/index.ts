@@ -21,6 +21,8 @@ export type CaseStudy = {
     accent: string;
     band: string;
   };
+  /** Optional hero image used by PinnedHero. Path relative to /public. */
+  heroImage?: string;
 };
 
 export type NavAnchor = {

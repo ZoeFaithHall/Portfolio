@@ -2,15 +2,15 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { NavItem } from '@/components/molecules/NavItem';
 import { Wordmark, type WordmarkSurface } from '@/components/atoms/Wordmark';
+import styles from './Header.module.scss';
+
 const navAnchors = [
   { href: '#philosophy',   label: 'philosophy' },
   { href: '#case-studies', label: 'case studies' },
   { href: '#contact',      label: 'contact' },
 ];
-import styles from './Header.module.scss';
 
 // y-coordinate (from viewport top) where we sample what surface sits behind the wordmark.
-// Roughly matches where the wordmark parks once shrunk.
 const DETECTION_Y = 48;
 
 export const Header = () => {
@@ -36,7 +36,7 @@ export const Header = () => {
         if (rect.top <= DETECTION_Y && rect.bottom > DETECTION_Y) {
           const tone = el.dataset.surface;
           if (tone === 'light' || tone === 'dark') setSurface(tone);
-          return; // first match wins; sections don't overlap vertically
+          return;
         }
       }
     };
@@ -67,7 +67,9 @@ export const Header = () => {
       style={{ ['--wordmark-progress' as string]: progress }}
     >
       <h1 className={styles.wordmark}>
-        <Wordmark variant="zoe-hall" surface={surface} className={styles.wordmarkImg} />
+        <a href="#" className={styles.wordmarkLink} aria-label="Back to top">
+          <Wordmark variant="zoe-hall" surface={surface} className={styles.wordmarkImg} />
+        </a>
       </h1>
       <nav className={styles.nav}>
         {navAnchors.map((anchor) => (

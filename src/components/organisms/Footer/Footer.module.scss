@@ -1,23 +1,85 @@
 @use "../../../styles/abstracts" as *;
 
 .root {
-  margin-top: $space-32;
-
-  border-top: 1px solid $color-border;
+  position: relative;
+  background: $color-bg-inverse;
+  color: $color-text-inverse;
+  padding-top: $space-20;
+  overflow: hidden;
 }
 
-.inner {
+// ── top: statement + columns ──────────────────────────────────────────────
+.top {
   @include container($container-2xl);
-  display: flex;
-  flex-wrap: wrap;
-  gap: $space-4;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-12;
+  margin-bottom: $space-16;
+
+  @include breakpoint(lg) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: $space-16;
+  }
 }
 
-.links {
-  @include cluster($space-6);
+.statement {
+  color: $color-text-inverse;
+  max-width: 22ch;
+}
+
+// ── columns ───────────────────────────────────────────────────────────────
+.columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-10 $space-8;
+
+  @include breakpoint(md) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-8;
+  }
+}
+
+.column {
+  @include stack($space-4);
+  min-width: 0;
+}
+
+.columnTitle {
+  color: rgba($color-platinum, 0.45);
+}
+
+.columnList {
+  @include stack($space-2);
   list-style: none;
   padding: 0;
   margin: 0;
+
+  li { margin: 0; }
+
+  a {
+    color: $color-text-inverse;
+    text-decoration: none;
+    font-size: $text-base;
+    transition: color $duration-fast $ease-out;
+
+    &:hover { color: $color-accent; }
+  }
+}
+
+// ── legal row ─────────────────────────────────────────────────────────────
+.legal {
+  @include container($container-2xl);
+  border-top: 1px solid rgba($color-platinum, 0.1);
+  margin: $space-24 0;
+  padding-top: $space-6;
+  padding-bottom: $space-8;
+}
+
+.legalCopy {
+  color: rgba($color-platinum, 0.5);
+}
+
+// ── wordmark slab (full bleed) ────────────────────────────────────────────
+.wordmarkWrap {
+  width: 100%;
 }

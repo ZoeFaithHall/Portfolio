@@ -14,8 +14,9 @@ export type WipeSurface = 'light' | 'dark';
 export type WipeStackProps = {
   /**
    * Layers, in stacking order. The first child is the base (always visible).
-   * Each subsequent child wipes in over an equal segment of the scroll range
-   * via `clipPath: inset(...% 0 0 0)` animating from 100% → 0%.
+   * Each subsequent child slides up from below the viewport over an equal
+   * segment of the scroll range — the band at the top of the layer leads
+   * the rise.
    */
   children: ReactNode;
   /** Optional id on the outer container (for anchor links). */
@@ -29,24 +30,37 @@ export type WipeStackProps = {
    * same length as `children`.
    */
   surfaces?: readonly WipeSurface[];
+  /**
+   * Optional anchor ids per layer. Renders invisible spacers at the
+   * correct scroll positions so `#layer-id` lands the user at the moment
+   * that layer is fully revealed (band at top). Must have the same length
+   * as `children`. Inner sections should NOT also carry these ids — they
+   * live on the spacers so each layer gets a distinct scroll target.
+   */
+  anchorIds?: readonly string[];
 };
 
 const SURFACE_LEAD_IN = 0.06;
 
 /**
- * Pinned viewport that layers its children one over the next via clipPath.
+ * Pinned viewport that layers its children one over the next via translateY.
  *
  * - Container height = N * 100vh (so each transition gets one viewport of
  *   scroll). The pinned inner viewport stays at 100vh.
- * - The first child is the base layer (no wipe).
- * - Each subsequent layer K (1-indexed from 0) wipes during scroll segment
- *   [(K-1)/(N-1), K/(N-1)], revealing from bottom to top.
- * - Sections above the stack do not move while wipes happen.
- *
- * Generalizes the Intro section's hand-rolled two-layer wipe so the same
- * pattern can be used for any announce stack.
+ * - The first child is the base layer (no motion).
+ * - Each subsequent layer K slides from y=100% (offscreen below) to y=0
+ *   during scroll segment [(K-1)/(N-1), K/(N-1)]. The band at the top of
+ *   the layer enters the viewport from the bottom and rises to the top.
+ * - Anchor spacers (one per `anchorIds`) sit at top: K*100vh inside the
+ *   root so #layer-id lands at the end of that layer's rise.
  */
-export function WipeStack({ children, id, className, surfaces }: WipeStackProps) {
+export function WipeStack({
+  children,
+  id,
+  className,
+  surfaces,
+  anchorIds,
+}: WipeStackProps) {
   const ref = useRef<HTMLDivElement>(null);
   const layers = Children.toArray(children);
   const total = layers.length;
@@ -56,15 +70,12 @@ export function WipeStack({ children, id, className, surfaces }: WipeStackProps)
     offset: ['start start', 'end end'],
   });
 
-  // Toggle outer data-surface to match the topmost revealed layer. Header's
-  // wordmark color reads this attribute as it scrolls past.
+  // Toggle outer data-surface to match the topmost revealed layer.
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
     if (!ref.current || !surfaces || surfaces.length !== total) return;
     let topIdx = 0;
     for (let i = 0; i < total - 1; i++) {
       const segEnd = (i + 1) / Math.max(1, total - 1);
-      // Consider the next layer "on top" slightly before its wipe completes
-      // so the surface flip lands during the visible transition.
       const threshold = segEnd - SURFACE_LEAD_IN / Math.max(1, total - 1);
       if (v >= threshold) topIdx = i + 1;
     }
@@ -82,6 +93,15 @@ export function WipeStack({ children, id, className, surfaces }: WipeStackProps)
       style={{ height: `${Math.max(1, total) * 100}vh` }}
       data-surface={surfaces?.[0]}
     >
+      {anchorIds?.map((aid, i) => (
+        <span
+          key={aid}
+          id={aid}
+          className={styles.anchor}
+          style={{ top: `${i * 100}vh` }}
+          aria-hidden
+        />
+      ))}
       <div className={styles.pinned}>
         {layers.map((child, i) => (
           <Layer
@@ -111,20 +131,16 @@ function Layer({ index, total, scrollYProgress, children }: LayerProps) {
   const segStart = isBase ? 0 : (index - 1) / denom;
   const segEnd = isBase ? 0 : index / denom;
 
-  // Base layer stays fully revealed (inset 0); overlays animate 100% → 0%.
-  // Clip uses the BOTTOM inset so the layer reveals from the top down —
-  // the band (at the top of the layer) appears first and the content
-  // reveals beneath it as scroll progresses.
-  const wipeY = useTransform(
+  // Overlay slides up from below the viewport; base stays put.
+  const y = useTransform(
     scrollYProgress,
     [segStart, segEnd],
-    isBase ? [0, 0] : [100, 0],
+    isBase ? ['0%', '0%'] : ['100%', '0%'],
     { clamp: true }
   );
-  const clipPath = useTransform(wipeY, (v) => `inset(0 0 ${v}% 0)`);
 
   return (
-    <motion.div className={styles.layer} style={{ clipPath }}>
+    <motion.div className={styles.layer} style={{ y }}>
       {children}
     </motion.div>
   );
