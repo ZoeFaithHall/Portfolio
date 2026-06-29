@@ -42,8 +42,8 @@ src/
 │   │   └── TagList/                     # pill list (caption-styled <li>s)
 │   │
 │   ├── organisms/                       # full UI units with state/logic
-│   │   ├── Carousel/                    # horizontal scroll-snap track + IconButton controls
-│   │   ├── CaseDetail/                  # one full case study (band + intro + pinned hero + carousel)
+│   │   ├── CaseStudyCarousel/                    # horizontal scroll-snap track + IconButton controls
+│   │   ├── CaseDetail/                  # one full case study (band + intro + pinned hero + CaseStudyCarousel)
 │   │   ├── Footer/                      # site footer
 │   │   ├── Header/                      # sticky header w/ scroll-driven wordmark + nav
 │   │   └── PinnedHero/                  # 200vh sticky bg + scrolling title for case studies
