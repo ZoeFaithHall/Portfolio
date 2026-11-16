@@ -1,0 +1,56 @@
+@use "../../../styles/abstracts" as *;
+
+.root {
+  position: relative;
+  // clip, not hidden: hidden makes this a scroll container and breaks the
+  // sticky banner and sticky body inside it.
+  overflow: clip;
+  background: var(--chapter-bg, #{$color-bg});
+  color: var(--chapter-text, #{$color-text});
+}
+
+.overlap {
+  margin-top: -100vh;
+}
+
+// The wipe edge. Flush at top: 0 once it lands; the nav sits on it.
+.banner {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  height: $header-height;
+  margin-bottom: calc(-1 * #{$header-height});
+  display: flex;
+  align-items: center;
+  // Label sits on the right: the name owns the top-left corner.
+  justify-content: flex-end;
+  gap: $space-3;
+  padding: 0 $gutter;
+  background: $color-bg-inverse;
+  color: $color-text-inverse;
+}
+
+// Red as a highlight: a small square marker, never a fill.
+.marker {
+  width: 10px;
+  height: 10px;
+  background: $color-accent;
+  flex: none;
+}
+
+.label {
+  font-family: $font-mono;
+  font-size: $text-xs;
+  letter-spacing: $tracking-wide;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.body {
+  // Content starts below the banner, never under it.
+  padding-top: $header-height;
+}
+
+.hold {
+  height: 100vh;
+}

@@ -26,3 +26,25 @@
   padding-top: $space-4;
   border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
+
+// Client logo at the top of the rail. Same baked greyscale as the marquee.
+.logo {
+  display: block;
+  width: auto;
+  height: 48px;
+  max-width: 240px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+// Live link: text plus a small red arrow, red only as the highlight.
+.liveLink {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  color: var(--case-text);
+
+  svg {
+    color: var(--case-accent);
+  }
+}

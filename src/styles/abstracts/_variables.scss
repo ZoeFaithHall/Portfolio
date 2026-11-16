@@ -165,6 +165,10 @@ $shadow-lg: 0 16px 40px rgba($color-space-indigo, 0.14);
 $z-base:    0;
 $z-raised:  10;
 $z-sticky:  100;
+
+// Fixed header row height. Sticky bands park below it so labels never
+// share a line with the nav or wordmark.
+$header-height: 4rem;
 $z-overlay: 500;
 $z-modal:   1000;
 $z-toast:   2000;

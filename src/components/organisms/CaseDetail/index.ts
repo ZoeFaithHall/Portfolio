@@ -1,1 +1,1 @@
-export { CaseDetail } from './CaseDetail';
+export { CaseDetail, caseBannerLabel } from './CaseDetail';

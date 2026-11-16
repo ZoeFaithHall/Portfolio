@@ -12,6 +12,7 @@ type FooterLink = {
 const navLinks: readonly FooterLink[] = [
   { to: '#philosophy',   label: 'philosophy' },
   { to: '#case-studies', label: 'case studies' },
+  { to: '#testimonials', label: 'testimonials' },
   { to: '#tech-stack',   label: 'tech stack' },
   { to: '#contact',      label: 'contact' },
 ];
@@ -19,6 +20,7 @@ const navLinks: readonly FooterLink[] = [
 const workLinks: readonly FooterLink[] = [
   { to: 'https://runelab.co',      label: 'rune lab' },
   { to: 'mailto:zoe@runelab.co',   label: 'consulting' },
+  { to: 'https://www.the-creator-book.com/', label: 'the creator' },
 ];
 
 const elsewhereLinks: readonly FooterLink[] = [

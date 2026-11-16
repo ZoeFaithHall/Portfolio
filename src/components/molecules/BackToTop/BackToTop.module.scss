@@ -1,0 +1,47 @@
+@use '../../../styles/abstracts' as *;
+
+.root {
+  position: fixed;
+  right: $space-6;
+  bottom: $space-6;
+  z-index: $z-sticky;
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: $radius-full;
+  // Red as a highlight on an action. Crimson clears 4.5:1 with white.
+  background: $color-accent-hover;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: $shadow-md;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition:
+    opacity $duration-fast $ease-out,
+    transform $duration-fast $ease-out,
+    background $duration-fast $ease-out;
+
+  &:hover {
+    background: $color-text;
+  }
+
+  &:focus-visible {
+    @include focus-ring($color-text, 3px);
+  }
+}
+
+.visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    transition: none;
+  }
+}

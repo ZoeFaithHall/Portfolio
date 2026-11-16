@@ -1,6 +1,7 @@
 import { Text } from '@/components/atoms/Text';
 import Icon from '@/components/atoms/Icon';
 import { IconButton } from '@/components/molecules/IconButton';
+import { CardMedia } from '@/components/molecules/CardMedia';
 import { useCarouselScroll } from '@/hooks/useCarouselScroll';
 import type { CarouselItem } from '@/types';
 import styles from './CaseStudyCarousel.module.scss';
@@ -44,7 +45,7 @@ export function CaseStudyCarousel({ id, heading, items }: CaseStudyCarouselProps
       <div className={styles.track} ref={trackRef}>
         {items.map((item, i) => (
           <article key={i} className={styles.card}>
-            <div className={styles.cardImage} aria-hidden />
+            <CardMedia media={item.media} className={styles.cardImage} />
             <div className={styles.cardCopy}>
               <Text as="h4" variant="heading-3" className={styles.cardTitle}>
                 {item.title}

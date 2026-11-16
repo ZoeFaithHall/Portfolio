@@ -1,6 +1,14 @@
+/** A card visual: a looping screen recording (with poster) or a still image. */
+export type CarouselMedia = {
+  video?: string;
+  poster: string;
+  alt: string;
+};
+
 export type CarouselItem = {
   title: string;
   caption: string;
+  media?: CarouselMedia;
 };
 
 export type CaseStudy = {
@@ -23,6 +31,10 @@ export type CaseStudy = {
   };
   /** Optional hero image used by PinnedHero. Path relative to /public. */
   heroImage?: string;
+  /** Greyscale client logo shown at the top of the case's rail. Path relative to /public. */
+  logo?: { src: string; alt: string };
+  /** Optional live link shown at the bottom of the rail. Opens in a new tab. */
+  link?: { href: string; label: string };
 };
 
 export type NavAnchor = {

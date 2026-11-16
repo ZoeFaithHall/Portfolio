@@ -5,29 +5,28 @@
   inset: 0 0 auto 0;
   z-index: $z-sticky;
   pointer-events: none;
-  height: $space-12;
+  height: $header-height;
   display: flex;
-  flex-direction: row;
-  align-items: start;
+  align-items: center;
   justify-content: center;
-  padding: 0 $space-4 0;
+  padding: 0 $gutter;
 
   > * {
     pointer-events: auto;
   }
 }
 
+// Full width at the top of the hero (progress 0), 10rem in the top-left
+// corner of the header row once settled (progress 1). Never leaves the screen.
 .wordmark {
   position: absolute;
-  top: $space-16!important; // override inline styles for scroll effect
+  margin: 0;
   line-height: 0;
   z-index: 1;
-  transform-origin: top left;
-  top: calc(#{$space-4} * var(--wordmark-progress, 0));
-  left: calc(#{$space-6} * var(--wordmark-progress, 0));
-
+  top: calc(#{$space-16} * (1 - var(--wordmark-progress, 0)) + #{$space-4} * var(--wordmark-progress, 0));
+  left: $gutter;
   width: calc(
-    96vw * (1 - var(--wordmark-progress, 0)) +
+    (100vw - 2 * #{$gutter}) * (1 - var(--wordmark-progress, 0)) +
     10rem * var(--wordmark-progress, 0)
   );
 }
@@ -51,10 +50,17 @@
 }
 
 .nav {
-  grid-column: 2;
   position: relative;
-  top: $space-3;
   display: flex;
   gap: $space-6;
   z-index: 2;
+}
+
+// Over a dark banner or footer, the nav reads light.
+.root[data-tone='dark'] .nav a {
+  color: rgba($color-platinum, 0.75);
+
+  &:hover {
+    color: $color-platinum;
+  }
 }

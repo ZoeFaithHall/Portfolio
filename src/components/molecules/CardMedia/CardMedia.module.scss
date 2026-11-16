@@ -1,0 +1,40 @@
+@use '../../../styles/abstracts' as *;
+
+.root {
+  position: relative;
+}
+
+.fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: inherit;
+}
+
+// Pause/play: a small round control, red as the highlight on an action.
+.toggle {
+  position: absolute;
+  right: $space-4;
+  bottom: $space-4;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: $radius-full;
+  background: $color-accent-hover;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: $shadow-md;
+
+  &:hover {
+    background: $color-text;
+  }
+
+  &:focus-visible {
+    @include focus-ring($color-text, 3px);
+  }
+}

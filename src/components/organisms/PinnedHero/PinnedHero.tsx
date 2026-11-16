@@ -1,7 +1,8 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Text } from '@/components/atoms/Text';
 import type { CaseStudy } from '@/types';
+import { cn } from '@/utils/cn';
 import styles from './PinnedHero.module.scss';
 
 export type PinnedHeroProps = {
@@ -25,6 +26,9 @@ export type PinnedHeroProps = {
  */
 export function PinnedHero({ study }: PinnedHeroProps) {
   const ref = useRef<HTMLElement>(null);
+  // A missing or broken image falls back to the light panel, never a broken icon.
+  const [imgFailed, setImgFailed] = useState(false);
+  const hasImage = Boolean(study.heroImage) && !imgFailed;
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end end'],
@@ -80,16 +84,20 @@ export function PinnedHero({ study }: PinnedHeroProps) {
 
         {/* Image (or gradient fallback) that scales from small to full */}
         <motion.div className={styles.imageWrap} style={{ scale: imageScale }}>
-          {study.heroImage ? (
-            <img src={study.heroImage} alt="" className={styles.image} />
+          {hasImage ? (
+            <img src={study.heroImage} alt="" className={styles.image} onError={() => setImgFailed(true)} />
           ) : (
             <div className={styles.fallback} aria-hidden />
           )}
         </motion.div>
 
+        {hasImage && (
+          <motion.div className={styles.scrim} style={{ opacity: statementOpacity }} aria-hidden />
+        )}
+
         {/* Statement overlay — fades in once the image is full */}
         <motion.div
-          className={styles.statementWrap}
+          className={cn(styles.statementWrap, !hasImage && styles.onLight)}
           style={{ opacity: statementOpacity, y: statementY }}
         >
           <Text variant="mono" className={styles.eyebrow}>{study.client}</Text>

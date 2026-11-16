@@ -6,7 +6,9 @@
   @include container($container-2xl);
   display: flex;
   flex-direction: column;
-  margin-top: $space-24;
+  // Padding, not margin: a margin collapses through the parent, so the
+  // section's background started right at the first line of text.
+  padding-block: $space-16;
   @include stack($space-6);
 
   @include breakpoint(lg) {

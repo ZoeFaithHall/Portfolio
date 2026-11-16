@@ -6,7 +6,7 @@ export type ClientSlug =
   | 'copa' | 'curion' | 'danfoss' | 'dodge' | 'ecore'
   | 'fleetio' | 'godfrey' | 'jeep'
   | 'jlg' | 'johnson-controls' | 'josh-shapiro' | 'mercedes-benz'
-  | 'nissan' | 'samsara' | 'stealthx' | 'tech-ladies'
+  | 'nissan' | 'prysm-health' | 'rune-lab' | 'samsara' | 'stealthx' | 'tech-ladies'
   | 'tyler-technologies' | 'verizon';
 
 type LogoMeta = { file: string; alt: string };
@@ -27,6 +27,8 @@ export const CLIENT_LOGOS: Record<ClientSlug, LogoMeta> = {
   'josh-shapiro': { file: 'josh-shapiro.png', alt: 'Office of Governor Josh Shapiro' },
   'mercedes-benz': { file: 'mercedes-benz.png', alt: 'Mercedes-Benz' },
   'nissan': { file: 'nissan.png', alt: 'Nissan' },
+  'prysm-health': { file: 'prysm-health.png', alt: 'Prysm Health' },
+  'rune-lab': { file: 'rune-lab.png', alt: 'Rune Lab' },
   'samsara': { file: 'samsara.png', alt: 'Samsara' },
   'stealthx': { file: 'stealthx.png', alt: 'StealthX' },
   'tech-ladies': { file: 'tech-ladies.png', alt: 'Tech Ladies' },

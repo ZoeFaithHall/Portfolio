@@ -2,7 +2,7 @@
 
 .root {
   position: sticky;
-  top: 0;
+  top: $header-height;
   z-index: $z-sticky - 1;
 
   display: flex;

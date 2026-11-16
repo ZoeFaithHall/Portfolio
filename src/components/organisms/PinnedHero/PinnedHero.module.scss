@@ -53,14 +53,30 @@
   display: block;
 }
 
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  // Fades in with the statement: the cover reads clean at full width first,
+  // then dims and blurs so the white statement holds 4.5:1 over any screenshot.
+  background: rgba(20, 18, 30, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+
 .fallback {
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    180deg,
-    color-mix(in oklab, var(--case-accent) 88%, white),
-    var(--case-accent)
-  );
+  // No image yet: a quiet light panel with a red hairline, not a red wash.
+  background: color-mix(in oklab, var(--case-bg) 88%, var(--case-text));
+  border-top: 4px solid var(--case-accent);
+}
+
+// Statement sits on the light fallback panel instead of a photo.
+.onLight {
+  .eyebrow { color: var(--case-accent); opacity: 1; }
+  .statement { color: var(--case-text); text-shadow: none; }
 }
 
 // ── statement overlay ─────────────────────────────────────────────────────
@@ -86,6 +102,8 @@
 .statement {
   color: var(--case-on-accent);
   @include fluid-type(2.5rem, 6rem);
+  // Explicit size: the Text variant class otherwise wins and shrinks it.
+  font-size: clamp(2.5rem, 5vw, 5.5rem);
   font-weight: $font-weight-black;
   line-height: 0.95;
   letter-spacing: -0.025em;

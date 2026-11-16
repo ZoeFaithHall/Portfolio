@@ -42,26 +42,32 @@ export type NumbersIntroData = {
 export const introData = {
   philosophy: {
     band: { label: 'philosophy' },
-    statement: 'Build infrastructure that makes fires nearly impossible to start.',
+    statement: 'Good architecture shows up on the balance sheet.',
     paragraphs: [
       {
-        text: 'Frontend Architect. Founder of Rune Lab. Most teams point AI at code. I point it at architecture.',
+        text: 'Frontend architect. Founder of Rune Lab. Author of The Creator.',
       },
       {
-        text: 'Based in Harrisburg. Working remote. Available for Staff, Principal, Lead, and Director roles. Consulting via Rune Lab.',
+        text: 'At Fleetio, the sales tools I built took revenue attainment from 67% to 134% of a $100M target in two quarters. That is $67M. I carried the frontend from Series B to a $6B valuation with zero production UI defects.',
+      },
+      {
+        text: 'Most recently, founding frontend engineer at Prysm Health, building an EHR for skilled nursing facilities. Before that, the Keystone Design System for 13M Pennsylvania residents. Most teams point AI at code. I point it at architecture.',
+      },
+      {
+        text: 'Harrisburg, working remote. Taking founding and lead architecture roles, advisory work, and speaking engagements.',
         muted: true,
       },
     ],
-    tags: ['Systems thinking', 'Design systems', 'AI architecture', 'Accessibility'],
+    tags: ['Revenue impact', 'Design systems', 'AI architecture', 'Accessibility'],
   } satisfies PhilosophyIntroData,
 
   caseStudies: {
     band: { label: '02 Case Studies' },
     statement: 'case studies',
-    statementColor: '#EF233C',
+    statementColor: '#D80032',
     eyebrow: '02 Case Studies',
     tagline: 'where the philosophy gets tested',
-    theme: { bg: '#2B2D42', text: '#EDF2F4', accent: '#EF233C' },
+    theme: { bg: '#F7F9FA', text: '#2B2D42', accent: '#D80032' },
   } satisfies AnnouncementIntroData,
 
   techStack: {
@@ -70,19 +76,19 @@ export const introData = {
     statementColor: '#D80032',
     eyebrow: '03 Tech Stack',
     tagline: 'the tools I reach for',
-    theme: { bg: '#8D99AE', text: '#2B2D42', accent: '#D80032' },
+    theme: { bg: '#F7F9FA', text: '#2B2D42', accent: '#D80032' },
   } satisfies AnnouncementIntroData,
 
   numbers: {
     band: { label: '04 By The Numbers' },
-    heading: 'by the numbers',
+    heading: 'what the work is worth',
     cells: [
-      { value: '14M+', caption: 'cumulative users across three years' },
+      { value: '+$67M', caption: 'revenue attainment in two quarters, 67% to 134% of target' },
+      { value: '$6B', caption: 'valuation, from Series B, on a frontend I architected' },
+      { value: '788%', caption: 'year-one ROI on an AI decision system, CFO approved' },
+      { value: '$7.02M', caption: 'ten-year value modeled from 13,395 records' },
       { value: '0', caption: 'production UI defects in three years' },
-      { value: '$6B', caption: 'valuation supported through scale' },
-      { value: '1 → 12', caption: 'team grown as sole architect' },
-      { value: '67 → 134%', caption: 'revenue attainment in two quarters' },
-      { value: '13M', caption: 'Pennsylvania residents on Keystone' },
+      { value: '14M+', caption: 'users across three years' },
     ],
   } satisfies NumbersIntroData,
 };

@@ -1,0 +1,63 @@
+@use "../../../styles/abstracts" as *;
+
+.inner {
+  @include container($container-2xl);
+  @include stack($space-12);
+  padding-block: $space-16 $space-24;
+  min-height: calc(100vh - #{$header-height});
+  justify-content: center;
+}
+
+.intro {
+  @include stack($space-4);
+}
+
+.heading {
+  margin: 0;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+}
+
+.lede {
+  max-width: 48ch;
+  margin: 0;
+}
+
+.groups {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-8;
+  margin: 0;
+
+  @include breakpoint(lg) { grid-template-columns: repeat(2, 1fr); }
+}
+
+.group {
+  @include stack($space-3);
+  padding-top: $space-4;
+  border-top: 1px solid $color-border;
+}
+
+// Small red square marker before each group label: highlight, not fill.
+.label {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  font-family: $font-mono;
+  font-size: $text-xs;
+  letter-spacing: $tracking-wide;
+  text-transform: uppercase;
+  color: $color-text;
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: $color-accent-hover;
+  }
+}
+
+.items {
+  margin: 0;
+}

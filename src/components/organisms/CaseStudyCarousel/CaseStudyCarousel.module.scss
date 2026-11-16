@@ -31,8 +31,9 @@
 }
 
 .cardImage {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10; // close to the 16:9 recordings, so little is cropped
   border-radius: $radius-lg;
+  overflow: hidden;
   background: color-mix(in oklab, var(--case-bg) 70%, var(--case-band));
 }
 
@@ -58,8 +59,9 @@
 // border; we only retheme the inversion on hover here.
 .controlButton {
   &:hover:not(:disabled) {
-    background: var(--case-text);
-    color: var(--case-bg);
+    background: var(--case-accent);
+    border-color: var(--case-accent);
+    color: #fff;
   }
 
   &:focus-visible {
