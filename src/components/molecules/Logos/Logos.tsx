@@ -12,7 +12,6 @@ const DEFAULT_SLUGS: readonly ClientSlug[] = [
   'fleetio',
   'tyler-technologies',
   'curion',
-  'ford',
   'verizon',
   'mercedes-benz',
   'samsara',
@@ -23,13 +22,10 @@ const DEFAULT_SLUGS: readonly ClientSlug[] = [
   'assa-abloy',
   'ecore',
   'axis-lighting',
-  'coleman',
   'jlg',
   'jeep',
-  'fiat',
   'dodge',
   'nissan',
-  'auto-integrate',
   'tech-ladies',
 ];
 

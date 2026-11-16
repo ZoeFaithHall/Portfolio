@@ -1,0 +1,778 @@
+<!doctype html>
+<meta charset="utf-8"><style data-dc-design-system-vars>@layer{:root{--ground:#0c0c0c;--surface:#141414;--raised:#1c1c1c;--stone:#2b2b2b;--edge:#6e6e6e;--ink:#f2f2f2;--ink-muted:#a6a6a6;--ink-faint:#858585;--on-ink:#0c0c0c;--data-mid:#8c8c8c;--track:#2b2b2b;--alert:#e08a7c;--focus:#f2f2f2;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:96px;--radius-0:0px;--radius-2:2px;--radius-round:9999px;--stroke-hair:1px;--stroke-mark:1.5px;--stroke-focus:2px;--duration-fast:180ms;--duration-base:450ms;--duration-slow:900ms;--font-display:"Instrument Sans", "Helvetica Neue", Arial, sans-serif;--font-body:"DM Sans", "Helvetica Neue", Arial, sans-serif;--font-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;--text-display-xl:400 104px/0.9 var(--font-display);--text-display-l:400 64px/0.95 var(--font-display);--text-heading:500 36px/1.05 var(--font-display);--text-title:500 22px/1.2 var(--font-display);--text-figure:400 72px/1 var(--font-display);--text-lede:300 21px/1.5 var(--font-body);--text-body:300 17px/1.6 var(--font-body);--text-body-s:400 15px/1.55 var(--font-body);--text-label:400 12px/1.4 var(--font-mono);--text-data:400 13px/1.5 var(--font-mono);--text-clause:500 14px/1.6 var(--font-mono);}}</style>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Rune Lab homepage</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/runelab/tokens.css">
+<link rel="stylesheet" href="ds/runelab/components/bundle.css">
+<script src="ds/runelab/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0c0c0c}
+html{scroll-behavior:smooth}
+@font-face{font-family:"Instrument Sans";src:url("ds/runelab/fonts/instrument-sans-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url("ds/runelab/fonts/instrument-sans-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+a{color:#f0ece4}a:hover{color:#a9a399}
+input:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid #f0ece4;outline-offset:2px}
+[id]{scroll-margin-top:96px}
+.skip{position:absolute;left:16px;top:-100px;z-index:10;background:#f0ece4;color:#0c0c0c;padding:12px 16px;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
+.skip:focus{top:16px;color:#0c0c0c}
+.site-header{position:sticky;top:0;z-index:5;background:rgba(12,12,12,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.progress{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--accent);transform-origin:0 50%;transform:scaleX(0)}
+@keyframes grow{to{transform:scaleX(1)}}
+@supports (animation-timeline: scroll()){.progress{animation:grow linear both;animation-timeline:scroll(root)}}
+.seg{min-height:44px;padding:0 20px;border:0;background:transparent;color:#a9a399;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.seg--on{background:#f0ece4;color:#0c0c0c}
+.overlay{position:fixed;inset:0;z-index:4;border:0;padding:0;margin:0;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);cursor:pointer;animation:fade 180ms both}
+.menu-panel{animation:menu-in 240ms cubic-bezier(.16,1,.3,1) both}
+@keyframes menu-in{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.menu-item{display:flex;align-items:center;justify-content:space-between;min-height:44px;padding:0 16px;color:#f0ece4;text-decoration:none;border-bottom:1px solid #2c2926;font-family:"DM Sans",sans-serif;font-size:15px;transition:background 180ms,padding 180ms}
+.menu-item:hover{background:#1c1a17;color:#f0ece4;padding-left:20px}
+.menu-item .ic{opacity:0;transition:opacity 180ms}
+.menu-item:hover .ic{opacity:1;color:var(--accent)}
+.w{display:inline-block;margin-right:.24em;animation:word 900ms cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--d) * 90ms)}
+@keyframes word{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
+.hl{color:var(--accent)}
+.rl-dial .t-on{stroke:var(--accent)}
+.rl-dial line{animation:tick 260ms ease-out both}
+@keyframes tick{from{opacity:0}to{opacity:1}}
+.rl-dial text{animation:fade 600ms 1000ms both}
+.rl-dial line:nth-of-type(1){animation-delay:200ms}.rl-dial line:nth-of-type(2){animation-delay:209ms}.rl-dial line:nth-of-type(3){animation-delay:218ms}.rl-dial line:nth-of-type(4){animation-delay:227ms}.rl-dial line:nth-of-type(5){animation-delay:236ms}.rl-dial line:nth-of-type(6){animation-delay:245ms}.rl-dial line:nth-of-type(7){animation-delay:254ms}.rl-dial line:nth-of-type(8){animation-delay:263ms}.rl-dial line:nth-of-type(9){animation-delay:272ms}.rl-dial line:nth-of-type(10){animation-delay:281ms}.rl-dial line:nth-of-type(11){animation-delay:290ms}.rl-dial line:nth-of-type(12){animation-delay:299ms}.rl-dial line:nth-of-type(13){animation-delay:308ms}.rl-dial line:nth-of-type(14){animation-delay:317ms}.rl-dial line:nth-of-type(15){animation-delay:326ms}.rl-dial line:nth-of-type(16){animation-delay:335ms}.rl-dial line:nth-of-type(17){animation-delay:344ms}.rl-dial line:nth-of-type(18){animation-delay:353ms}.rl-dial line:nth-of-type(19){animation-delay:362ms}.rl-dial line:nth-of-type(20){animation-delay:371ms}.rl-dial line:nth-of-type(21){animation-delay:380ms}.rl-dial line:nth-of-type(22){animation-delay:389ms}.rl-dial line:nth-of-type(23){animation-delay:398ms}.rl-dial line:nth-of-type(24){animation-delay:407ms}.rl-dial line:nth-of-type(25){animation-delay:416ms}.rl-dial line:nth-of-type(26){animation-delay:425ms}.rl-dial line:nth-of-type(27){animation-delay:434ms}.rl-dial line:nth-of-type(28){animation-delay:443ms}.rl-dial line:nth-of-type(29){animation-delay:452ms}.rl-dial line:nth-of-type(30){animation-delay:461ms}.rl-dial line:nth-of-type(31){animation-delay:470ms}.rl-dial line:nth-of-type(32){animation-delay:479ms}.rl-dial line:nth-of-type(33){animation-delay:488ms}.rl-dial line:nth-of-type(34){animation-delay:497ms}.rl-dial line:nth-of-type(35){animation-delay:506ms}.rl-dial line:nth-of-type(36){animation-delay:515ms}.rl-dial line:nth-of-type(37){animation-delay:524ms}.rl-dial line:nth-of-type(38){animation-delay:533ms}.rl-dial line:nth-of-type(39){animation-delay:542ms}.rl-dial line:nth-of-type(40){animation-delay:551ms}.rl-dial line:nth-of-type(41){animation-delay:560ms}.rl-dial line:nth-of-type(42){animation-delay:569ms}.rl-dial line:nth-of-type(43){animation-delay:578ms}.rl-dial line:nth-of-type(44){animation-delay:587ms}.rl-dial line:nth-of-type(45){animation-delay:596ms}.rl-dial line:nth-of-type(46){animation-delay:605ms}.rl-dial line:nth-of-type(47){animation-delay:614ms}.rl-dial line:nth-of-type(48){animation-delay:623ms}.rl-dial line:nth-of-type(49){animation-delay:632ms}.rl-dial line:nth-of-type(50){animation-delay:641ms}.rl-dial line:nth-of-type(51){animation-delay:650ms}.rl-dial line:nth-of-type(52){animation-delay:659ms}.rl-dial line:nth-of-type(53){animation-delay:668ms}.rl-dial line:nth-of-type(54){animation-delay:677ms}.rl-dial line:nth-of-type(55){animation-delay:686ms}.rl-dial line:nth-of-type(56){animation-delay:695ms}.rl-dial line:nth-of-type(57){animation-delay:704ms}.rl-dial line:nth-of-type(58){animation-delay:713ms}.rl-dial line:nth-of-type(59){animation-delay:722ms}.rl-dial line:nth-of-type(60){animation-delay:731ms}.rl-dial line:nth-of-type(61){animation-delay:740ms}.rl-dial line:nth-of-type(62){animation-delay:749ms}.rl-dial line:nth-of-type(63){animation-delay:758ms}.rl-dial line:nth-of-type(64){animation-delay:767ms}.rl-dial line:nth-of-type(65){animation-delay:776ms}.rl-dial line:nth-of-type(66){animation-delay:785ms}.rl-dial line:nth-of-type(67){animation-delay:794ms}.rl-dial line:nth-of-type(68){animation-delay:803ms}.rl-dial line:nth-of-type(69){animation-delay:812ms}.rl-dial line:nth-of-type(70){animation-delay:821ms}.rl-dial line:nth-of-type(71){animation-delay:830ms}.rl-dial line:nth-of-type(72){animation-delay:839ms}.rl-dial line:nth-of-type(73){animation-delay:848ms}.rl-dial line:nth-of-type(74){animation-delay:857ms}.rl-dial line:nth-of-type(75){animation-delay:866ms}.rl-dial line:nth-of-type(76){animation-delay:875ms}.rl-dial line:nth-of-type(77){animation-delay:884ms}.rl-dial line:nth-of-type(78){animation-delay:893ms}.rl-dial line:nth-of-type(79){animation-delay:902ms}.rl-dial line:nth-of-type(80){animation-delay:911ms}.rl-dial line:nth-of-type(81){animation-delay:920ms}.rl-dial line:nth-of-type(82){animation-delay:929ms}.rl-dial line:nth-of-type(83){animation-delay:938ms}.rl-dial line:nth-of-type(84){animation-delay:947ms}
+.float{animation:float 7s ease-in-out infinite;transition:border-color 180ms,transform 180ms}
+.float:hover{border-color:var(--accent)!important}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.track{display:flex;gap:48px;width:max-content;list-style:none;margin:0;padding:0;animation:marq 48s linear infinite}
+.paused .track{animation-play-state:paused}
+.marquee:hover .track{animation-play-state:paused}
+@keyframes marq{to{transform:translateX(-50%)}}
+.track li{display:inline-flex;align-items:center;gap:12px;white-space:nowrap}
+.dot{display:block;width:12px;height:12px;border-radius:9999px;box-sizing:border-box;transition:background 450ms cubic-bezier(.16,1,.3,1),border-color 450ms,transform 450ms cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--i) * 4ms)}
+.dot--stay{background:#f0ece4;border:1.5px solid #f0ece4}
+.dot--left{border:1.5px solid #7d776e;background:transparent;transform:scale(.85)}
+.dot--saved{background:var(--accent);border:1.5px solid var(--accent);transform:scale(1.2)}
+.lit{color:#f0ece4}
+.dim{color:#5c574f}
+.swap{display:inline;animation:swap 700ms cubic-bezier(.16,1,.3,1) both}
+@keyframes swap{from{opacity:0;filter:blur(6px)}to{opacity:1;filter:none}}
+.tl li{transition:background 180ms,padding 180ms}
+.tl li:hover{background:rgba(240,236,228,.04);padding-left:8px}
+.count{display:inline-block;animation:swap 500ms both}
+.big{font-family:var(--font-display);font-weight:500;font-size:clamp(64px,9vw,128px);line-height:.95;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.big--gain{color:var(--accent)}
+.nav-link{position:relative;display:inline-flex;align-items:center;min-height:44px;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#a9a399;text-decoration:none;transition:color 180ms}
+.nav-link::after{content:"";position:absolute;left:0;right:0;bottom:10px;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;transition:transform 180ms cubic-bezier(.16,1,.3,1)}
+.nav-link:hover{color:#f0ece4}
+.nav-link:hover::after{transform:scaleX(1)}
+.menu-btn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--edge)!important;color:#f0ece4!important}
+.menu-btn:hover{border-color:var(--accent)!important}
+@media (max-width:1080px){.nav-links{display:none!important}}
+@media (max-width:720px){
+.nav-cta{display:none!important}
+.menu-panel{position:fixed!important;top:72px!important;left:12px!important;right:12px!important;width:auto!important;max-height:calc(100vh - 96px);overflow:auto}
+[style*="padding: 96px clamp"]{padding-top:56px!important;padding-bottom:56px!important}
+[style*="gap: 64px"]{gap:32px!important}
+[style*="gap: 48px"]{gap:28px!important}
+.display-xl{font-size:44px!important;letter-spacing:-.045em!important}
+.display-l{font-size:34px!important;letter-spacing:-.04em!important}
+.heading{font-size:28px!important}
+.big{font-size:52px!important}
+.figure{font-size:52px!important}
+.lede{font-size:18px!important}
+.hero-fig{padding:0!important;display:flex;flex-direction:column;gap:12px}
+.hero-fig .float{position:static!important;animation:none!important;max-width:none!important}
+.hero-fig figcaption{position:static!important}
+.dotgrid{grid-template-columns:repeat(12,minmax(0,1fr))!important;gap:8px!important}
+.form-card{padding:20px!important;gap:24px!important}
+.card[style*="padding: 32px"]{padding:24px!important}
+.seg{padding:0 12px}
+}
+
+.form-card{background:var(--surface);border:1px solid var(--edge);padding:clamp(24px,4vw,48px);display:flex;flex-direction:column;gap:32px}
+.field{display:flex;flex-direction:column;gap:8px}
+.field-label{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted)}
+.field-hint{font-family:"DM Sans",sans-serif;font-size:13px;color:var(--ink-faint)}
+.ctl{min-height:48px;box-sizing:border-box;width:100%;padding:0 16px;background:var(--raised);color:var(--ink);border:1px solid var(--edge);border-radius:0;font-family:"DM Sans",sans-serif;font-size:16px;transition:border-color 180ms,background 180ms}
+textarea.ctl{padding:12px 16px;min-height:112px;resize:vertical}
+select.ctl{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,#a9a399 50%),linear-gradient(135deg,#a9a399 50%,transparent 50%);background-position:calc(100% - 20px) 21px,calc(100% - 15px) 21px;background-size:5px 5px;background-repeat:no-repeat;padding-right:40px}
+.ctl:hover{border-color:#a9a399}
+.ctl:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-color:var(--accent)}
+.ctl[aria-invalid="true"]{border-color:var(--loss)}
+.err{display:inline-flex;align-items:center;gap:8px;font-family:"DM Sans",sans-serif;font-size:14px;color:var(--loss)}
+.err::before{content:"";width:10px;height:10px;border-radius:9999px;box-shadow:inset 0 0 0 1.5px var(--loss);flex:none}
+.check{display:flex;gap:12px;align-items:flex-start;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:15px;color:var(--ink)}
+.check input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent);flex:none;cursor:pointer}
+.type-seg{flex:1 1 180px;min-height:56px;padding:12px 16px;border:1px solid var(--edge);background:transparent;color:var(--ink-muted);text-align:left;cursor:pointer;display:flex;align-items:center;gap:12px;font-family:"DM Sans",sans-serif;font-size:15px;transition:border-color 180ms,background 180ms,color 180ms}
+.type-seg:hover{border-color:#a9a399;color:var(--ink)}
+.type-seg--on,.type-seg--on:hover{border-color:var(--accent);background:var(--raised);color:var(--ink)}
+.type-seg--on .ic{color:var(--accent)}
+.summary{border:1px solid var(--loss);padding:16px;display:flex;flex-direction:column;gap:4px}
+.done{animation:swap 600ms cubic-bezier(.16,1,.3,1) both}
+
+.big--loss{color:var(--loss)}
+.loss{color:var(--loss)}
+
+.rl-root{--accent:#9cc5a1;--loss:#f26157}
+.rl-label::before{background:var(--accent)}
+.rl-status--met .rl-status__dot{background:var(--accent);border-color:var(--accent)}
+.ic{flex:none;color:var(--ink-muted);transition:color 180ms cubic-bezier(.16,1,.3,1),transform 180ms cubic-bezier(.16,1,.3,1)}
+.rl-btn--solid{transition:background 180ms,border-color 180ms,transform 120ms}
+.rl-btn--solid:hover{background:var(--accent);border-color:var(--accent);color:#0c0c0c}
+.rl-btn--solid:active,.rl-btn--outline:active,.seg:active{transform:scale(.98)}
+.rl-btn--outline:hover{border-color:var(--accent);color:var(--accent)}
+.rl-btn--text:hover{color:var(--accent)}
+.rl-spec tbody tr{transition:background 180ms}
+.rl-spec tbody tr:hover{background:rgba(240,236,228,.04)}
+.seg{transition:background 180ms,color 180ms}
+.seg:hover{color:#f0ece4}
+.seg--on:hover{color:#0c0c0c}
+.card{border:1px solid transparent;transition:transform 180ms cubic-bezier(.16,1,.3,1),border-color 180ms,background 180ms}
+.card:hover{transform:translateY(-3px);border-color:var(--edge);background:var(--raised)}
+.card:hover .ic{color:var(--accent);transform:translateY(-1px)}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){.rv{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 35%}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</helmet>
+<div class="rl-root" data-theme="dark" style="--font-display: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif; --accent: {{accent}}; min-height: 100vh; background: var(--ground); color: var(--ink)">
+<a class="skip" href="#top">Skip to content</a>
+
+<header class="site-header" style="border-bottom: 1px solid var(--stone)">
+<span class="progress" aria-hidden="true"></span>
+<nav aria-label="Main" style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(16px, 5vw, 48px); min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
+<a href="#top" class="logo" style="font-family: var(--font-display); font-weight: 500; font-size: 22px; letter-spacing: -0.035em; text-decoration: none; color: var(--ink); flex: none">Rune Lab.</a>
+<ul class="nav-links" style="list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 28px"><li><a href="#gap" class="nav-link">The gap</a></li><li><a href="#standard" class="nav-link">The standard</a></li><li><a href="#how" class="nav-link">How it works</a></li><li><a href="#evidence" class="nav-link">Evidence</a></li><li><a href="#funds" class="nav-link">For funds</a></li></ul>
+<div style="position: relative; display: flex; align-items: center; gap: 12px; flex: none">
+<a href="#apply" class="rl-btn rl-btn--solid nav-cta" onClick="{{pickA}}">Free assessment</a>
+<button type="button" class="seg menu-btn" aria-label="All chapters" aria-expanded="{{menuOpen}}" aria-controls="chapters" onClick="{{toggleMenu}}"><svg class="ic" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h16"></path></svg><span class="menu-word">Menu</span></button>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{false}}">
+<button type="button" class="overlay" aria-label="Close chapters" onClick="{{closeMenu}}"></button>
+<div id="chapters" class="menu-panel" role="dialog" aria-label="Chapters" onKeyDown="{{menuKey}}" style="position: absolute; z-index: 6; top: 56px; right: 0; width: 300px; background: var(--surface); border: 1px solid var(--edge); display: flex; flex-direction: column">
+<div style="display: flex; justify-content: space-between; align-items: center; padding-left: 16px"><span class="rl-label">Chapters</span><button type="button" class="seg" aria-label="Close chapters" onClick="{{closeMenu}}" style="color: var(--ink)"><svg class="ic" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div>
+<a class="menu-item" href="#gap" onClick="{{closeMenu}}">The gap<svg class="ic" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<a class="menu-item" href="#usual" onClick="{{closeMenu}}">The usual way<svg class="ic" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<a class="menu-item" href="#why" onClick="{{closeMenu}}">Best case<svg class="ic" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<a class="menu-item" href="#standard" onClick="{{closeMenu}}">The standard<svg class="ic" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<a class="menu-item" href="#inside" onClick="{{closeMenu}}">Behind the dial<svg class="ic" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<a class="menu-item" href="#how" onClick="{{closeMenu}}">How it works<svg class="ic" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<a class="menu-item" href="#proof" onClick="{{closeMenu}}">We run on it first<svg class="ic" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<a class="menu-item" href="#safeguards" onClick="{{closeMenu}}">Safeguards<svg class="ic" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<a class="menu-item" href="#funds" onClick="{{closeMenu}}">For funds<svg class="ic" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<div style="padding: 16px; display: flex; flex-direction: column; gap: 8px"><a href="#apply" class="rl-btn rl-btn--solid" onClick="{{pickAClose}}" style="width: 100%; box-sizing: border-box; justify-content: center">Book the free assessment</a><a href="#cost" class="rl-btn rl-btn--outline" onClick="{{closeMenu}}" style="width: 100%; box-sizing: border-box; justify-content: center">Get your turnover cost</a></div>
+</div>
+</sc-if>
+</div>
+</nav>
+</header>
+
+<main id="top">
+
+<section aria-labelledby="hero-h" style="max-width: 1280px; margin: 0 auto; padding: 96px clamp(24px, 5vw, 48px); display: flex; flex-wrap: wrap; align-items: center; gap: 64px">
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 32px; align-items: flex-start">
+<span class="rl-label">Safety and power standard</span>
+<h1 id="hero-h" class="display-xl" style="margin: 0; max-width: 13ch; font-size: clamp(56px, 7.4vw, 96px)"><sc-for list="{{heroWords}}" as="w" hint-placeholder-count="7"><span class="{{w.cls}}" style="--d: {{w.d}}">{{w.t}}</span></sc-for></h1>
+<p class="lede rv" style="margin: 0; max-width: 40rem; color: var(--ink-muted)">{{heroSub}}</p>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 32px">
+<a href="{{heroHref}}" class="rl-btn rl-btn--solid" onClick="{{pickA}}">{{heroCta}}<svg class="" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<a href="#gap" class="rl-btn rl-btn--text">See the gap</a>
+</div>
+</div>
+<figure class="hero-fig" style="flex: 1 1 440px; min-width: 0; margin: 0; position: relative; padding: 48px 0">
+<svg class="rl-dial" viewBox="-80 0 520 360" role="img" aria-label="Sample pillar reading: Power 64, Pay 82, Time 91, Care 76, Accountability 48, Safety 58, overall 70"><line class="t-mid" stroke-width="2" x1="190.5" y1="48.4" x2="189.1" y2="66.4"></line><line class="t-mid" stroke-width="2" x1="199.5" y1="49.4" x2="197.7" y2="61.3"></line><line class="t-mid" stroke-width="2" x1="208.4" y1="51.1" x2="205.8" y2="62.8"></line><line class="t-mid" stroke-width="2" x1="217.1" y1="53.3" x2="213.7" y2="64.8"></line><line class="t-mid" stroke-width="2" x1="225.6" y1="56.1" x2="221.5" y2="67.4"></line><line class="t-mid" stroke-width="2" x1="234.0" y1="59.5" x2="229.1" y2="70.5"></line><line class="t-mid" stroke-width="2" x1="242.1" y1="63.5" x2="236.4" y2="74.1"></line><line class="t-mid" stroke-width="2" x1="249.9" y1="68.0" x2="243.5" y2="78.2"></line><line class="t-mid" stroke-width="2" x1="257.3" y1="73.0" x2="250.3" y2="82.8"></line><line class="t-off" stroke-width="2" x1="264.5" y1="78.6" x2="256.8" y2="87.8"></line><line class="t-off" stroke-width="2" x1="271.2" y1="84.5" x2="262.9" y2="93.2"></line><line class="t-off" stroke-width="2" x1="277.5" y1="91.0" x2="268.6" y2="99.1"></line><line class="t-off" stroke-width="2" x1="283.3" y1="97.8" x2="273.9" y2="105.3"></line><line class="t-off" stroke-width="2" x1="288.7" y1="105.1" x2="273.9" y2="115.3"></line><text class="lbl" text-anchor="start" dominant-baseline="middle" x="255.0" y="50.1">POWER 64</text><line class="t-on" stroke-width="2" x1="299.2" y1="123.3" x2="283.0" y2="131.1"></line><line class="t-on" stroke-width="2" x1="302.8" y1="131.6" x2="291.6" y2="136.0"></line><line class="t-on" stroke-width="2" x1="305.8" y1="140.1" x2="294.4" y2="143.7"></line><line class="t-on" stroke-width="2" x1="308.3" y1="148.8" x2="296.6" y2="151.6"></line><line class="t-on" stroke-width="2" x1="310.1" y1="157.6" x2="298.3" y2="159.6"></line><line class="t-on" stroke-width="2" x1="311.3" y1="166.5" x2="299.4" y2="167.7"></line><line class="t-on" stroke-width="2" x1="311.9" y1="175.5" x2="299.9" y2="175.9"></line><line class="t-on" stroke-width="2" x1="311.9" y1="184.5" x2="299.9" y2="184.1"></line><line class="t-on" stroke-width="2" x1="311.3" y1="193.5" x2="299.4" y2="192.3"></line><line class="t-on" stroke-width="2" x1="310.1" y1="202.4" x2="298.3" y2="200.4"></line><line class="t-on" stroke-width="2" x1="308.3" y1="211.2" x2="296.6" y2="208.4"></line><line class="t-off" stroke-width="2" x1="305.8" y1="219.9" x2="294.4" y2="216.3"></line><line class="t-off" stroke-width="2" x1="302.8" y1="228.4" x2="291.6" y2="224.0"></line><line class="t-off" stroke-width="2" x1="299.2" y1="236.7" x2="283.0" y2="228.9"></line><text class="lbl" text-anchor="start" dominant-baseline="middle" x="330.0" y="180.0">PAY 82</text><line class="t-on" stroke-width="2" x1="288.7" y1="254.9" x2="273.9" y2="244.7"></line><line class="t-on" stroke-width="2" x1="283.3" y1="262.2" x2="273.9" y2="254.7"></line><line class="t-on" stroke-width="2" x1="277.5" y1="269.0" x2="268.6" y2="260.9"></line><line class="t-on" stroke-width="2" x1="271.2" y1="275.5" x2="262.9" y2="266.8"></line><line class="t-on" stroke-width="2" x1="264.5" y1="281.4" x2="256.8" y2="272.2"></line><line class="t-on" stroke-width="2" x1="257.3" y1="287.0" x2="250.3" y2="277.2"></line><line class="t-on" stroke-width="2" x1="249.9" y1="292.0" x2="243.5" y2="281.8"></line><line class="t-on" stroke-width="2" x1="242.1" y1="296.5" x2="236.4" y2="285.9"></line><line class="t-on" stroke-width="2" x1="234.0" y1="300.5" x2="229.1" y2="289.5"></line><line class="t-on" stroke-width="2" x1="225.6" y1="303.9" x2="221.5" y2="292.6"></line><line class="t-on" stroke-width="2" x1="217.1" y1="306.7" x2="213.7" y2="295.2"></line><line class="t-on" stroke-width="2" x1="208.4" y1="308.9" x2="205.8" y2="297.2"></line><line class="t-on" stroke-width="2" x1="199.5" y1="310.6" x2="197.7" y2="298.7"></line><line class="t-off" stroke-width="2" x1="190.5" y1="311.6" x2="189.1" y2="293.6"></line><text class="lbl" text-anchor="start" dominant-baseline="middle" x="255.0" y="309.9">TIME 91</text><line class="t-on" stroke-width="2" x1="169.5" y1="311.6" x2="170.9" y2="293.6"></line><line class="t-on" stroke-width="2" x1="160.5" y1="310.6" x2="162.3" y2="298.7"></line><line class="t-on" stroke-width="2" x1="151.6" y1="308.9" x2="154.2" y2="297.2"></line><line class="t-on" stroke-width="2" x1="142.9" y1="306.7" x2="146.3" y2="295.2"></line><line class="t-on" stroke-width="2" x1="134.4" y1="303.9" x2="138.5" y2="292.6"></line><line class="t-on" stroke-width="2" x1="126.0" y1="300.5" x2="130.9" y2="289.5"></line><line class="t-on" stroke-width="2" x1="117.9" y1="296.5" x2="123.6" y2="285.9"></line><line class="t-on" stroke-width="2" x1="110.1" y1="292.0" x2="116.5" y2="281.8"></line><line class="t-on" stroke-width="2" x1="102.7" y1="287.0" x2="109.7" y2="277.2"></line><line class="t-on" stroke-width="2" x1="95.5" y1="281.4" x2="103.2" y2="272.2"></line><line class="t-on" stroke-width="2" x1="88.8" y1="275.5" x2="97.1" y2="266.8"></line><line class="t-off" stroke-width="2" x1="82.5" y1="269.0" x2="91.4" y2="260.9"></line><line class="t-off" stroke-width="2" x1="76.7" y1="262.2" x2="86.1" y2="254.7"></line><line class="t-off" stroke-width="2" x1="71.3" y1="254.9" x2="86.1" y2="244.7"></line><text class="lbl" text-anchor="end" dominant-baseline="middle" x="105.0" y="309.9">CARE 76</text><line class="t-mid" stroke-width="2" x1="60.8" y1="236.7" x2="77.0" y2="228.9"></line><line class="t-mid" stroke-width="2" x1="57.2" y1="228.4" x2="68.4" y2="224.0"></line><line class="t-mid" stroke-width="2" x1="54.2" y1="219.9" x2="65.6" y2="216.3"></line><line class="t-mid" stroke-width="2" x1="51.7" y1="211.2" x2="63.4" y2="208.4"></line><line class="t-mid" stroke-width="2" x1="49.9" y1="202.4" x2="61.7" y2="200.4"></line><line class="t-mid" stroke-width="2" x1="48.7" y1="193.5" x2="60.6" y2="192.3"></line><line class="t-mid" stroke-width="2" x1="48.1" y1="184.5" x2="60.1" y2="184.1"></line><line class="t-off" stroke-width="2" x1="48.1" y1="175.5" x2="60.1" y2="175.9"></line><line class="t-off" stroke-width="2" x1="48.7" y1="166.5" x2="60.6" y2="167.7"></line><line class="t-off" stroke-width="2" x1="49.9" y1="157.6" x2="61.7" y2="159.6"></line><line class="t-off" stroke-width="2" x1="51.7" y1="148.8" x2="63.4" y2="151.6"></line><line class="t-off" stroke-width="2" x1="54.2" y1="140.1" x2="65.6" y2="143.7"></line><line class="t-off" stroke-width="2" x1="57.2" y1="131.6" x2="68.4" y2="136.0"></line><line class="t-off" stroke-width="2" x1="60.8" y1="123.3" x2="77.0" y2="131.1"></line><text class="lbl" text-anchor="end" dominant-baseline="middle" x="30.0" y="180.0">ACCOUNTABILITY 48</text><line class="t-mid" stroke-width="2" x1="71.3" y1="105.1" x2="86.1" y2="115.3"></line><line class="t-mid" stroke-width="2" x1="76.7" y1="97.8" x2="86.1" y2="105.3"></line><line class="t-mid" stroke-width="2" x1="82.5" y1="91.0" x2="91.4" y2="99.1"></line><line class="t-mid" stroke-width="2" x1="88.8" y1="84.5" x2="97.1" y2="93.2"></line><line class="t-mid" stroke-width="2" x1="95.5" y1="78.6" x2="103.2" y2="87.8"></line><line class="t-mid" stroke-width="2" x1="102.7" y1="73.0" x2="109.7" y2="82.8"></line><line class="t-mid" stroke-width="2" x1="110.1" y1="68.0" x2="116.5" y2="78.2"></line><line class="t-mid" stroke-width="2" x1="117.9" y1="63.5" x2="123.6" y2="74.1"></line><line class="t-off" stroke-width="2" x1="126.0" y1="59.5" x2="130.9" y2="70.5"></line><line class="t-off" stroke-width="2" x1="134.4" y1="56.1" x2="138.5" y2="67.4"></line><line class="t-off" stroke-width="2" x1="142.9" y1="53.3" x2="146.3" y2="64.8"></line><line class="t-off" stroke-width="2" x1="151.6" y1="51.1" x2="154.2" y2="62.8"></line><line class="t-off" stroke-width="2" x1="160.5" y1="49.4" x2="162.3" y2="61.3"></line><line class="t-off" stroke-width="2" x1="169.5" y1="48.4" x2="170.9" y2="66.4"></line><text class="lbl" text-anchor="end" dominant-baseline="middle" x="105.0" y="50.1">SAFETY 58</text><text class="fig" text-anchor="middle" x="180" y="194">70</text><text class="cap" text-anchor="middle" x="180" y="218">SAMPLE / OVERALL</text></svg>
+<div class="float" style="animation-delay: 0s; position: absolute; top: 0; left: 0; background: var(--surface); border: 1px solid var(--stone); padding: 12px 16px; display: flex; flex-direction: column; gap: 4px; max-width: 200px"><span class="rl-label rl-label--bare">Accountability</span><span class="body-s" style="color: var(--ink)">Median report resolved in 41 days</span></div>
+<div class="float" style="animation-delay: -2.4s; position: absolute; top: 24px; right: 0; background: var(--surface); border: 1px solid var(--stone); padding: 12px 16px; display: flex; flex-direction: column; gap: 4px; max-width: 200px"><span class="rl-label rl-label--bare">Pay</span><span class="body-s" style="color: var(--ink)">Spread locked at 3.1x</span></div>
+<div class="float" style="animation-delay: -4.6s; position: absolute; bottom: 0; right: 24px; background: var(--surface); border: 1px solid var(--stone); padding: 12px 16px; display: flex; flex-direction: column; gap: 4px; max-width: 220px"><span class="rl-label rl-label--bare">Time</span><span class="body-s" style="color: var(--ink)">Pilot team on 32 hours, month 4</span></div>
+<figcaption class="rl-label rl-label--bare" style="position: absolute; bottom: 0; left: 0">Sample reading</figcaption>
+</figure>
+</section>
+
+<section aria-labelledby="wait-h" style="border-top: 1px solid var(--stone); background: linear-gradient(90deg, rgba(242,97,87,.08), transparent 55%), var(--ground)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 40px clamp(24px, 5vw, 48px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 48px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h2 id="wait-h" class="rl-label" style="margin: 0">Every month you wait</h2>
+<span aria-live="polite" class="big" style="font-size: clamp(48px, 6vw, 80px); color: #f26157">-{{waitText}}</span>
+<span class="body-s" style="color: var(--ink-muted)">Turnover at a typical 120-person salaried company, about a month at a time.</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 16px; align-items: flex-start; max-width: 26rem">
+<span class="rl-status rl-status--met"><span class="rl-status__dot"></span>{{spotsText}}</span>
+<p class="body" style="margin: 0; color: var(--ink-muted)">Founding companies lock the beta rate for 12 months. The beta opens February 2027.</p>
+<a href="#apply" class="rl-btn rl-btn--solid" onClick="{{pickA}}">Claim a founding spot<svg class="" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+</div>
+</div>
+</section>
+
+<div class="{{tickerCls}}" style="border-top: 1px solid var(--stone); border-bottom: 1px solid var(--stone); background: var(--surface)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 8px clamp(24px, 5vw, 48px); display: flex; align-items: center; gap: 16px">
+<div class="marquee" style="flex: 1; min-width: 0" aria-label="What the standard sets"><ul class="track"><li class="rl-label">Decision rights written down</li><li class="rl-label">Top pay tied to the bottom</li><li class="rl-label">32-hour week</li><li class="rl-label">16 weeks paid leave</li><li class="rl-label">Harm resolved on a deadline</li><li class="rl-label">Safety measured, not assumed</li><li class="rl-label" aria-hidden="true">Decision rights written down</li><li class="rl-label" aria-hidden="true">Top pay tied to the bottom</li><li class="rl-label" aria-hidden="true">32-hour week</li><li class="rl-label" aria-hidden="true">16 weeks paid leave</li><li class="rl-label" aria-hidden="true">Harm resolved on a deadline</li><li class="rl-label" aria-hidden="true">Safety measured, not assumed</li></ul></div>
+<button type="button" class="seg" aria-pressed="{{tickerPaused}}" aria-label="{{tickerLabel}}" onClick="{{toggleTicker}}" style="color: var(--ink); flex: none"><sc-if value="{{tickerPaused}}" hint-placeholder-val="{{false}}"><svg class="ic" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M6 4l14 8-14 8z"></path></svg></sc-if><sc-if value="{{tickerRunning}}" hint-placeholder-val="{{true}}"><svg class="ic" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg></sc-if></button>
+</div>
+</div>
+
+<section id="gap" aria-labelledby="gap-h">
+<div style="max-width: 1280px; margin: 0 auto; padding: 96px clamp(24px, 5vw, 48px); display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 24px">
+<span class="rl-label">The gap</span>
+<h2 id="gap-h" class="display-l rv" style="margin: 0; max-width: 14ch; font-size: clamp(40px, 5vw, 64px)">Who you hire is not who stays.</h2>
+</div>
+<div role="group" aria-label="Compare" style="display: inline-flex; border: 1px solid var(--edge)">
+<button type="button" class="{{usualCls}}" aria-pressed="{{isUsual}}" onClick="{{showUsual}}">The usual way</button>
+<button type="button" class="{{withCls}}" aria-pressed="{{isWith}}" onClick="{{showWith}}">With Rune Lab</button>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 64px">
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div aria-live="polite" style="display: flex; justify-content: space-between; gap: 16px"><span class="rl-label rl-label--bare">120 people hired</span><span class="rl-label rl-label--bare">{{leftLabel}}</span></div>
+<div aria-hidden="true" class="dotgrid" style="display: grid; grid-template-columns: repeat(20, minmax(0, 1fr)); gap: 10px; justify-items: center">
+<sc-for list="{{dots}}" as="d" hint-placeholder-count="120"><span class="{{d.cls}}" style="--i: {{d.i}}"></span></sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px"><span style="display: inline-flex; align-items: center; gap: 8px" class="body-s"><span class="dot dot--stay" style="--i: 0"></span>Stays</span><span style="display: inline-flex; align-items: center; gap: 8px" class="body-s"><span class="dot dot--left" style="--i: 0"></span>Leaves this year</span><sc-if value="{{isWith}}" hint-placeholder-val="{{false}}"><span style="display: inline-flex; align-items: center; gap: 8px" class="body-s swap"><span class="dot dot--saved" style="--i: 0"></span>Stays because of the standard</span></sc-if></div>
+</div>
+<div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 32px">
+<div aria-live="polite" style="display: flex; flex-direction: column; gap: 8px"><span class="rl-label">{{gapFigLabel}}</span><span class="big {{gapFigCls}}" style="color: {{gapFigColor}}">{{gapFigText}}</span><span class="body-s" style="color: var(--ink-muted)">{{gapFigNote}}</span></div>
+<table class="rl-spec rv">
+<caption>Sample company, one year</caption>
+<tbody>
+<tr><th scope="row">Salaried people<span class="rl-spec__note">Average pay $118,000</span></th><td>120</td></tr>
+<tr><th scope="row">People who leave<span class="rl-spec__note">{{leaveNote}}</span></th><td><span class="count" key="{{leavers}}">{{leavers}}</span></td></tr>
+<tr><th scope="row">Cost to replace them<span class="rl-spec__note">21% of salary each, Center for American Progress</span></th><td><span class="count loss">{{gapCost}}</span></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+
+<section id="usual" aria-labelledby="usual-h" style="border-top: 1px solid var(--stone); background: var(--surface)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 96px clamp(24px, 5vw, 48px); display: flex; flex-direction: column; gap: 64px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px"><span class="rl-label">The usual way</span><div role="group" aria-label="Compare" style="display: inline-flex; border: 1px solid var(--edge)"><button type="button" class="{{usualCls}}" aria-pressed="{{isUsual}}" onClick="{{showUsual}}">The usual way</button><button type="button" class="{{withCls}}" aria-pressed="{{isWith}}" onClick="{{showWith}}">With Rune Lab</button></div></div>
+<h2 id="usual-h" aria-live="polite" class="display-l rv" style="margin: 0; max-width: 22ch; font-size: clamp(36px, 4.4vw, 56px)">
+<sc-if value="{{isUsual}}" hint-placeholder-val="{{true}}"><span class="swap"><span class="lit">Someone reports a problem, </span><span class="lit">hears nothing for six weeks, </span><span class="dim">and quietly starts interviewing somewhere else.</span></span></sc-if>
+<sc-if value="{{isWith}}" hint-placeholder-val="{{false}}"><span class="swap"><span class="dim">Someone reports a problem, </span><span class="hl">gets an answer by a set deadline, </span><span class="lit">and stays.</span></span></sc-if>
+</h2>
+<div aria-live="polite" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 16px 32px"><span class="big {{personFigCls}}" style="color: {{personFigColor}}">{{personFigText}}</span><span class="lede" style="color: var(--ink-muted); max-width: 22rem">{{personFigNote}}</span></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 16px">
+<div class="card" style="border: 1px solid var(--stone); background: var(--ground); padding: 32px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="rl-label">Without a standard</span><h3 class="title" style="margin: 0">Same person, a quiet exit</h3></div>
+<ol class="tl" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
+<li style="display: flex; gap: 24px; padding: 12px 0; border-top: 1px solid var(--stone)"><span class="data" style="width: 72px; flex: none; color: var(--ink-muted)">Week 0</span><span class="body-s">Reports a problem to a manager</span></li>
+<li style="display: flex; gap: 24px; padding: 12px 0; border-top: 1px solid var(--stone)"><span class="data" style="width: 72px; flex: none; color: var(--ink-muted)">Week 2</span><span class="body-s">No update</span></li>
+<li style="display: flex; gap: 24px; padding: 12px 0; border-top: 1px solid var(--stone)"><span class="data" style="width: 72px; flex: none; color: var(--ink-muted)">Week 6</span><span class="body-s">Starts interviewing</span></li>
+<li style="display: flex; gap: 24px; padding: 12px 0; border-top: 1px solid var(--stone)"><span class="data" style="width: 72px; flex: none; color: var(--ink-muted)">Week 10</span><span class="body-s">Resigns</span></li>
+<li style="display: flex; gap: 24px; padding: 12px 0; border-top: 1px solid var(--stone)"><span class="data" style="width: 72px; flex: none; color: var(--ink-muted)">Week 11</span><span class="body-s">Replacement search begins, <span class="loss">-$18,900</span> at a $90,000 salary</span></li>
+</ol>
+</div>
+<div class="card" style="border: 1px solid var(--accent); background: var(--raised); padding: 32px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="rl-label rl-label--ink">With Rune Lab</span><h3 class="title" style="margin: 0">Same person, a resolution</h3></div>
+<ol class="tl" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
+<li style="display: flex; gap: 24px; padding: 12px 0; border-top: 1px solid var(--stone)"><span class="data" style="width: 72px; flex: none; color: var(--ink-muted)">Week 0</span><span class="body-s">Report logged with a deadline</span></li>
+<li style="display: flex; gap: 24px; padding: 12px 0; border-top: 1px solid var(--stone)"><span class="data" style="width: 72px; flex: none; color: var(--ink-muted)">Day 3</span><span class="body-s">Acknowledged in writing</span></li>
+<li style="display: flex; gap: 24px; padding: 12px 0; border-top: 1px solid var(--stone)"><span class="data" style="width: 72px; flex: none; color: var(--ink-muted)">Week 3</span><span class="body-s">Resolved within policy</span></li>
+<li style="display: flex; gap: 24px; padding: 12px 0; border-top: 1px solid var(--stone)"><span class="data" style="width: 72px; flex: none; color: var(--ink-muted)">Month 3</span><span class="body-s">Pulse survey: feels safe at work</span></li>
+<li style="display: flex; gap: 24px; padding: 12px 0; border-top: 1px solid var(--stone)"><span class="data" style="width: 72px; flex: none; color: var(--ink-muted)">Month 12</span><span class="body-s">Still here, counted in Accountability</span></li>
+</ol>
+</div>
+</div>
+<span class="body-s" style="color: var(--ink-faint)">An illustration, not a real case.</span>
+</div>
+</section>
+
+<section id="why" aria-labelledby="why-h" style="border-top: 1px solid var(--stone)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 96px clamp(24px, 5vw, 48px); display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 24px">
+<span class="rl-label">Best case</span>
+<h2 id="why-h" class="display-l rv" style="margin: 0; max-width: 18ch; font-size: clamp(40px, 5vw, 64px)">What companies saw when they changed.</h2>
+<p class="lede rv" style="margin: 0; max-width: 40rem; color: var(--ink-muted)">The strongest results companies have reported after adopting the practices in the standard. Best cases, not promises.</p>
+</div>
+<div aria-live="polite" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 16px 32px; padding: 32px; border: 1px solid var(--accent); background: var(--surface)">
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="rl-label">Sample company at the best case</span><span class="big" style="color: {{accent}}">+{{bestText}}</span></div>
+<span class="body" style="color: var(--ink-muted); max-width: 26rem">A year, if turnover at our 120-person sample company fell 57%, the best result reported below. At the 33% seen in randomized trials, it is $166,819.</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px">
+<div class="card rv" style="background: var(--surface); padding: 32px; display: flex; flex-direction: column; gap: 12px"><span class="big" style="font-size: clamp(48px, 5vw, 72px); color: {{accent}}">57%</span><span class="title">Less staff turnover</span><span class="body-s" style="color: var(--ink-muted)">Four-day week pilot, 61 companies. Volunteer companies, no control group.</span></div>
+<div class="card rv" style="background: var(--surface); padding: 32px; display: flex; flex-direction: column; gap: 12px"><span class="big" style="font-size: clamp(48px, 5vw, 72px); color: {{accent}}">54%</span><span class="title">Fewer women quitting</span><span class="body-s" style="color: var(--ink-muted)">Randomized trial of flexible schedules, 1,612 employees. Nature, 2024.</span></div>
+<div class="card rv" style="background: var(--surface); padding: 32px; display: flex; flex-direction: column; gap: 12px"><span class="big" style="font-size: clamp(48px, 5vw, 72px); color: {{accent}}">40%</span><span class="title">Less likely to leave</span><span class="body-s" style="color: var(--ink-muted)">Group-randomized trial of schedule control, nearly three years. Social Problems, 2017.</span></div>
+<div class="card rv" style="background: var(--surface); padding: 32px; display: flex; flex-direction: column; gap: 12px"><span class="big" style="font-size: clamp(48px, 5vw, 72px); color: {{accent}}">89%</span><span class="title">Kept the policy a year later</span><span class="body-s" style="color: var(--ink-muted)">Same four-day week pilot, measured after twelve months.</span></div>
+</div>
+<span class="body-s" style="color: var(--ink-faint)">The 57% and 89% come from companies that volunteered, so they are the ceiling. Our own model uses 33%.</span>
+</div>
+</section>
+
+<section id="standard" aria-labelledby="standard-h" style="border-top: 1px solid var(--stone)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 96px clamp(24px, 5vw, 48px); display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 24px">
+<span class="rl-label">The standard</span>
+<h2 id="standard-h" class="display-l rv" style="margin: 0; font-size: clamp(40px, 5vw, 64px)">Six pillars. One reading.</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px">
+<div class="card rv" style="background: var(--surface); padding: 32px; display: flex; flex-direction: column; gap: 16px"><div style="display: flex; justify-content: space-between; align-items: center"><span class="rl-label">Pillar / 01</span><svg class="ic" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><rect x="16" y="16" width="6" height="6"></rect><rect x="2" y="16" width="6" height="6"></rect><rect x="9" y="2" width="6" height="6"></rect><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path><path d="M12 12V8"></path></svg></div><h3 class="heading" style="margin: 0">Power</h3><p class="body" style="margin: 0; color: var(--ink-muted)">Who holds real decision-making power, and is it written down?</p></div>
+<div class="card rv" style="background: var(--surface); padding: 32px; display: flex; flex-direction: column; gap: 16px"><div style="display: flex; justify-content: space-between; align-items: center"><span class="rl-label">Pillar / 02</span><svg class="ic" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg></div><h3 class="heading" style="margin: 0">Pay</h3><p class="body" style="margin: 0; color: var(--ink-muted)">Is pay set by a formula anyone can read, with no gap?</p></div>
+<div class="card rv" style="background: var(--surface); padding: 32px; display: flex; flex-direction: column; gap: 16px"><div style="display: flex; justify-content: space-between; align-items: center"><span class="rl-label">Pillar / 03</span><svg class="ic" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg></div><h3 class="heading" style="margin: 0">Time</h3><p class="body" style="margin: 0; color: var(--ink-muted)">Can people do full work in sustainable hours?</p></div>
+<div class="card rv" style="background: var(--surface); padding: 32px; display: flex; flex-direction: column; gap: 16px"><div style="display: flex; justify-content: space-between; align-items: center"><span class="rl-label">Pillar / 04</span><svg class="ic" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></div><h3 class="heading" style="margin: 0">Care</h3><p class="body" style="margin: 0; color: var(--ink-muted)">Do leave and caregiving support work for everyone who needs them?</p></div>
+<div class="card rv" style="background: var(--surface); padding: 32px; display: flex; flex-direction: column; gap: 16px"><div style="display: flex; justify-content: space-between; align-items: center"><span class="rl-label">Pillar / 05</span><svg class="ic" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><rect width="8" height="4" x="8" y="2"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="m9 14 2 2 4-4"></path></svg></div><h3 class="heading" style="margin: 0">Accountability</h3><p class="body" style="margin: 0; color: var(--ink-muted)">When harm is reported, is it resolved on time, with consequences?</p></div>
+<div class="card rv" style="background: var(--surface); padding: 32px; display: flex; flex-direction: column; gap: 16px"><div style="display: flex; justify-content: space-between; align-items: center"><span class="rl-label">Pillar / 06</span><svg class="ic" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></div><h3 class="heading" style="margin: 0">Safety</h3><p class="body" style="margin: 0; color: var(--ink-muted)">Do people, women especially, report feeling safe, and do the numbers agree?</p></div>
+</div>
+<p class="body-s" style="margin: 0; max-width: 46rem; color: var(--ink-muted)">Accessibility runs through every pillar, and the platform meets WCAG 2.2 AA. Every mechanism applies to every employee. Certification is independent: whoever helps a company implement never certifies it.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 64px; padding-top: 32px">
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<span class="rl-label">Rollout</span>
+<h3 class="heading" style="margin: 0">Lowest cost first. Pay last.</h3>
+<p class="body" style="margin: 0; color: var(--ink-muted)">You see results from the cheaper pillars before you change pay. Your pay spread locks at today's level on day one, so nothing gets worse while you wait.</p>
+</div>
+<div style="flex: 999 1 520px; min-width: 0">
+<table class="rl-spec rv">
+<caption>When each pillar changes</caption>
+<tbody>
+<tr><th scope="row">Power<span class="rl-spec__note">Written decision rights</span></th><td>Months 0 to 3</td></tr>
+<tr><th scope="row">Pay<span class="rl-spec__note">Floor, spread lock, equal-dollar raises</span></th><td>Months 9 to 18</td></tr>
+<tr><th scope="row">Time<span class="rl-spec__note">32-hour pilot on one or two teams</span></th><td>Months 3 to 9</td></tr>
+<tr><th scope="row">Care<span class="rl-spec__note">Leave policy</span></th><td>Months 3 to 6</td></tr>
+<tr><th scope="row">Accountability<span class="rl-spec__note">Harm resolution measured and timed</span></th><td>Months 0 to 3</td></tr>
+<tr><th scope="row">Safety<span class="rl-spec__note">Pulse survey and outcome measures</span></th><td>From day one</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+
+<section id="inside" aria-labelledby="inside-h" style="border-top: 1px solid var(--stone); background: var(--surface)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 96px clamp(24px, 5vw, 48px); display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 24px">
+<span class="rl-label">Behind the dial</span>
+<h2 id="inside-h" class="display-l rv" style="margin: 0; max-width: 16ch; font-size: clamp(40px, 5vw, 64px)">Your pilot, measured every month.</h2>
+</div>
+<p class="body" style="margin: 0; max-width: 28rem; color: var(--ink-muted)">Pilot teams against the rest of the company, the gates you have passed, and every pillar in one view.</p>
+</div>
+<div style="border: 1px solid var(--edge)">
+<dc-import name="Dashboard" accent="{{accent}}" hint-size="100%,1100px"></dc-import>
+</div>
+<span class="body-s" style="color: var(--ink-faint)">Sample data from a fictional company.</span>
+</div>
+</section>
+
+<section id="how" aria-labelledby="how-h" style="border-top: 1px solid var(--stone)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 96px clamp(24px, 5vw, 48px); display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 24px">
+<span class="rl-label">How it works</span>
+<h2 id="how-h" class="display-l rv" style="margin: 0; font-size: clamp(40px, 5vw, 64px)">Start small. Grow with the results.</h2>
+<p class="lede rv" style="margin: 0; max-width: 40rem; color: var(--ink-muted)">Each step costs little until your own data shows it working. You move on only when the numbers say so.</p>
+</div>
+<ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 16px">
+<li class="card rv" style="border-top: 1px solid var(--edge); padding: 24px 16px 16px; display: flex; flex-direction: column; gap: 12px"><div style="display: flex; justify-content: space-between; align-items: center"><span class="clause" style="color: var(--ink-muted)">01</span><svg class="ic" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></div><h3 class="title" style="margin: 0">Assess</h3><span class="data" style="color: var(--ink)">Free</span><p class="body-s" style="margin: 0; color: var(--ink-muted)">Share 24 months of HR data. See your turnover cost in dollars and where you stand on each pillar.</p></li>
+<li class="card rv" style="border-top: 1px solid var(--edge); padding: 24px 16px 16px; display: flex; flex-direction: column; gap: 12px"><div style="display: flex; justify-content: space-between; align-items: center"><span class="clause" style="color: var(--ink-muted)">02</span><svg class="ic" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg></div><h3 class="title" style="margin: 0">Measure</h3><p class="body-s" style="margin: 0; color: var(--ink-muted)">A baseline, a pulse survey and harm-report tracking, so you can see Power, Accountability and Safety.</p></li>
+<li class="card rv" style="border-top: 1px solid var(--edge); padding: 24px 16px 16px; display: flex; flex-direction: column; gap: 12px"><div style="display: flex; justify-content: space-between; align-items: center"><span class="clause" style="color: var(--ink-muted)">03</span><svg class="ic" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"></path><path d="M8.5 2h7"></path><path d="M7 16h10"></path></svg></div><h3 class="title" style="margin: 0">Pilot</h3><p class="body-s" style="margin: 0; color: var(--ink-muted)">A 32-hour week on one or two teams, measured against the rest of the company. You roll out only if your own results hold up.</p></li>
+<li class="card rv" style="border-top: 1px solid var(--edge); padding: 24px 16px 16px; display: flex; flex-direction: column; gap: 12px"><div style="display: flex; justify-content: space-between; align-items: center"><span class="clause" style="color: var(--ink-muted)">04</span><svg class="ic" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg></div><h3 class="title" style="margin: 0">Roll out</h3><p class="body-s" style="margin: 0; color: var(--ink-muted)">All six pillars, company-wide, once your own results hold up.</p></li>
+<li class="card rv" style="border-top: 1px solid var(--edge); padding: 24px 16px 16px; display: flex; flex-direction: column; gap: 12px"><div style="display: flex; justify-content: space-between; align-items: center"><span class="clause" style="color: var(--ink-muted)">05</span><svg class="ic" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg></div><h3 class="title" style="margin: 0">Certify</h3><span class="data" style="color: var(--ink)">Independent review</span><p class="body-s" style="margin: 0; color: var(--ink-muted)">Reviewed by a separate body, published, and renewed every two years. Each year you see where you stand against peers.</p></li>
+</ol>
+</div>
+</section>
+
+<section id="proof" aria-labelledby="proof-h" style="border-top: 1px solid var(--stone); background: var(--surface)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 96px clamp(24px, 5vw, 48px); display: flex; flex-wrap: wrap; gap: 64px">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<span class="rl-label">The proof</span>
+<h2 id="proof-h" class="display-l rv" style="margin: 0; font-size: clamp(40px, 5vw, 64px)">We run on it first.</h2>
+<p class="lede rv" style="margin: 0; color: var(--ink-muted)">Rune Lab runs on the standard before any customer does. We publish our own numbers, so you see the structure working before you pay for it.</p>
+<p class="body-s" style="margin: 0; color: var(--ink-faint)">Our full scorecard publishes February 2027. While we are under 25 people, we publish practices and trends, not turnover rates, and show headcount next to every number.</p>
+</div>
+<div style="flex: 999 1 520px; min-width: 0">
+<table class="rl-spec rv">
+<caption>How Rune Lab runs</caption>
+<tbody>
+<tr><th scope="row">Workweek</th><td>32 hours, four days</td></tr>
+<tr><th scope="row">Pay spread<span class="rl-spec__note">Top pay to lowest pay. The lock can only tighten.</span></th><td>2.5x at most</td></tr>
+<tr><th scope="row">Pay floor<span class="rl-spec__note">Whichever is higher</span></th><td>75th percentile, or 1.5x local living wage</td></tr>
+<tr><th scope="row">Raises<span class="rl-spec__note">Half split in equal dollars, half by salary</span></th><td>5% of payroll a year</td></tr>
+<tr><th scope="row">Parental leave</th><td>16 weeks, fully paid</td></tr>
+<tr><th scope="row">401(k) match</th><td>6%, day one, no vesting</td></tr>
+<tr><th scope="row">Time off</th><td>4 weeks minimum, taken</td></tr>
+<tr><th scope="row">Pay and policy decisions</th><td>One person, one vote</td></tr>
+<tr><th scope="row">Hours worked, founder included</th><td>Published monthly</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<section id="evidence" aria-labelledby="evidence-h" style="border-top: 1px solid var(--stone)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 96px clamp(24px, 5vw, 48px); display: flex; flex-wrap: wrap; gap: 64px">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<span class="rl-label">Evidence</span>
+<h2 id="evidence-h" class="display-l rv" style="margin: 0; font-size: clamp(40px, 5vw, 64px)">The same output in fewer hours.</h2>
+<p class="lede rv" style="margin: 0; color: var(--ink-muted)">With lower burnout and turnover. Every figure we publish has a primary source.</p>
+<a href="#evidence" class="rl-btn rl-btn--text">Read every source</a>
+</div>
+<div style="flex: 999 1 520px; min-width: 0">
+<table class="rl-spec rv">
+<caption>What the research shows</caption>
+<tbody>
+<tr><th scope="row">Flexible schedules, randomized trial, 1,612 employees<span class="rl-spec__note">Bloom, Han and Liang, Nature, 2024</span></th><td>Quits fell from 7.2% to 4.8%</td></tr>
+<tr><th scope="row">Schedule control, group-randomized trial<span class="rl-spec__note">Moen, Kelly et al., Social Problems, 2017</span></th><td>About 40% less likely to leave</td></tr>
+<tr><th scope="row">Four-day week, 141 organizations vs 12 controls<span class="rl-spec__note">Fan, Schor, Kelly et al., Nature Human Behaviour, 2025</span></th><td>Lower burnout, higher satisfaction</td></tr>
+<tr><th scope="row">Harassment and leaving, longitudinal panel<span class="rl-spec__note">McLaughlin, Uggen and Blackstone, Gender and Society, 2017</span></th><td>6.5x as likely to change jobs</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<section id="safeguards" aria-labelledby="safeguards-h" style="border-top: 1px solid var(--stone)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 96px clamp(24px, 5vw, 48px); display: flex; flex-wrap: wrap; gap: 64px">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; align-items: center; gap: 12px"><span class="rl-label">Safeguards</span><svg class="ic" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><rect width="18" height="11" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
+<h2 id="safeguards-h" class="display-l rv" style="margin: 0; font-size: clamp(40px, 5vw, 64px)">Written down before it's needed.</h2>
+<p class="lede rv" style="margin: 0; color: var(--ink-muted)">A standard is only worth something if it holds when things go wrong. These are the rules that protect it, and where each one stands.</p>
+</div>
+<div style="flex: 999 1 520px; min-width: 0">
+<table class="rl-spec rv">
+<caption>What protects the standard</caption>
+<tbody>
+<tr><th scope="row">Independent certification<span class="rl-spec__note">We never certify a company we helped implement</span></th><td><span class="rl-status rl-status--progress"><span class="rl-status__dot"></span>In progress</span></td></tr>
+<tr><th scope="row">Certificates can be revoked<span class="rl-spec__note">Published triggers, written notice, appeal to a separate panel</span></th><td><span class="rl-status rl-status--progress"><span class="rl-status__dot"></span>In progress</span></td></tr>
+<tr><th scope="row">Cuts start at the top<span class="rl-spec__note">When revenue drops, owner pay and top salaries go first</span></th><td><span class="rl-status rl-status--progress"><span class="rl-status__dot"></span>In progress</span></td></tr>
+<tr><th scope="row">The mission is locked<span class="rl-spec__note">Pay link and employee vote written into our operating agreement</span></th><td><span class="rl-status rl-status--progress"><span class="rl-status__dot"></span>In progress</span></td></tr>
+<tr><th scope="row">No result for groups under 5<span class="rl-spec__note">So no one can be identified by their answers</span></th><td><span class="rl-status rl-status--met"><span class="rl-status__dot"></span>In place</span></td></tr>
+<tr><th scope="row">We never hold names or employee IDs<span class="rl-spec__note">Data is anonymized before it reaches us</span></th><td><span class="rl-status rl-status--met"><span class="rl-status__dot"></span>In place</span></td></tr>
+<tr><th scope="row">Harm details stay with you<span class="rl-spec__note">We measure counts and resolution times, never the stories</span></th><td><span class="rl-status rl-status--met"><span class="rl-status__dot"></span>In place</span></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<section id="cost" aria-labelledby="cost-h" style="border-top: 1px solid var(--stone); background: var(--surface)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 96px clamp(24px, 5vw, 48px); display: flex; flex-wrap: wrap; gap: 64px">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<span class="rl-label">Your numbers</span>
+<h2 id="cost-h" class="display-l rv" style="margin: 0; font-size: clamp(40px, 5vw, 64px)">What did turnover cost you last year?</h2>
+<p class="body" style="margin: 0; color: var(--ink-muted)">Three numbers. The free assessment goes further, with your real data and all six pillars.</p>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="headcount" class="rl-label rl-label--bare">Salaried headcount</label>
+<input id="headcount" type="number" min="1" inputmode="numeric" value="{{headcount}}" onInput="{{setHeadcount}}" style="min-height: 48px; box-sizing: border-box; padding: 0 16px; background: var(--raised); color: var(--ink); border: 1px solid var(--edge); border-radius: 0; font-family: var(--font-mono); font-size: 16px; max-width: 320px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="leavers" class="rl-label rl-label--bare" style="flex-direction: column; align-items: flex-start; gap: 4px">People who chose to leave last year<span style="text-transform: none; letter-spacing: 0; font-family: var(--font-body); font-size: 13px; color: var(--ink-faint)">Count only people who left on their own and whose roles you refilled. Leave out layoffs, firings and retirements.</span></label>
+<input id="leavers" type="number" min="0" inputmode="numeric" value="{{calcLeavers}}" onInput="{{setLeavers}}" style="min-height: 48px; box-sizing: border-box; padding: 0 16px; background: var(--raised); color: var(--ink); border: 1px solid var(--edge); border-radius: 0; font-family: var(--font-mono); font-size: 16px; max-width: 320px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="salary" class="rl-label rl-label--bare">Average salary, in dollars</label>
+<input id="salary" type="number" min="0" step="1000" inputmode="numeric" value="{{salary}}" onInput="{{setSalary}}" style="min-height: 48px; box-sizing: border-box; padding: 0 16px; background: var(--raised); color: var(--ink); border: 1px solid var(--edge); border-radius: 0; font-family: var(--font-mono); font-size: 16px; max-width: 320px">
+</div>
+</div>
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 32px">
+<div aria-live="polite" style="display: flex; flex-direction: column; gap: 8px">
+<span class="rl-label">Estimated replacement cost last year</span>
+<span class="figure loss" style="font-variant-numeric: tabular-nums">{{costLow}}</span>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px"><span class="data" style="color: var(--ink)">Turnover {{rateText}}</span><span class="{{fitCls}}"><span class="rl-status__dot"></span>{{fitWord}}</span></div>
+<span class="body-s" style="color: var(--ink-muted)">{{fitNote}}</span>
+</div>
+<table class="rl-spec rv">
+<caption>How we estimate it</caption>
+<tbody>
+<tr><th scope="row">At 21% replacement cost<span class="rl-spec__note">Typical for roles under $75,000, Center for American Progress. Senior roles cost more.</span></th><td class="loss">{{costLow}}</td></tr>
+<tr><th scope="row">At 50% replacement cost<span class="rl-spec__note">Shown as a check, not our default</span></th><td class="loss">{{costHigh}}</td></tr>
+</tbody>
+</table>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 32px">
+<a href="#apply" class="rl-btn rl-btn--solid" onClick="{{pickA}}">Book the free assessment</a>
+<span class="body-s" style="color: var(--ink-faint)">An estimate of recruiting, onboarding and lost productivity, not cash out the door.</span>
+</div>
+<p class="body-s" style="margin: 0; padding-top: 16px; border-top: 1px solid var(--stone); color: var(--ink-muted)">Founding beta: the first 5 companies lock the beta rate for 12 months. The beta opens February 2027.</p>
+</div>
+</div>
+</section>
+
+<section id="funds" aria-labelledby="funds-h" style="border-top: 1px solid var(--stone)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 96px clamp(24px, 5vw, 48px); display: flex; flex-direction: column; gap: 24px; align-items: flex-start">
+<span class="rl-label">For funds</span>
+<h2 id="funds-h" class="display-l rv" style="margin: 0; max-width: 16ch; font-size: clamp(40px, 5vw, 64px)">One standard across your portfolio.</h2>
+<p class="lede rv" style="margin: 0; max-width: 40rem; color: var(--ink-muted)">Put every portfolio company through the same assessment, follow results in one place, and give your LPs a report they can read. Each company decides what you see.</p>
+<p class="body" style="margin: 0; max-width: 40rem; color: var(--ink-muted)">Start with free assessments for up to five portfolio companies and a one-page summary for your LPs.</p>
+<a href="#apply" class="rl-btn rl-btn--outline" onClick="{{pickF}}">Talk to us about a fund pilot</a>
+</div>
+</section>
+
+<section id="data-partners" aria-labelledby="partners-h" style="border-top: 1px solid var(--stone); background: var(--surface)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 96px clamp(24px, 5vw, 48px); display: flex; flex-wrap: wrap; gap: 64px">
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px; align-items: flex-start">
+<span class="rl-label">Already on four days?</span>
+<h2 id="partners-h" class="display-l rv" style="margin: 0; max-width: 16ch; font-size: clamp(40px, 5vw, 64px)">Your results can prove it for everyone.</h2>
+<p class="lede rv" style="margin: 0; max-width: 40rem; color: var(--ink-muted)">Share an anonymized HR export and we send back your own turnover cost report. Your data joins our published findings, only ever as aggregates.</p>
+<a href="#apply" class="rl-btn rl-btn--outline" onClick="{{pickD}}">Become a data partner</a>
+</div>
+<div style="flex: 1 1 380px; min-width: 0">
+<table class="rl-spec rv">
+<caption>The trade</caption>
+<tbody>
+<tr><th scope="row">You share</th><td>An HR export, no names or IDs</td></tr>
+<tr><th scope="row">You get</th><td>Your turnover cost report</td></tr>
+<tr><th scope="row">We publish</th><td>Aggregates only</td></tr>
+<tr><th scope="row">Your name</th><td>Only with written permission</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<section id="apply" aria-labelledby="apply-h" style="border-top: 1px solid var(--stone)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 96px clamp(24px, 5vw, 48px); display: flex; flex-wrap: wrap; gap: 64px">
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<span class="rl-label">Get started</span>
+<h2 id="apply-h" class="display-l rv" style="margin: 0; font-size: clamp(40px, 5vw, 64px)">{{formTitle}}</h2>
+<p class="lede" style="margin: 0; color: var(--ink-muted)">{{formDesc}}</p>
+<table class="rl-spec">
+<caption>What happens next</caption>
+<tbody>
+<tr><th scope="row">We reply</th><td>Within 2 business days</td></tr>
+<tr><th scope="row">{{nextLabel}}</th><td>{{nextValue}}</td></tr>
+<tr><th scope="row">Cost to you</th><td>{{costValue}}</td></tr>
+</tbody>
+</table>
+<p class="body-s" style="margin: 0; color: var(--ink-faint); display: flex; gap: 8px; align-items: flex-start"><svg class="ic" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><rect width="18" height="11" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Don't include employee names or details of any report here. We never need them.</p>
+</div>
+<div style="flex: 999 1 560px; min-width: 0">
+<sc-if value="{{notSent}}" hint-placeholder-val="{{true}}">
+<form class="form-card" novalidate="" onSubmit="{{submit}}" aria-labelledby="apply-h">
+<fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+<legend class="field-label" style="padding: 0; margin-bottom: 12px">I want to</legend>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button type="button" class="{{segA}}" aria-pressed="{{isA}}" onClick="{{pickA}}"><svg class="ic" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>Book the free assessment</button>
+<button type="button" class="{{segF}}" aria-pressed="{{isF}}" onClick="{{pickF}}"><svg class="ic" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>Start a fund pilot</button>
+<button type="button" class="{{segD}}" aria-pressed="{{isD}}" onClick="{{pickD}}"><svg class="ic" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14a9 3 0 0 0 18 0V5"></path><path d="M3 12a9 3 0 0 0 18 0"></path></svg>Become a data partner</button>
+</div>
+</fieldset>
+<sc-if value="{{showSummary}}" hint-placeholder-val="{{false}}">
+<div class="summary" role="alert"><span class="err">{{summaryText}}</span><span class="field-hint">Fix the fields marked below, then send again.</span></div>
+</sc-if>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 24px">
+<div class="field"><label class="field-label" for="f-name">Your name</label><input class="ctl" id="f-name" name="name" type="text" autocomplete="name" value="{{f.name}}" onInput="{{set_name}}" aria-invalid="{{inv.name}}" aria-describedby="name-err"><sc-if value="{{err.name}}" hint-placeholder-val="{{false}}"><span class="err" id="name-err">{{msg.name}}</span></sc-if></div>
+<div class="field"><label class="field-label" for="f-email">Work email</label><input class="ctl" id="f-email" name="email" type="email" autocomplete="email" value="{{f.email}}" onInput="{{set_email}}" aria-invalid="{{inv.email}}" aria-describedby="email-err"><sc-if value="{{err.email}}" hint-placeholder-val="{{false}}"><span class="err" id="email-err">{{msg.email}}</span></sc-if></div>
+<div class="field"><label class="field-label" for="f-org">{{orgLabel}}</label><input class="ctl" id="f-org" name="org" type="text" autocomplete="organization" value="{{f.org}}" onInput="{{set_org}}" aria-invalid="{{inv.org}}" aria-describedby="org-err"><sc-if value="{{err.org}}" hint-placeholder-val="{{false}}"><span class="err" id="org-err">{{msg.org}}</span></sc-if></div>
+<div class="field"><label class="field-label" for="f-role">Your role</label><input class="ctl" id="f-role" name="role" type="text" autocomplete="organization-title" value="{{f.role}}" onInput="{{set_role}}" aria-invalid="{{inv.role}}" aria-describedby="role-err"><sc-if value="{{err.role}}" hint-placeholder-val="{{false}}"><span class="err" id="role-err">{{msg.role}}</span></sc-if></div>
+</div>
+<sc-if value="{{isA}}" hint-placeholder-val="{{true}}">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 24px">
+<div class="field"><label class="field-label" for="f-size">Salaried headcount</label><select class="ctl" id="f-size" name="size" value="{{f.size}}" onChange="{{set_size}}" aria-invalid="{{inv.size}}" aria-describedby="size-err"><option value="">Choose a range</option><option value="20-50">20 to 50</option><option value="51-100">51 to 100</option><option value="101-250">101 to 250</option><option value="251-500">251 to 500</option><option value="500+">More than 500</option></select><sc-if value="{{err.size}}" hint-placeholder-val="{{false}}"><span class="err" id="size-err">{{msg.size}}</span></sc-if></div>
+<div class="field"><label class="field-label" for="f-turnover">Turnover last year, if you know it</label><span class="field-hint" id="turnover-hint">A percentage is fine, e.g. 15%</span><input class="ctl" id="f-turnover" name="turnover" type="text" inputmode="decimal" value="{{f.turnover}}" onInput="{{set_turnover}}" aria-invalid="{{inv.turnover}}" aria-describedby="turnover-hint turnover-err"><sc-if value="{{err.turnover}}" hint-placeholder-val="{{false}}"><span class="err" id="turnover-err">{{msg.turnover}}</span></sc-if></div>
+</div>
+<div class="field"><label class="field-label" for="f-why">What prompted this?</label><span class="field-hint" id="why-hint">Optional. A sentence is plenty.</span><textarea class="ctl" id="f-why" name="why" aria-describedby="why-hint" value="{{f.why}}" onInput="{{set_why}}"></textarea></div>
+</sc-if>
+<sc-if value="{{isF}}" hint-placeholder-val="{{false}}">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 24px">
+<div class="field"><label class="field-label" for="f-companies">Portfolio companies</label><span class="field-hint" id="companies-hint">Roughly how many you back today</span><input class="ctl" id="f-companies" name="companies" type="text" inputmode="numeric" value="{{f.companies}}" onInput="{{set_companies}}" aria-invalid="{{inv.companies}}" aria-describedby="companies-hint companies-err"><sc-if value="{{err.companies}}" hint-placeholder-val="{{false}}"><span class="err" id="companies-err">{{msg.companies}}</span></sc-if></div>
+<div class="field"><label class="field-label" for="f-start">Companies to start with</label><span class="field-hint" id="start-hint">Up to five get free assessments</span><input class="ctl" id="f-start" name="start" type="text" inputmode="numeric" value="{{f.start}}" onInput="{{set_start}}" aria-invalid="{{inv.start}}" aria-describedby="start-hint start-err"><sc-if value="{{err.start}}" hint-placeholder-val="{{false}}"><span class="err" id="start-err">{{msg.start}}</span></sc-if></div>
+</div>
+<div class="field"><label class="field-label" for="f-why">What do you check on people practices today?</label><span class="field-hint" id="whyf-hint">Optional.</span><textarea class="ctl" id="f-why" name="why" aria-describedby="whyf-hint" value="{{f.why}}" onInput="{{set_why}}"></textarea></div>
+</sc-if>
+<sc-if value="{{isD}}" hint-placeholder-val="{{false}}">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 24px">
+<div class="field"><label class="field-label" for="f-switched">When you moved to a shorter week</label><span class="field-hint" id="switched-hint">Month and year is enough</span><input class="ctl" id="f-switched" name="switched" type="text" value="{{f.switched}}" onInput="{{set_switched}}" aria-invalid="{{inv.switched}}" aria-describedby="switched-hint switched-err"><sc-if value="{{err.switched}}" hint-placeholder-val="{{false}}"><span class="err" id="switched-err">{{msg.switched}}</span></sc-if></div>
+<div class="field"><label class="field-label" for="f-share">Could you share an anonymized export?</label><select class="ctl" id="f-share" name="share" value="{{f.share}}" onChange="{{set_share}}"><option value="yes">Yes</option><option value="maybe">Not sure yet</option><option value="talk">Just want to talk first</option></select></div>
+</div>
+</sc-if>
+<label class="check"><input type="checkbox" checked="{{f.consent}}" onChange="{{set_consent}}" aria-invalid="{{inv.consent}}" aria-describedby="consent-err"><span>Rune Lab may contact me about this request. Nothing else, and never shared. See our <a href="Legal.dc.html">privacy policy</a>.</span></label>
+<sc-if value="{{err.consent}}" hint-placeholder-val="{{false}}"><span class="err" id="consent-err">{{msg.consent}}</span></sc-if>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px"><button type="submit" class="rl-btn rl-btn--solid">{{submitLabel}}<svg class="" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></button><span class="body-s" style="color: var(--ink-faint)">Takes about a minute.</span></div>
+</form>
+</sc-if>
+<sc-if value="{{sent}}" hint-placeholder-val="{{false}}">
+<div class="form-card done" role="status" style="border-color: var(--accent)">
+<span style="display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 9999px; background: var(--accent); color: #0c0c0c"><svg class="" aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M20 6 9 17l-5-5"></path></svg></span>
+<h3 class="heading" style="margin: 0">Thanks, {{firstName}}. We have it.</h3>
+<p class="lede" style="margin: 0; color: var(--ink-muted)">{{doneText}}</p>
+<table class="rl-spec">
+<caption>Your request</caption>
+<tbody>
+<tr><th scope="row">Request</th><td>{{typeName}}</td></tr>
+<tr><th scope="row">{{orgLabel}}</th><td>{{f.org}}</td></tr>
+<tr><th scope="row">Reply to</th><td>{{f.email}}</td></tr>
+</tbody>
+</table>
+<div><button type="button" class="rl-btn rl-btn--outline" onClick="{{reset}}">Send another request</button></div>
+</div>
+</sc-if>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer style="border-top: 1px solid var(--stone)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 48px clamp(24px, 5vw, 48px); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: var(--font-display); font-weight: 500; font-size: 22px; letter-spacing: -0.035em">Rune Lab.</span>
+<span class="body-s" style="color: var(--ink-muted)">Rune Lab LLC, Camp Hill, Pennsylvania</span>
+</div>
+<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: flex-start">
+<a href="#standard" class="nav-link">The standard</a>
+<a href="#evidence" class="nav-link">Evidence</a>
+<a href="#proof" class="nav-link">Our scorecard</a>
+<a href="#safeguards" class="nav-link">Safeguards</a>
+<a href="#apply" class="nav-link">Get started</a>
+</nav>
+<div style="flex-basis: 100%; border-top: 1px solid var(--stone); padding-top: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px">
+<nav aria-label="Legal" style="display: flex; flex-wrap: wrap; gap: 8px 24px">
+<a href="Legal.dc.html" class="nav-link">Privacy policy</a>
+<a href="Legal.dc.html" class="nav-link">Data handling</a>
+<a href="Legal.dc.html" class="nav-link">Terms of use</a>
+<a href="Legal.dc.html" class="nav-link">Accessibility</a>
+</nav>
+<span class="body-s" style="color: var(--ink-faint); align-self: center">© 2026 Rune Lab LLC. All rights reserved. Rune Lab is a trademark of Rune Lab LLC.</span>
+</div>
+<span class="body-s" style="color: var(--ink-faint); flex-basis: 100%">The platform meets WCAG 2.2 AA. Every public figure has a primary source. Estimates on this site are not legal, tax or financial advice.</span>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#9cc5a1","options":["#9cc5a1","#e9a86a","#9db4ff","#f0ece4"]},"hero":{"editor":"enum","default":"competition","options":["competition","loss","money"]},"spotsLeft":{"editor":"int","default":5,"min":0,"max":5},"$preview":{"width":1440,"height":12600}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { headcount: 80, leavers: 10, salary: 90000, view: 'usual', menuOpen: false, tickerPaused: false, gapFig: 0, personFig: 0, bestFig: 0, waitFig: 0, formType: 'assessment', fields: { name: '', email: '', org: '', role: '', size: '', turnover: '', why: '', companies: '', start: '', switched: '', share: 'yes', consent: false }, errors: {}, tried: false, sent: false };
+this.raf = {};
+}
+componentDidMount() { this.go('usual'); this.countTo('bestFig', 288142); this.countTo('waitFig', 42126); }
+componentWillUnmount() { Object.keys(this.raf).forEach((k) => cancelAnimationFrame(this.raf[k])); }
+countTo(key, target) {
+cancelAnimationFrame(this.raf[key]);
+var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reduce) { this.setState({ [key]: target }); return; }
+var from = this.state[key] || 0;
+var start = performance.now();
+var dur = 1400;
+var step = (t) => {
+var p = Math.min(1, (t - start) / dur);
+var e = 1 - Math.pow(1 - p, 3);
+this.setState({ [key]: Math.round(from + (target - from) * e) });
+if (p < 1) { this.raf[key] = requestAnimationFrame(step); }
+};
+this.raf[key] = requestAnimationFrame(step);
+}
+go(view) {
+this.setState({ view: view, gapFig: 0, personFig: 0 });
+this.countTo('gapFig', view === 'usual' ? 505512 : 166819);
+this.countTo('personFig', 18900);
+}
+
+validate(f, t) {
+var e = {};
+if (!String(f.name || '').trim()) { e.name = 'Enter your name'; }
+if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(f.email || '').trim())) { e.email = 'Enter a work email, like name@company.com'; }
+if (!String(f.org || '').trim()) { e.org = t === 'fund' ? 'Enter your fund\'s name' : 'Enter your company\'s name'; }
+if (t === 'assessment' && !f.size) { e.size = 'Choose your headcount range'; }
+if (t === 'fund' && !(Number(f.companies) >= 1)) { e.companies = 'Enter how many companies you back, as a number'; }
+if (t === 'data' && !String(f.switched || '').trim()) { e.switched = 'Tell us roughly when you made the change'; }
+if (!f.consent) { e.consent = 'Tick this so we can reply to you'; }
+return e;
+}
+renderVals() {
+var l = Math.max(0, Number(this.state.leavers) || 0);
+var s = Math.max(0, Number(this.state.salary) || 0);
+var fmt = function (n) { return '$' + Math.round(n).toLocaleString('en-US'); };
+
+var st = this.state;
+var ft = st.formType;
+var fl = st.fields;
+var setF = (k, isCheck) => (e) => { var v = isCheck ? e.target.checked : e.target.value; var nf = Object.assign({}, this.state.fields); nf[k] = v; var upd = { fields: nf }; if (this.state.tried) { upd.errors = this.validate(nf, this.state.formType); } this.setState(upd); };
+var errs = st.errors || {};
+var keys = ['name', 'email', 'org', 'role', 'size', 'turnover', 'companies', 'start', 'switched', 'consent'];
+var err = {}, inv = {}, msg = {};
+keys.forEach(function (k) { err[k] = !!errs[k]; inv[k] = errs[k] ? 'true' : 'false'; msg[k] = errs[k] || ''; });
+var nErr = Object.keys(errs).length;
+var pick = (t) => () => this.setState({ formType: t, errors: this.state.tried ? this.validate(this.state.fields, t) : {}, sent: false });
+var copy = {
+assessment: { title: 'Book the free assessment', desc: 'We send a short checklist and run your turnover cost with you. About three hours of your team\'s time over two weeks.', org: 'Company', nextL: 'Then', nextV: 'Your turnover cost and a reading on each pillar', cost: 'Free', submit: 'Book the assessment', name: 'Free assessment', done: 'We will reply within 2 business days with times for your assessment and a short checklist of what to pull from your HR system.' },
+fund: { title: 'Talk to us about a fund pilot', desc: 'Free assessments for up to five portfolio companies and a one-page summary your LPs can read. Each company decides what you see.', org: 'Fund', nextL: 'Then', nextV: 'A 30-minute call to choose the first companies', cost: 'Free for up to 5 companies', submit: 'Start the conversation', name: 'Fund pilot', done: 'We will reply within 2 business days to set up a 30-minute call about which portfolio companies to start with.' },
+data: { title: 'Become a data partner', desc: 'Share an anonymized HR export and get your own turnover cost report. Aggregates only, and never your name without written permission.', org: 'Company', nextL: 'Then', nextV: 'A data use agreement before anything is shared', cost: 'Free', submit: 'Send', name: 'Data partner', done: 'We will reply within 2 business days with our data use agreement. Nothing is shared until you sign it.' }
+}[ft];
+var formVals = {
+f: fl, err: err, inv: inv, msg: msg,
+set_name: setF('name'), set_email: setF('email'), set_org: setF('org'), set_role: setF('role'), set_size: setF('size'), set_turnover: setF('turnover'), set_why: setF('why'), set_companies: setF('companies'), set_start: setF('start'), set_switched: setF('switched'), set_share: setF('share'), set_consent: setF('consent', true),
+isA: ft === 'assessment', isF: ft === 'fund', isD: ft === 'data',
+segA: ft === 'assessment' ? 'type-seg type-seg--on' : 'type-seg', segF: ft === 'fund' ? 'type-seg type-seg--on' : 'type-seg', segD: ft === 'data' ? 'type-seg type-seg--on' : 'type-seg',
+pickA: pick('assessment'),
+pickAClose: () => this.setState({ formType: 'assessment', menuOpen: false, sent: false }), pickF: pick('fund'), pickD: pick('data'),
+formTitle: copy.title, formDesc: copy.desc, orgLabel: copy.org, nextLabel: copy.nextL, nextValue: copy.nextV, costValue: copy.cost, submitLabel: copy.submit, typeName: copy.name, doneText: copy.done,
+showSummary: st.tried && nErr > 0, summaryText: nErr === 1 ? '1 field needs attention' : nErr + ' fields need attention',
+notSent: !st.sent, sent: st.sent, firstName: (fl.name || '').trim().split(' ')[0] || 'there',
+submit: (e) => { if (e && e.preventDefault) { e.preventDefault(); } var ve = this.validate(this.state.fields, this.state.formType); if (Object.keys(ve).length) { this.setState({ errors: ve, tried: true }); } else { this.setState({ errors: {}, tried: false, sent: true }); } },
+reset: () => this.setState({ sent: false, tried: false, errors: {}, fields: { name: '', email: '', org: '', role: '', size: '', turnover: '', why: '', companies: '', start: '', switched: '', share: 'yes', consent: false } })
+};
+
+var variants = {
+competition: { h: 'Someone will offer your best people a 32-hour week.', sub: 'Over 200 US companies already list a four-day week. Rune Lab gives you the schedule, the pay structure and the proof to keep your people without losing output.', cta: 'Book the free assessment', href: '#apply' },
+loss: { h: 'Your best people are interviewing right now.', sub: 'They leave over who decides, how pay moves and whether anyone acts when they speak up. Rune Lab measures all three, shows you the cost in dollars, and fixes the structure before the next resignation.', cta: 'See what turnover costs you', href: '#cost' },
+money: { h: 'Turnover is your biggest cost without a line item.', sub: 'A 120-person company at 17% turnover spends about $506,000 a year replacing people. We find where yours goes and cut it, with your own data as the proof.', cta: 'Get your turnover cost', href: '#cost' }
+};
+var hv = variants[this.props.hero] || variants.competition;
+var hw = hv.h.split(' ');
+var heroWords = hw.map(function (t, i) { return { t: t, d: i, cls: i === hw.length - 1 ? 'w hl' : 'w' }; });
+var spots = Math.max(0, Math.min(5, Number(this.props.spotsLeft ?? 5)));
+var usual = this.state.view === 'usual';
+var left = usual ? 20 : 14;
+var dots = [];
+for (var i = 0; i < 120; i++) { var c = 'dot dot--stay'; if (i >= 100) { c = usual ? 'dot dot--left' : (i < 106 ? 'dot dot--saved' : 'dot dot--left'); } dots.push({ cls: c, i: i }); }
+return Object.assign(formVals, {
+calcLeavers: this.state.leavers,
+headcount: this.state.headcount,
+setHeadcount: (e) => this.setState({ headcount: e.target.value }),
+rateText: (function () { var h = Number(this.state.headcount) || 0; return h > 0 ? ((l / h) * 100).toFixed(1) + '% of ' + h.toLocaleString('en-US') + ' people' : 'needs a headcount'; }).call(this),
+fitCls: (function () { var h = Number(this.state.headcount) || 0; var r = h > 0 ? l / h * 100 : 0; if (!h || l > h) { return 'rl-status rl-status--failed'; } return r >= 12 ? 'rl-status rl-status--met' : (r >= 8 ? 'rl-status rl-status--progress' : 'rl-status rl-status--open'); }).call(this),
+fitWord: (function () { var h = Number(this.state.headcount) || 0; var r = h > 0 ? l / h * 100 : 0; if (!h) { return 'Add headcount'; } if (l > h) { return 'Check numbers'; } return r >= 12 ? 'Strong fit' : (r >= 8 ? 'Worth a closer look' : 'Low turnover'); }).call(this),
+fitNote: (function () { var h = Number(this.state.headcount) || 0; var r = h > 0 ? l / h * 100 : 0; if (!h) { return 'Add your salaried headcount to see your turnover rate.'; } if (l > h) { return 'More people left than you employ. Check the numbers.'; } return r >= 12 ? 'At 12% or more, lower turnover usually pays for the standard.' : (r >= 8 ? 'Between 8% and 12%, it can pay back. The free assessment shows whether it does for you.' : 'Under 8%, the standard may not pay back on turnover alone.'); }).call(this),
+salary: this.state.salary,
+costLow: '-' + fmt(l * s * 0.21),
+costHigh: '-' + fmt(l * s * 0.5),
+setLeavers: (e) => this.setState({ leavers: e.target.value }),
+setSalary: (e) => this.setState({ salary: e.target.value }),
+isUsual: usual,
+isWith: !usual,
+usualCls: usual ? 'seg seg--on' : 'seg',
+withCls: usual ? 'seg' : 'seg seg--on',
+showUsual: () => this.go('usual'),
+showWith: () => this.go('with'),
+gapFigLabel: usual ? 'Lost to turnover each year' : 'Saved each year with Rune Lab',
+gapFigText: (usual ? '-' : '+') + fmt(this.state.gapFig),
+bestText: fmt(this.state.bestFig),
+waitText: fmt(this.state.waitFig),
+heroWords: heroWords, heroSub: hv.sub, heroCta: hv.cta, heroHref: hv.href,
+spotsText: spots > 0 ? (spots + ' of 5 founding spots open') : 'Founding spots are full',
+gapFigCls: usual ? 'big--loss' : 'big--gain',
+gapFigColor: usual ? '#f26157' : (this.props.accent ?? '#9cc5a1'),
+gapFigNote: usual ? '20 people at 21% of $118,000 each.' : 'Six more people stay. Before the cost of the standard.',
+personFigText: (usual ? '-' : '+') + fmt(this.state.personFig),
+personFigCls: usual ? 'big--loss' : 'big--gain',
+personFigColor: usual ? '#f26157' : (this.props.accent ?? '#9cc5a1'),
+personFigNote: usual ? 'Lost when this one person leaves, at a $90,000 salary.' : 'Kept when this one person stays, at a $90,000 salary.',
+dots: dots,
+leavers: usual ? 'About 20' : 'About 14',
+leftLabel: usual ? '20 leave this year' : '14 leave this year',
+leaveNote: usual ? '17% turnover' : '33% fewer, the effect in randomized trials',
+gapCost: usual ? '-$506,000' : '-$339,000',
+menuOpen: this.state.menuOpen,
+toggleMenu: () => this.setState({ menuOpen: !this.state.menuOpen }),
+closeMenu: () => this.setState({ menuOpen: false }),
+menuKey: (e) => { if (e.key === 'Escape') { this.setState({ menuOpen: false }); } },
+accent: this.props.accent ?? '#9cc5a1',
+tickerPaused: this.state.tickerPaused,
+tickerRunning: !this.state.tickerPaused,
+tickerCls: this.state.tickerPaused ? 'paused' : '',
+tickerLabel: this.state.tickerPaused ? 'Play the ticker' : 'Pause the ticker',
+toggleTicker: () => this.setState({ tickerPaused: !this.state.tickerPaused })
+});
+}
+}
+</script>
+</body>
+</html>

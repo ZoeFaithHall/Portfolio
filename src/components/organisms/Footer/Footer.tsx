@@ -18,12 +18,13 @@ const navLinks: readonly FooterLink[] = [
 ];
 
 const workLinks: readonly FooterLink[] = [
-  { to: 'https://runelab.co',      label: 'rune lab' },
+  { to: 'https://runelabco.vercel.app', label: 'rune lab' },
   { to: 'mailto:zoe@runelab.co',   label: 'consulting' },
   { to: 'https://www.the-creator-book.com/', label: 'the creator' },
 ];
 
 const elsewhereLinks: readonly FooterLink[] = [
+  { to: 'mailto:zoefhall@gmail.com',           label: 'email' },
   { to: 'https://github.com/ZoeFaithHall',     label: 'github' },
   { to: 'https://www.linkedin.com/in/zoefhall', label: 'linkedin' },
 ];
@@ -35,7 +36,7 @@ export const Footer = () => {
   const footerRef = useRef<HTMLElement>(null);
 
   return (
-    <footer ref={footerRef} className={styles.root} data-surface="dark">
+    <footer ref={footerRef} id="contact" className={styles.root} data-surface="dark">
       <div className={styles.top}>
         <Text as="h2" variant="display-2" className={styles.statement}>
           Build infrastructure that makes fires nearly impossible to start.

@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pilot dashboard, sample</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/runelab/tokens.css">
+<link rel="stylesheet" href="ds/runelab/components/bundle.css">
+<script src="ds/runelab/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0c0c0c}
+@font-face{font-family:"Instrument Sans";src:url("ds/runelab/fonts/instrument-sans-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url("ds/runelab/fonts/instrument-sans-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+.rl-root{--accent:#9cc5a1;--met:#9cc5a1;--progress:#e9b872;--open:#9db4ff;--miss:#e08a7c;--compare:#8f9bb8}
+a{color:#f0ece4}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #f0ece4;outline-offset:2px}
+.rl-label::before{background:var(--accent)}
+.ic{flex:none;color:var(--ink-muted);transition:color 180ms,transform 180ms}
+.nav-item{display:flex;align-items:center;gap:12px;width:100%;min-height:44px;padding:0 16px;border:0;background:transparent;color:#a9a399;text-align:left;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:15px;transition:background 180ms,color 180ms}
+.nav-item:hover{background:#1c1a17;color:#f0ece4}
+.nav-item:hover .ic{color:#f0ece4}
+.nav-item--on{background:#1c1a17;color:#f0ece4;box-shadow:inset 3px 0 0 var(--accent)}
+.nav-item--on .ic{color:var(--accent)}
+.seg{min-height:44px;padding:0 14px;border:0;background:transparent;color:#a9a399;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background 180ms,color 180ms}
+.seg:hover{color:#f0ece4}
+.seg--on,.seg--on:hover{background:var(--accent);color:#0c0c0c}
+.card{border:1px solid transparent;transition:transform 180ms cubic-bezier(.16,1,.3,1),border-color 180ms,background 180ms}
+.card:hover{transform:translateY(-2px);border-color:var(--edge);background:var(--raised)}
+.view{animation:view-in 450ms cubic-bezier(.16,1,.3,1) both}
+@keyframes view-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.stat{animation:view-in 600ms cubic-bezier(.16,1,.3,1) both}
+.stat:nth-child(2){animation-delay:70ms}.stat:nth-child(3){animation-delay:140ms}.stat:nth-child(4){animation-delay:210ms}
+.big{font-family:var(--font-display);font-weight:500;font-size:clamp(56px,7vw,96px);line-height:.95;letter-spacing:-.05em;font-variant-numeric:tabular-nums;color:var(--accent)}
+.num{font-family:var(--font-display);font-size:40px;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.good{color:var(--met)}.warn{color:var(--progress)}.bad{color:var(--miss)}
+.col{position:relative;display:flex;gap:4px;align-items:flex-end;height:100%;cursor:default}
+.col .tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translate(-50%,4px);opacity:0;pointer-events:none;white-space:nowrap;background:#f0ece4;color:#0c0c0c;padding:6px 8px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.04em;transition:opacity 180ms,transform 180ms}
+.col:hover .tip,.col--on .tip{opacity:1;transform:translate(-50%,0)}
+.col--dim{opacity:.35}
+.bar{display:block;width:100%;transform-origin:50% 100%;transition:height 600ms cubic-bezier(.16,1,.3,1),background 300ms;animation:bar 900ms cubic-bezier(.16,1,.3,1) both}
+.bar--p{background:var(--accent)}
+.bar--c{background:var(--compare);animation-delay:120ms}
+.bar--met{background:var(--met)}.bar--progress{background:var(--progress)}.bar--miss{background:var(--miss)}
+@keyframes bar{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.fill{display:block;height:100%;transition:width 600ms cubic-bezier(.16,1,.3,1);animation:fill 900ms cubic-bezier(.16,1,.3,1) both;transform-origin:0 50%}
+@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.fill--met{background:var(--met)}.fill--progress{background:var(--progress)}.fill--open{background:var(--open)}
+.tile{display:flex;flex-direction:column;gap:12px;width:100%;padding:16px;border:1px solid var(--stone);background:var(--surface);color:var(--ink);text-align:left;cursor:pointer;transition:border-color 180ms,background 180ms,transform 180ms}
+.tile:hover{border-color:var(--edge);transform:translateY(-2px)}
+.tile--on{border-color:var(--accent);background:var(--raised)}
+.pic{color:var(--ink-muted)}
+.tile:hover .pic{color:var(--ink)}
+.tile--on .pic{color:var(--accent)}
+.pill{display:inline-flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.pill::before{content:"";width:10px;height:10px;border-radius:9999px;flex:none}
+.pill--met{color:var(--met)}.pill--met::before{background:var(--met)}
+.pill--progress{color:var(--progress)}.pill--progress::before{background:linear-gradient(90deg,var(--progress) 50%,transparent 50%);box-shadow:inset 0 0 0 1.5px var(--progress)}
+.pill--open{color:var(--open)}.pill--open::before{box-shadow:inset 0 0 0 1.5px var(--open)}
+.pill--miss{color:var(--miss)}.pill--miss::before{box-shadow:inset 0 0 0 1.5px var(--miss)}
+.range{width:100%;accent-color:var(--accent);min-height:44px;cursor:pointer}
+.marker{position:absolute;top:-6px;bottom:-6px;width:2px;transition:left 600ms cubic-bezier(.16,1,.3,1)}
+.rl-spec tbody tr{transition:background 180ms}
+.rl-spec tbody tr:hover{background:rgba(240,236,228,.04)}
+
+@media (max-width:720px){
+aside{flex-basis:100%!important;border-right:0!important;border-bottom:1px solid var(--stone);padding:12px 0 0!important;gap:8px!important}
+aside nav{flex-direction:row!important;overflow-x:auto;scrollbar-width:none}
+aside .nav-item{width:auto;white-space:nowrap;flex:none}
+.nav-item--on{box-shadow:inset 0 -2px 0 var(--accent)!important}
+aside > div:last-child{display:none!important}
+main{padding:20px 16px!important;gap:24px!important}
+.num{font-size:30px!important}
+.big{font-size:44px!important}
+[style*="gap: 32px"]{gap:20px!important}
+[style*="grid-template-columns: repeat(6"]{gap:8px!important}
+[style*="grid-template-columns: repeat(5"]{gap:10px!important}
+[style*="padding: 24px"]{padding:16px!important}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div class="rl-root" data-theme="dark" style="--font-display: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif; --accent: {{accent}}; --met: {{accent}}; background: var(--ground); color: var(--ink); display: flex; flex-wrap: wrap; min-height: 880px">
+
+<aside style="flex: 1 1 220px; max-width: 100%; box-sizing: border-box; background: var(--surface); border-right: 1px solid var(--stone); padding: 24px 0; display: flex; flex-direction: column; gap: 24px">
+<div style="padding: 0 16px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: var(--font-display); font-weight: 500; font-size: 18px; letter-spacing: -0.03em">Rune Lab.</span>
+<span class="rl-label rl-label--bare">Sample company</span>
+</div>
+<nav aria-label="Dashboard" style="display: flex; flex-direction: column">
+<button type="button" class="{{navPilot}}" aria-current="{{curPilot}}" onClick="{{goPilot}}"><svg class="ic" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"></path><path d="M8.5 2h7"></path><path d="M7 16h10"></path></svg>Pilot</button>
+<button type="button" class="{{navPillars}}" aria-current="{{curPillars}}" onClick="{{goPillars}}"><svg class="ic" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>Pillars</button>
+<button type="button" class="{{navPay}}" aria-current="{{curPay}}" onClick="{{goPay}}"><svg class="ic" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>Pay</button>
+<button type="button" class="{{navReports}}" aria-current="{{curReports}}" onClick="{{goReports}}"><svg class="ic" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Harm reports</button>
+</nav>
+<div style="margin-top: auto; padding: 0 16px; display: flex; flex-direction: column; gap: 8px">
+<span class="rl-label rl-label--bare">Legend</span>
+<span class="pill pill--met">Met</span>
+<span class="pill pill--progress">In progress</span>
+<span class="pill pill--open">Open</span>
+<span class="pill pill--miss">Missed</span>
+</div>
+</aside>
+
+<main style="flex: 999 1 640px; min-width: 0; box-sizing: border-box; padding: 32px clamp(20px, 3vw, 40px); display: flex; flex-direction: column; gap: 32px">
+
+<sc-if value="{{isPilot}}" hint-placeholder-val="{{true}}">
+<div class="view" style="display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="rl-label">Pilot / Month {{month}} of 6</span>
+<h1 class="title" style="margin: 0; font-size: 28px">Platform team vs the rest of the company</h1>
+</div>
+<span class="pill pill--progress">On track</span>
+</div>
+
+<div aria-live="polite" style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 16px 32px; padding: 24px; border: 1px solid var(--accent); background: linear-gradient(135deg, rgba(156,197,161,.10), transparent 60%), var(--surface)">
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="rl-label">Projected savings at full rollout</span><span class="big">{{savedText}}</span></div>
+<span class="body-s" style="color: var(--ink-muted); max-width: 22rem">A year, if the month {{month}} result holds across all 120 people. 21% replacement cost, before the cost of the standard.</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="month" class="rl-label rl-label--bare">Step through the pilot: month {{month}}</label>
+<input id="month" class="range" type="range" min="1" max="4" step="1" value="{{month}}" onInput="{{setMonth}}">
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 16px">
+<div class="card stat" style="background: var(--surface); padding: 20px; display: flex; flex-direction: column; gap: 8px"><span class="rl-label rl-label--bare">Intent to leave</span><span class="num good">{{intentP}}%</span><span class="data" style="color: var(--compare)">Comparison {{intentC}}%</span></div>
+<div class="card stat" style="background: var(--surface); padding: 20px; display: flex; flex-direction: column; gap: 8px"><span class="rl-label rl-label--bare">Burnout, of 5</span><span class="num good">{{burnP}}</span><span class="data" style="color: var(--compare)">Comparison {{burnC}}</span></div>
+<div class="card stat" style="background: var(--surface); padding: 20px; display: flex; flex-direction: column; gap: 8px"><span class="rl-label rl-label--bare">Output vs baseline</span><span class="num {{outCls}}">{{outP}}%</span><span class="data" style="color: var(--compare)">Comparison 100%</span></div>
+<div class="card stat" style="background: var(--surface); padding: 20px; display: flex; flex-direction: column; gap: 8px"><span class="rl-label rl-label--bare">Median report resolved</span><span class="num {{resCls}}">{{resDays}} days</span><span class="data" style="color: var(--compare)">Before the pilot 41</span></div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 32px">
+<section aria-labelledby="trend-h" style="flex: 999 1 420px; min-width: 0; background: var(--surface); padding: 24px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px">
+<h2 id="trend-h" class="title" style="margin: 0; font-size: 18px">{{metricTitle}}</h2>
+<div role="group" aria-label="Metric" style="display: inline-flex; border: 1px solid var(--edge)">
+<button type="button" class="{{burnCls}}" aria-pressed="{{isBurn}}" onClick="{{showBurn}}">Burnout</button>
+<button type="button" class="{{intentCls}}" aria-pressed="{{isIntent}}" onClick="{{showIntent}}">Intent to leave</button>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; align-items: end; height: 200px; border-bottom: 1px solid var(--edge); padding-top: 36px">
+<sc-for list="{{months}}" as="m" hint-placeholder-count="6">
+<div class="{{m.cls}}"><span class="tip">{{m.tip}}</span>
+<div style="flex: 1; display: flex; align-items: flex-end; height: 100%"><span class="bar bar--p" style="height: {{m.p}}"></span></div>
+<div style="flex: 1; display: flex; align-items: flex-end; height: 100%"><span class="bar bar--c" style="height: {{m.c}}"></span></div>
+</div>
+</sc-for>
+</div>
+<div aria-hidden="true" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px">
+<span class="data" style="color: var(--ink-muted)">M1</span><span class="data" style="color: var(--ink-muted)">M2</span><span class="data" style="color: var(--ink-muted)">M3</span><span class="data" style="color: var(--ink-muted)">M4</span><span class="data" style="color: var(--ink-faint)">M5</span><span class="data" style="color: var(--ink-faint)">M6</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<span class="body-s" style="display: inline-flex; align-items: center; gap: 8px"><span aria-hidden="true" style="width: 12px; height: 12px; background: var(--accent)"></span>Pilot team</span>
+<span class="body-s" style="display: inline-flex; align-items: center; gap: 8px"><span aria-hidden="true" style="width: 12px; height: 12px; background: var(--compare)"></span>Comparison</span>
+</div>
+<p class="body-s" aria-live="polite" style="margin: 0; color: var(--ink-muted)">{{metricSummary}}</p>
+</section>
+
+<section aria-labelledby="gates-h" style="flex: 1 1 300px; min-width: 0">
+<table class="rl-spec">
+<caption id="gates-h">Gates to roll out</caption>
+<tbody>
+<sc-for list="{{gates}}" as="g" hint-placeholder-count="5">
+<tr><th scope="row">{{g.name}}<span class="rl-spec__note">{{g.note}}</span></th><td><span class="{{g.cls}}">{{g.word}}</span></td></tr>
+</sc-for>
+</tbody>
+</table>
+</section>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isPillars}}" hint-placeholder-val="{{false}}">
+<div class="view" style="display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="rl-label">Pillars / Month 4</span>
+<h1 class="title" style="margin: 0; font-size: 28px">Where the sample company stands on each pillar</h1>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 16px">
+<sc-for list="{{pillars}}" as="p" hint-placeholder-count="6">
+<button type="button" class="{{p.cls}}" aria-pressed="{{p.on}}" onClick="{{p.pick}}">
+<span style="display: flex; align-items: center; gap: 12px"><sc-if value="{{p.isPower}}" hint-placeholder-val="{{false}}"><svg class="ic pic" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><rect x="16" y="16" width="6" height="6"></rect><rect x="2" y="16" width="6" height="6"></rect><rect x="9" y="2" width="6" height="6"></rect><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path><path d="M12 12V8"></path></svg></sc-if><sc-if value="{{p.isPay}}" hint-placeholder-val="{{false}}"><svg class="ic pic" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg></sc-if><sc-if value="{{p.isTime}}" hint-placeholder-val="{{false}}"><svg class="ic pic" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg></sc-if><sc-if value="{{p.isCare}}" hint-placeholder-val="{{false}}"><svg class="ic pic" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></sc-if><sc-if value="{{p.isAccountability}}" hint-placeholder-val="{{false}}"><svg class="ic pic" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><rect width="8" height="4" x="8" y="2"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="m9 14 2 2 4-4"></path></svg></sc-if><sc-if value="{{p.isSafety}}" hint-placeholder-val="{{false}}"><svg class="ic pic" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></sc-if></span>
+<span style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px"><span class="title" style="font-size: 20px">{{p.name}}</span><span class="num" style="font-size: 32px">{{p.score}}</span></span>
+<span aria-hidden="true" style="display: block; height: 6px; background: var(--track)"><span class="{{p.fill}}" style="width: {{p.width}}"></span></span>
+<span class="{{p.pill}}">{{p.word}}</span>
+</button>
+</sc-for>
+</div>
+<div aria-live="polite" style="border: 1px solid var(--edge); background: var(--surface); padding: 24px; display: flex; flex-wrap: wrap; gap: 32px">
+<div style="flex: 1 1 260px; display: flex; flex-direction: column; gap: 8px"><sc-if value="{{sel.isPower}}" hint-placeholder-val="{{false}}"><svg class="ic pic" aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><rect x="16" y="16" width="6" height="6"></rect><rect x="2" y="16" width="6" height="6"></rect><rect x="9" y="2" width="6" height="6"></rect><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path><path d="M12 12V8"></path></svg></sc-if><sc-if value="{{sel.isPay}}" hint-placeholder-val="{{false}}"><svg class="ic pic" aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg></sc-if><sc-if value="{{sel.isTime}}" hint-placeholder-val="{{false}}"><svg class="ic pic" aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg></sc-if><sc-if value="{{sel.isCare}}" hint-placeholder-val="{{false}}"><svg class="ic pic" aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></sc-if><sc-if value="{{sel.isAccountability}}" hint-placeholder-val="{{false}}"><svg class="ic pic" aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><rect width="8" height="4" x="8" y="2"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="m9 14 2 2 4-4"></path></svg></sc-if><sc-if value="{{sel.isSafety}}" hint-placeholder-val="{{false}}"><svg class="ic pic" aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></sc-if><span class="rl-label">{{sel.name}}</span><span class="title">{{sel.question}}</span><span class="{{sel.pill}}">{{sel.word}}</span></div>
+<div style="flex: 2 1 320px; min-width: 0">
+<table class="rl-spec">
+<caption>What we measure</caption>
+<tbody>
+<tr><th scope="row">Measure</th><td>{{sel.measure}}</td></tr>
+<tr><th scope="row">This month</th><td>{{sel.now}}</td></tr>
+<tr><th scope="row">Next step</th><td>{{sel.next}}</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isPay}}" hint-placeholder-val="{{false}}">
+<div class="view" style="display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="rl-label">Pay / Locked on day one</span>
+<h1 class="title" style="margin: 0; font-size: 28px">The spread can only tighten</h1>
+</div>
+<section aria-labelledby="spread-h" style="background: var(--surface); padding: 24px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px"><h2 id="spread-h" class="title" style="margin: 0; font-size: 18px">Top pay to lowest pay</h2><span class="pill pill--open">Open until month 9</span></div>
+<div style="position: relative; height: 12px; background: linear-gradient(90deg, var(--met) 0%, var(--met) 50%, var(--progress) 50%, var(--progress) 70%, var(--miss) 70%, var(--miss) 100%); opacity: .9" aria-hidden="true">
+<span class="marker" style="left: 70%; background: #f0ece4"></span>
+<span class="marker" style="left: 50%; background: #0c0c0c"></span>
+</div>
+<div style="display: flex; justify-content: space-between" aria-hidden="true"><span class="data" style="color: var(--ink-muted)">1x</span><span class="data" style="color: var(--ink-muted)">2.5x target</span><span class="data" style="color: var(--ink-muted)">4x</span></div>
+<p class="body-s" style="margin: 0; color: var(--ink-muted)">The spread is locked at 3.1x. It can move toward 2.5x, never past 3.1x.</p>
+</section>
+<section aria-labelledby="pool-h" style="display: flex; flex-wrap: wrap; gap: 32px">
+<div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 16px">
+<h2 id="pool-h" class="title" style="margin: 0; font-size: 18px">Raise pool preview</h2>
+<label for="pool" class="rl-label rl-label--bare">Pool size: {{pool}}% of payroll</label>
+<input id="pool" class="range" type="range" min="3" max="6" step="0.5" value="{{pool}}" onInput="{{setPool}}">
+<p class="body-s" style="margin: 0; color: var(--ink-muted)">Half is split in equal dollars, so the lowest paid get the largest raise in percent.</p>
+</div>
+<div style="flex: 2 1 360px; min-width: 0">
+<table class="rl-spec" aria-live="polite">
+<caption>At {{pool}}%, across 120 people</caption>
+<tbody>
+<tr><th scope="row">Total pool</th><td>{{poolTotal}}</td></tr>
+<tr><th scope="row">Equal-dollar share, everyone</th><td class="good">{{poolEqual}}</td></tr>
+<tr><th scope="row">Raise at $64,000<span class="rl-spec__note">Lowest paid role</span></th><td class="good">{{raiseLow}}</td></tr>
+<tr><th scope="row">Raise at $198,000<span class="rl-spec__note">Highest paid role</span></th><td>{{raiseHigh}}</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<table class="rl-spec">
+<caption>Roles below the floor</caption>
+<tbody>
+<tr><th scope="row">Support specialist<span class="rl-spec__note">2 people</span></th><td class="warn">+$7,600 each</td></tr>
+<tr><th scope="row">Operations coordinator<span class="rl-spec__note">2 people</span></th><td class="warn">+$4,100 each</td></tr>
+<tr><th scope="row">Recruiting coordinator<span class="rl-spec__note">1 person</span></th><td class="warn">+$2,900</td></tr>
+<tr><th scope="row">Total floor lift<span class="rl-spec__note">0.2% of payroll</span></th><td>$26,300</td></tr>
+</tbody>
+</table>
+</div>
+</sc-if>
+
+<sc-if value="{{isReports}}" hint-placeholder-val="{{false}}">
+<div class="view" style="display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="rl-label">Harm reports / Counts and times only</span>
+<h1 class="title" style="margin: 0; font-size: 28px">How fast reports get resolved</h1>
+</div>
+<div role="group" aria-label="Deadline" style="display: inline-flex; border: 1px solid var(--edge)">
+<button type="button" class="{{t14}}" aria-pressed="{{p14}}" onClick="{{set14}}">14 days</button>
+<button type="button" class="{{t21}}" aria-pressed="{{p21}}" onClick="{{set21}}">21 days</button>
+<button type="button" class="{{t30}}" aria-pressed="{{p30}}" onClick="{{set30}}">30 days</button>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 16px">
+<div class="card stat" style="background: var(--surface); padding: 20px; display: flex; flex-direction: column; gap: 8px"><span class="rl-label rl-label--bare">Median this month</span><span class="num {{resCls}}">12 days</span><span class="data" style="color: var(--compare)">Before the pilot 41</span></div>
+<div class="card stat" style="background: var(--surface); padding: 20px; display: flex; flex-direction: column; gap: 8px"><span class="rl-label rl-label--bare">On deadline</span><span class="num {{onTimeCls}}">{{onTime}}</span><span class="data" style="color: var(--compare)">Deadline {{deadline}} days</span></div>
+<div class="card stat" style="background: var(--surface); padding: 20px; display: flex; flex-direction: column; gap: 8px"><span class="rl-label rl-label--bare">Open reports</span><span class="num">3</span><span class="data" style="color: var(--compare)">All acknowledged in writing</span></div>
+</div>
+<section aria-labelledby="res-h" style="background: var(--surface); padding: 24px; display: flex; flex-direction: column; gap: 24px">
+<h2 id="res-h" class="title" style="margin: 0; font-size: 18px">Median days to resolve, by month</h2>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; align-items: end; height: 200px; border-bottom: 1px solid var(--edge); padding-top: 36px">
+<sc-for list="{{resBars}}" as="r" hint-placeholder-count="5">
+<div class="col"><span class="tip">{{r.tip}}</span><span class="{{r.cls}}" style="height: {{r.h}}"></span></div>
+</sc-for>
+</div>
+<div aria-hidden="true" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px"><span class="data" style="color: var(--ink-muted)">Before</span><span class="data" style="color: var(--ink-muted)">M1</span><span class="data" style="color: var(--ink-muted)">M2</span><span class="data" style="color: var(--ink-muted)">M3</span><span class="data" style="color: var(--ink-muted)">M4</span></div>
+<p class="body-s" aria-live="polite" style="margin: 0; color: var(--ink-muted)">{{resSummary}}</p>
+</section>
+<p class="body-s" style="margin: 0; color: var(--ink-faint)">Rune Lab never sees what was reported. No result is shown for any group under 5 people.</p>
+</div>
+</sc-if>
+
+<span class="rl-label rl-label--bare">Sample data from a fictional company.</span>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#9cc5a1","options":["#9cc5a1","#e9a86a","#9db4ff","#f0ece4"]},"$preview":{"width":1280,"height":1100}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { view: 'pilot', metric: 'burn', month: 4, saved: 0, pillar: 'Time', pool: 5, deadline: 21 };
+this.raf = 0;
+}
+componentDidMount() { this.countSaved(4); }
+componentWillUnmount() { cancelAnimationFrame(this.raf); }
+countSaved(month) {
+var targets = [0, 41700, 83400, 125100, 166819];
+var target = targets[month];
+cancelAnimationFrame(this.raf);
+var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reduce) { this.setState({ saved: target }); return; }
+var from = this.state.saved || 0;
+var start = performance.now();
+var step = (t) => {
+var p = Math.min(1, (t - start) / 1200);
+var e = 1 - Math.pow(1 - p, 3);
+this.setState({ saved: Math.round(from + (target - from) * e) });
+if (p < 1) { this.raf = requestAnimationFrame(step); }
+};
+this.raf = requestAnimationFrame(step);
+}
+renderVals() {
+var s = this.state;
+var m = Number(s.month);
+var burn = s.metric === 'burn';
+var pB = [3.3, 3.0, 2.7, 2.4], cB = [3.3, 3.3, 3.4, 3.3];
+var pI = [30, 26, 22, 18], cI = [31, 31, 32, 31];
+var out = [100, 99, 100, 101], res = [34, 25, 17, 12];
+var pct = function (v, max) { return Math.round((v / max) * 100) + '%'; };
+var months = [];
+for (var i = 0; i < 6; i++) {
+var base = i + 1 === m ? 'col col--on' : (i < 4 ? 'col' : 'col');
+if (i < 4) {
+months.push({ cls: base, p: burn ? pct(pB[i], 5) : pct(pI[i], 40), c: burn ? pct(cB[i], 5) : pct(cI[i], 40), tip: burn ? ('M' + (i + 1) + '  ' + pB[i] + ' vs ' + cB[i]) : ('M' + (i + 1) + '  ' + pI[i] + '% vs ' + cI[i] + '%') });
+} else {
+months.push({ cls: 'col col--dim', p: '0%', c: '0%', tip: 'M' + (i + 1) + '  not in yet' });
+}
+}
+var nav = function (v) { return s.view === v ? 'nav-item nav-item--on' : 'nav-item'; };
+var cur = function (v) { return s.view === v ? 'page' : 'false'; };
+var go = (v) => () => { this.setState({ view: v }); if (v === 'pilot') { this.countSaved(m); } };
+var burnFalls = m >= 2;
+var gates = [
+{ name: 'Baseline done', note: 'Before month 1', word: 'Met', cls: 'pill pill--met' },
+{ name: 'Pulse response 60% or more', note: (60 + m * 2) + '% this month', word: 'Met', cls: 'pill pill--met' },
+{ name: 'Output holds', note: out[m - 1] + '% of baseline', word: out[m - 1] >= 99 ? 'Met' : 'Missed', cls: out[m - 1] >= 99 ? 'pill pill--met' : 'pill pill--miss' },
+{ name: 'Burnout falls vs comparison', note: 'Confirmed at month 6', word: burnFalls ? 'In progress' : 'Open', cls: burnFalls ? 'pill pill--progress' : 'pill pill--open' },
+{ name: 'Turnover improves', note: 'Measured at month 12', word: 'Open', cls: 'pill pill--open' }
+];
+var P = [
+{ name: 'Power', score: 58, st: 'progress', q: 'Who holds real decision-making power, and is it written down?', measure: 'Decisions with a named owner', now: '61% mapped', next: 'Finish the decision map' },
+{ name: 'Pay', score: 41, st: 'open', q: 'Is pay set by a formula anyone can read, with no gap?', measure: 'Spread, floor, raise split', now: 'Spread locked at 3.1x', next: 'Floor lifts in month 9' },
+{ name: 'Time', score: 74, st: 'progress', q: 'Can people do full work in sustainable hours?', measure: 'Hours and output, pilot vs rest', now: '32 hours, output 101%', next: 'Confirm at month 6' },
+{ name: 'Care', score: 88, st: 'met', q: 'Do leave and caregiving support work for everyone who needs them?', measure: 'Leave policy and use', now: '16 weeks adopted', next: 'Track use quarterly' },
+{ name: 'Accountability', score: 66, st: 'progress', q: 'When harm is reported, is it resolved on time, with consequences?', measure: 'Median days to resolve', now: '12 days', next: 'Hold under 21 days' },
+{ name: 'Safety', score: 61, st: 'progress', q: 'Do people report feeling safe, and do the numbers agree?', measure: 'Pulse survey, groups of 5 or more', now: 'Up 9 points since baseline', next: 'Split results by team' }
+];
+var words = { met: 'Met', progress: 'In progress', open: 'Open' };
+var pillars = P.map((p) => ({ isPower: p.name === 'Power', isPay: p.name === 'Pay', isTime: p.name === 'Time', isCare: p.name === 'Care', isAccountability: p.name === 'Accountability', isSafety: p.name === 'Safety', name: p.name, score: p.score, on: s.pillar === p.name, cls: s.pillar === p.name ? 'tile tile--on' : 'tile', fill: 'fill fill--' + p.st, width: p.score + '%', pill: 'pill pill--' + p.st, word: words[p.st], pick: () => this.setState({ pillar: p.name }) }));
+var sp = P.filter((p) => p.name === s.pillar)[0];
+var sel = { isPower: sp.name === 'Power', isPay: sp.name === 'Pay', isTime: sp.name === 'Time', isCare: sp.name === 'Care', isAccountability: sp.name === 'Accountability', isSafety: sp.name === 'Safety', name: 'Pillar / ' + sp.name, question: sp.q, pill: 'pill pill--' + sp.st, word: words[sp.st], measure: sp.measure, now: sp.now, next: sp.next };
+var payroll = 120 * 118000;
+var pool = Number(s.pool);
+var total = payroll * pool / 100;
+var equal = (total / 2) / 120;
+var bySal = function (sal) { return equal + (total / 2) * (sal / payroll); };
+var money = function (n) { return '$' + Math.round(n).toLocaleString('en-US'); };
+var dl = s.deadline;
+var seg = function (d) { return dl === d ? 'seg seg--on' : 'seg'; };
+var resAll = [41, 34, 25, 17, 12];
+var resBars = resAll.map(function (d, i) { var c = d <= dl ? 'bar bar--met' : (d <= dl * 1.5 ? 'bar bar--progress' : 'bar bar--miss'); return { h: Math.round(d / 45 * 100) + '%', cls: c, tip: (i === 0 ? 'Before' : 'M' + i) + '  ' + d + ' days' }; });
+var onTimeMap = { 14: '71%', 21: '92%', 30: '100%' };
+return {
+accent: this.props.accent ?? '#9cc5a1',
+isPilot: s.view === 'pilot', isPillars: s.view === 'pillars', isPay: s.view === 'pay', isReports: s.view === 'reports',
+navPilot: nav('pilot'), navPillars: nav('pillars'), navPay: nav('pay'), navReports: nav('reports'),
+curPilot: cur('pilot'), curPillars: cur('pillars'), curPay: cur('pay'), curReports: cur('reports'),
+goPilot: go('pilot'), goPillars: go('pillars'), goPay: go('pay'), goReports: go('reports'),
+month: m,
+setMonth: (e) => { var v = Number(e.target.value); this.setState({ month: v }); this.countSaved(v); },
+savedText: money(s.saved),
+intentP: pI[m - 1], intentC: cI[m - 1], burnP: pB[m - 1], burnC: cB[m - 1], outP: out[m - 1], outCls: out[m - 1] >= 100 ? 'good' : 'warn',
+resDays: res[m - 1], resCls: res[m - 1] <= 21 ? 'good' : 'warn',
+isBurn: burn, isIntent: !burn,
+burnCls: burn ? 'seg seg--on' : 'seg', intentCls: burn ? 'seg' : 'seg seg--on',
+showBurn: () => this.setState({ metric: 'burn' }), showIntent: () => this.setState({ metric: 'intent' }),
+months: months,
+metricTitle: burn ? 'Burnout by month, of 5' : 'Intent to leave by month',
+metricSummary: burn ? ('Month ' + m + ': pilot burnout ' + pB[m - 1] + ' against ' + cB[m - 1] + ' for the comparison. Months 5 and 6 are not in yet.') : ('Month ' + m + ': ' + pI[m - 1] + '% of the pilot team intend to leave, against ' + cI[m - 1] + '% for the comparison.'),
+gates: gates,
+pillars: pillars, sel: sel,
+pool: pool, setPool: (e) => this.setState({ pool: Number(e.target.value) }),
+poolTotal: money(total), poolEqual: money(equal),
+raiseLow: money(bySal(64000)) + ' (' + (bySal(64000) / 64000 * 100).toFixed(1) + '%)',
+raiseHigh: money(bySal(198000)) + ' (' + (bySal(198000) / 198000 * 100).toFixed(1) + '%)',
+deadline: dl, t14: seg(14), t21: seg(21), t30: seg(30), p14: dl === 14, p21: dl === 21, p30: dl === 30,
+set14: () => this.setState({ deadline: 14 }), set21: () => this.setState({ deadline: 21 }), set30: () => this.setState({ deadline: 30 }),
+resBars: resBars, onTime: onTimeMap[dl], onTimeCls: dl >= 21 ? 'good' : 'warn',
+resSummary: (function () { var n = resAll.filter(function (d) { return d <= dl; }).length; return 'With a ' + dl + '-day deadline, ' + n + ' of 5 months ' + (n === 1 ? 'was' : 'were') + ' on target. Median fell from 41 days to 12.'; })()
+};
+}
+}
+</script>
+</body>
+</html>

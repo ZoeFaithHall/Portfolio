@@ -27,6 +27,7 @@ export const caseStudies: readonly CaseStudy[] = [
       { title: 'What is next',      caption: 'In validation now. Beta opens February 2027. I run the company on the same structure it sells: a pay link and employee voting.',
         media: { video: '/videos/card-rl-next.mp4', poster: '/videos/card-rl-next.jpg', alt: 'Timeline from in validation to beta in February 2027, with a pay link and employee voting' } },
     ],
+    link: { href: 'https://runelabco.vercel.app', label: 'Rune Lab' },
     logo: { src: '/logos/clientlogos/rune-lab.png', alt: 'Rune Lab' },
     heroImage: '/images/casestudy/rune-lab.jpg',
     theme: {

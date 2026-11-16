@@ -20,7 +20,6 @@ export default defineConfig({
       scss: {
         additionalData: `@use "styles/abstracts" as *;\n`,
         loadPaths: [path.resolve(import.meta.dirname, './src')],
-        api: 'modern-compiler',
       },
     },
   },

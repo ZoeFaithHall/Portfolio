@@ -2,9 +2,9 @@ import { cn } from '@utils/cn';
 import styles from './ClientLogo.module.scss';
 
 export type ClientSlug =
-  | 'assa-abloy' | 'axis-lighting'
+  | 'assa-abloy' | 'avantor' | 'axis-lighting'
   | 'copa' | 'curion' | 'danfoss' | 'dodge' | 'ecore'
-  | 'fleetio' | 'godfrey' | 'jeep'
+  | 'fleetio' | 'geotab' | 'godfrey' | 'jeep'
   | 'jlg' | 'johnson-controls' | 'josh-shapiro' | 'mercedes-benz'
   | 'nissan' | 'prysm-health' | 'rune-lab' | 'samsara' | 'stealthx' | 'tech-ladies'
   | 'tyler-technologies' | 'verizon';
@@ -13,6 +13,7 @@ type LogoMeta = { file: string; alt: string };
 
 export const CLIENT_LOGOS: Record<ClientSlug, LogoMeta> = {
   'assa-abloy': { file: 'assa-abloy.png', alt: 'Assa Abloy' },
+  'avantor': { file: 'avantor.png', alt: 'Avantor' },
   'axis-lighting': { file: 'axis-lighting.png', alt: 'Axis Lighting' },
   'copa': { file: 'copa.png', alt: 'CoPA' },
   'curion': { file: 'curion.png', alt: 'Curion' },
@@ -20,6 +21,7 @@ export const CLIENT_LOGOS: Record<ClientSlug, LogoMeta> = {
   'dodge': { file: 'dodge.png', alt: 'Dodge' },
   'ecore': { file: 'ecore.png', alt: 'Ecore' },
   'fleetio': { file: 'fleetio.png', alt: 'Fleetio' },
+  'geotab': { file: 'geotab.png', alt: 'Geotab' },
   'godfrey': { file: 'godfrey.png', alt: 'Godfrey' },
   'jeep': { file: 'jeep.png', alt: 'Jeep' },
   'jlg': { file: 'jlg.png', alt: 'JLG' },

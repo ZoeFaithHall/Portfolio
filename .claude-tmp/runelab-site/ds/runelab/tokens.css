@@ -1,0 +1,181 @@
+/* Rune Lab — generated from tokens.json */
+:root, [data-theme="dark"] {
+  --ground: #0c0c0c; /* Page background. The brand's default surface. Dark is primary; light is for reports, print and the published standard. */
+  --surface: #141210; /* First raised layer: panels, table bands, the product sidebar. */
+  --raised: #1c1a17; /* Second raised layer: hover rows, popovers, input fills. Never a third layer on top of this. */
+  --stone: #2c2926; /* Hairline dividers and the column grid. Decorative only: never the sole boundary of a control. */
+  --ink: #f0ece4; /* Primary text and data on ground, surface and raised (13:1 or better in both themes). Also the solid button fill and the filled data mark. */
+  --ink-muted: #a9a399; /* Secondary text: ledes, captions, table labels, mono eyebrows. 5.3:1 or better on ground, surface and raised. */
+  --ink-faint: #7d776e; /* Metadata at 24px or larger, disabled controls, tick marks. 3.6:1 or better: never small body copy. */
+  --on-ink: var(--ground); /* Text and icons placed on an ink fill (solid buttons, selected chips, inverted bands). */
+  --data-mid: #8f887d; /* The partial data mark: pillars in progress, the second series in a comparison. 3.6:1 or better against track. */
+  --track: #2c2926; /* Unfilled ticks, empty bars and gauge tracks. Ink and data-mid both hold 3:1 or better on it. */
+  --alert: #e08a7c; /* Failed checks and form errors only, always paired with a word. Never decoration, never a pillar color. 5:1 or better on ground, surface and raised. */
+  --focus: var(--ink); /* Focus ring: 2px solid, 2px offset, on every interactive element. 13:1 or better on every surface. */
+}
+[data-theme="light"] {
+  --ground: #f0ece4;
+  --surface: #e7e1d5;
+  --raised: #ded7c9;
+  --stone: #cbc3b4;
+  --ink: #141210;
+  --ink-muted: #59534b;
+  --ink-faint: #736c61;
+  --on-ink: var(--ground);
+  --data-mid: #6e675d;
+  --track: #d8d1c3;
+  --alert: #9b3226;
+  --focus: var(--ink);
+}
+:root {
+  --space-1: 4px; /* Icon to label, dot to text. */
+  --space-2: 8px; /* Inside chips and status marks. */
+  --space-3: 12px; /* Spec-table row padding. */
+  --space-4: 16px; /* Grid gutter (12 columns, 16px gap) and card padding. */
+  --space-5: 24px; /* Between a label and its content block. */
+  --space-6: 32px; /* Between components in a section. */
+  --space-7: 48px; /* Section padding on mobile. */
+  --space-8: 96px; /* Section padding on desktop. Space is the luxury: do not compress it. */
+  --radius-0: 0px; /* Default for everything: buttons, inputs, cards, tables. The system is square. */
+  --radius-2: 2px; /* Small interactive chips only. */
+  --radius-round: 9999px; /* Status dots and the eyebrow dot. Never a container. */
+  --stroke-hair: 1px; /* Rules, grid lines, table dividers, icon strokes at 16px. */
+  --stroke-mark: 1.5px; /* Icons at 20px and up, dial ticks, outline Dagaz in the seal. */
+  --stroke-focus: 2px; /* Focus ring width; offset is also 2px. */
+  --duration-fast: 180ms; /* Hover and press states. */
+  --duration-base: 450ms; /* Panels, reveals, dial fills. Easing cubic-bezier(0.16, 1, 0.3, 1). */
+  --duration-slow: 900ms; /* One orchestrated moment per page at most: the hero line or the score reading in. */
+  --font-display: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --text-display-xl: 400 104px/0.9 var(--font-display); /* One per page: the website hero, report covers. Sentence case. */
+  --text-display-l: 400 64px/0.95 var(--font-display); /* Section openers and slide titles. */
+  --text-heading: 500 36px/1.05 var(--font-display); /* Pillar names, report section headings. */
+  --text-title: 500 22px/1.2 var(--font-display); /* Card titles, table captions, dialog titles. */
+  --text-figure: 400 72px/1 var(--font-display); /* A single score or measured figure. Tabular numerals. */
+  --text-lede: 300 21px/1.5 var(--font-body); /* The paragraph under a display line. One per section. */
+  --text-body: 300 17px/1.6 var(--font-body); /* Running text. Weight 300 only at 16px and above. */
+  --text-body-s: 400 15px/1.55 var(--font-body); /* Dense product text and table cells. Weight 400 below 16px, never 300. */
+  --text-label: 400 12px/1.4 var(--font-mono); /* Eyebrows, spec-table labels, clause numbers. Uppercase. Slash separates levels. */
+  --text-data: 400 13px/1.5 var(--font-mono); /* Values in spec tables and charts. Tabular numerals. */
+  --text-clause: 500 14px/1.6 var(--font-mono); /* Clause and criterion numbers in the published standard. */
+}
+.display-xl {
+  font-family: var(--font-display);
+  font-size: 104px;
+  line-height: 0.9;
+  font-weight: 400;
+  letter-spacing: -0.055em;
+}
+.display-l {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 0.95;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+}
+.heading {
+  font-family: var(--font-display);
+  font-size: 36px;
+  line-height: 1.05;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+.title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.figure {
+  font-family: var(--font-display);
+  font-size: 72px;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+}
+.lede {
+  font-family: var(--font-body);
+  font-size: 21px;
+  line-height: 1.5;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+.body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+.body-s {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+.data {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+.clause {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("fonts/hanken-grotesk-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("fonts/hanken-grotesk-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("fonts/dm-sans-latin-300-normal.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("fonts/dm-sans-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
