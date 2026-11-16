@@ -1,5 +1,6 @@
 import { CaseDetail, caseBannerLabel } from '@/components/organisms/CaseDetail';
 import { WipeChapter } from '@/components/organisms/WipeChapter';
+import { Dagaz } from '@/components/atoms/Dagaz';
 import { caseStudies } from '@/data/casestudies';
 import { themeVars } from '@/utils/themeVars';
 import styles from './CaseStudies.module.scss';
@@ -21,6 +22,7 @@ export function CaseStudies() {
           id={i === 0 ? 'case-studies' : study.slug}
           index={FIRST_INDEX + i}
           label={caseBannerLabel(i + 1, total, study.client)}
+          marker={<Dagaz />}
           ariaLabel={`${study.client} case study`}
           className={styles.chapter}
           style={themeVars(study.theme)}

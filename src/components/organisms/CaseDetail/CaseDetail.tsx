@@ -3,6 +3,7 @@ import { IntroGrid } from '@/components/molecules/IntroGrid';
 import { TagList } from '@/components/molecules/TagList';
 import { MetaBlock } from '@/components/molecules/MetaBlock';
 import { Link } from '@/components/atoms/Link';
+import { Dagaz } from '@/components/atoms/Dagaz';
 import { PinnedHero } from '@/components/organisms/PinnedHero';
 import { CaseStudyCarousel } from '@/components/organisms/CaseStudyCarousel';
 import type { CaseStudy } from '@/types';
@@ -36,6 +37,9 @@ export function CaseDetail({ study, index, total }: CaseDetailProps) {
         statement={study.statement}
         statementId={`${study.slug}-heading`}
         statementColor="var(--case-text)"
+        eyebrow={`Case study / ${study.client}`}
+        eyebrowIcon={<Dagaz />}
+        className={styles.intro}
         rail={
           <>
             {study.logo && (

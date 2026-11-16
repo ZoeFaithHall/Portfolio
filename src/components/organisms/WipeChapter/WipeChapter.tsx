@@ -8,6 +8,8 @@ export type WipeChapterProps = {
   id?: string;
   /** Banner content. The banner is the wipe edge, then sticks at the top. */
   label: ReactNode;
+  /** Replaces the default red square before the label (e.g. the Dagaz). */
+  marker?: ReactNode;
   /** Stacking order. Each chapter sits above the one before it. */
   index: number;
   /** Wipe in over the previous block's held last screen. */
@@ -37,6 +39,7 @@ export type WipeChapterProps = {
 export function WipeChapter({
   id,
   label,
+  marker,
   index,
   wipeIn = true,
   holdForNext = true,
@@ -82,7 +85,7 @@ export function WipeChapter({
       style={{ zIndex: index, ...style }}
     >
       <div className={styles.banner} data-surface="dark">
-        <span className={styles.marker} aria-hidden />
+        {marker ?? <span className={styles.marker} aria-hidden />}
         <span className={styles.label}>{label}</span>
       </div>
       <motion.div style={wipe ? { y } : undefined}>

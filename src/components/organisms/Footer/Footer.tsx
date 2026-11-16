@@ -38,7 +38,7 @@ export const Footer = () => {
   return (
     <footer ref={footerRef} id="contact" className={styles.root} data-surface="dark">
       <div className={styles.top}>
-        <Text as="h2" variant="display-2" className={styles.statement}>
+        <Text as="h2" variant="display-2" className={styles.statement} data-reveal>
           Build infrastructure that makes fires nearly impossible to start.
         </Text>
 

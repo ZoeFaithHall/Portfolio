@@ -1,0 +1,10 @@
+@use '../../../styles/abstracts' as *;
+
+// Red as a highlight: the mark only.
+.root {
+  display: inline-block;
+  flex: none;
+  width: 14px;
+  height: 12.5px;
+  color: $color-accent-hover;
+}

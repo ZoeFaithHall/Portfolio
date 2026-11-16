@@ -90,3 +90,20 @@
     color: $color-bg;
   }
 }
+// Rune Lab hero: each word rises in on load.
+.word {
+  display: inline-block;
+  white-space: pre;
+  animation: word-rise 900ms $ease-out both;
+}
+
+.cta {
+  transition:
+    background $duration-fast $ease-out,
+    color $duration-fast $ease-out,
+    transform 120ms $ease-out;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}

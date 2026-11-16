@@ -13,6 +13,8 @@ import styles from './Hero.module.scss';
  *               last 100vh), starting while the tagline is still leaving,
  *               so there is no empty screen between them
  */
+const TAGLINE = 'Revenue was at 67% of target. Two quarters later, 134%.';
+
 export const Hero = () => {
   const ref = useRef<HTMLElement>(null);
   const motionOk = !useReducedMotion();
@@ -34,7 +36,11 @@ export const Hero = () => {
           <h1 className={styles.heading}>
             <span className="sr-only">Zoë Hall. </span>
             <Text as="span" variant="display-2" className={styles.tagline}>
-              Revenue was at 67% of target. Two quarters later, 134%.
+              {TAGLINE.split(' ').map((w, i) => (
+                <span key={i} className={styles.word} style={{ animationDelay: `${300 + i * 60}ms` }}>
+                  {w}{' '}
+                </span>
+              ))}
             </Text>
           </h1>
           <Link to="#case-studies" className={styles.cta}>

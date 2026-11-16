@@ -8,7 +8,7 @@ import styles from './TechStack.module.scss';
 export const TechStack = () => (
   <WipeChapter id="tech-stack" index={8} label="Tech stack" holdForNext={false} ariaLabel="Tech stack">
     <div className={styles.inner}>
-      <div className={styles.intro}>
+      <div className={styles.intro} data-reveal>
         <Text as="h2" variant="display-2" className={styles.heading}>
           The tools I reach for.
         </Text>
@@ -17,8 +17,8 @@ export const TechStack = () => (
         </Text>
       </div>
       <dl className={styles.groups}>
-        {techStack.map((g) => (
-          <div key={g.label} className={styles.group}>
+        {techStack.map((g, i) => (
+          <div key={g.label} className={styles.group} data-reveal style={{ ['--reveal-i' as string]: i }}>
             <dt className={styles.label}>{g.label}</dt>
             <dd className={styles.items}>
               <TagList items={g.items} ariaLabel={g.label} />

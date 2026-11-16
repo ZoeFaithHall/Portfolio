@@ -69,3 +69,27 @@
     outline-offset: 2px;
   }
 }
+
+// Hover: the visual lifts and its edge sharpens (Rune Lab card behavior).
+.cardImage {
+  transition:
+    transform 180ms $ease-out,
+    box-shadow 180ms $ease-out;
+}
+
+.card:hover .cardImage {
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 1px var(--case-accent), $shadow-md;
+}
+
+.card:hover .cardTitle {
+  color: var(--case-accent);
+}
+
+.cardTitle {
+  transition: color 180ms $ease-out;
+}
+
+.controlButton:active:not(:disabled) {
+  transform: scale(0.94);
+}

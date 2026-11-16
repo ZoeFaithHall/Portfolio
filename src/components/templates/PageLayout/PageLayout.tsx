@@ -8,6 +8,7 @@ import { Outro } from '@/components/sections/Outro';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { TechStack } from '@/components/sections/TechStack';
 import { useLenis } from '@/hooks/useLenis';
+import { useReveal } from '@/hooks/useReveal';
 import styles from './PageLayout.module.scss';
 
 /**
@@ -20,6 +21,7 @@ import styles from './PageLayout.module.scss';
  */
 export const PageLayout = () => {
   useLenis();
+  useReveal();
 
   return (
     <div className={styles.root}>

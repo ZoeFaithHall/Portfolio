@@ -1,7 +1,5 @@
 @use "../../../styles/abstracts" as *;
 
-
-
 .grid {
   @include container($container-2xl);
   display: flex;
@@ -9,30 +7,65 @@
   // Padding, not margin: a margin collapses through the parent, so the
   // section's background started right at the first line of text.
   padding-block: $space-16;
-  @include stack($space-6);
+  gap: $space-12;
 
   @include breakpoint(lg) {
     flex-direction: row;
+    justify-content: space-between;
+    gap: $space-24;
   }
+}
 
+.lead {
+  @include stack($space-6);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+// Mono line above the statement; red only on its marker.
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  margin: 0;
+  font-family: $font-mono;
+  font-size: $text-xs;
+  letter-spacing: $tracking-wide;
+  text-transform: uppercase;
+  color: inherit;
+  opacity: 0.75;
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: $color-accent-hover;
+  }
+}
+
+.eyebrowCustom::before {
+  display: none;
+}
 
 .statement {
-  display: flex;
-  @include fluid-type(2rem, 5rem);
-  font-weight: $font-weight-black;
   margin: 0;
   font-weight: 400;
-  font-size: clamp(2rem, 5.5vw, 5rem);
-  line-height: 0.9;
-  letter-spacing: -0.025em;
+  // Large but not crowded: open leading so descenders clear the next line,
+  // balanced wrapping so no line ends on a single word.
+  font-size: clamp(2.25rem, 4.4vw, 4.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
   color: #2B2D42;
-  max-width: 22ch;
+  max-width: 18ch;
+  text-wrap: balance;
   white-space: pre-line;
-
 }
 
 .rail {
   @include stack($space-6);
-}
+  flex: 0 0 auto;
 
+  @include breakpoint(lg) {
+    width: min(40%, 34rem);
+  }
 }

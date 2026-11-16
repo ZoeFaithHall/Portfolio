@@ -1,5 +1,35 @@
-// Case chapters take their colors from the study's theme vars.
+// Case chapters take their colors from the study's theme vars, and their
+// type from the Rune Lab site: Hanken Grotesk display, DM Sans body,
+// IBM Plex Mono labels.
+$rl-display: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+$rl-body: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+$rl-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+
 .chapter {
   --chapter-bg: var(--case-bg);
   --chapter-text: var(--case-text);
+  font-family: $rl-body;
+
+  // Titles, card headings, pinned statements, the big client name.
+  :global(h2),
+  :global(h3),
+  :global(h4),
+  :global([class*="_client_"]) {
+    font-family: $rl-display;
+    letter-spacing: -0.035em;
+  }
+
+  // Labels: banner, eyebrow, counters, meta labels, tags.
+  :global([class*="variant--mono"]),
+  :global([class*="variant--caption"]),
+  :global([class*="eyebrow"]),
+  :global([class*="label"]),
+  :global(dt) {
+    font-family: $rl-mono;
+  }
+
+  :global([class*="variant--body"]) {
+    font-family: $rl-body;
+    font-weight: 300;
+  }
 }

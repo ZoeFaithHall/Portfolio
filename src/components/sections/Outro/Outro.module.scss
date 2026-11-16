@@ -50,3 +50,23 @@
   letter-spacing: -0.03em;
   margin: 0;
 }
+
+// Hover lift lives on ::before so it never fights the reveal transition.
+.numbersCell {
+  position: relative;
+  font-variant-numeric: tabular-nums;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    border: 1px solid transparent;
+    transition: border-color 180ms $ease-out;
+    pointer-events: none;
+  }
+
+  &:hover::before {
+    border-color: $color-accent-hover;
+  }
+}

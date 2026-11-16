@@ -44,7 +44,7 @@ export function CaseStudyCarousel({ id, heading, items }: CaseStudyCarouselProps
       </Text>
       <div className={styles.track} ref={trackRef}>
         {items.map((item, i) => (
-          <article key={i} className={styles.card}>
+          <article key={i} className={styles.card} data-reveal style={{ ['--reveal-i' as string]: Math.min(i, 3) }}>
             <CardMedia media={item.media} className={styles.cardImage} />
             <div className={styles.cardCopy}>
               <Text as="h4" variant="heading-3" className={styles.cardTitle}>

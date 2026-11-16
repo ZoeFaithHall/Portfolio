@@ -1,0 +1,41 @@
+// Motion system, ported from the Rune Lab site: one easing, short hovers,
+// content that rises into place once, and nothing at all under reduced motion.
+@use '../abstracts' as *;
+
+// Scroll reveal. useReveal() adds .is-in when an element enters the viewport.
+// --reveal-i staggers siblings (cards, cells) by 70ms each.
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 700ms $ease-out,
+    transform 700ms $ease-out;
+  transition-delay: calc(var(--reveal-i, 0) * 70ms);
+}
+
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+// Hero words rise one after another on load.
+@keyframes word-rise {
+  from { opacity: 0; transform: translateY(0.35em); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}

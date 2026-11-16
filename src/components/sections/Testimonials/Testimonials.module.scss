@@ -26,12 +26,26 @@
   @include breakpoint(xl) { grid-template-columns: repeat(3, 1fr); }
 }
 
-.card {
+.item {
   display: flex;
+}
+
+.card {
+  flex: 1;
   padding: $space-8 $space-6;
   border: 1px solid $color-border;
   border-radius: $radius-lg;
   background: $color-surface;
+  transition:
+    transform 180ms $ease-out,
+    border-color 180ms $ease-out,
+    box-shadow 180ms $ease-out;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: $color-accent-hover;
+    box-shadow: $shadow-md;
+  }
 }
 
 .figure {
@@ -43,6 +57,11 @@
 // Red as a highlight: the quote mark only.
 .mark {
   color: $color-accent-hover;
+  transition: transform 180ms $ease-out;
+}
+
+.card:hover .mark {
+  transform: translateY(-2px);
 }
 
 .quote {

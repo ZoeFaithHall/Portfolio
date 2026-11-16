@@ -1,4 +1,5 @@
 import { Text } from '@/components/atoms/Text';
+import { CountUp } from '@/components/atoms/CountUp';
 import { WipeChapter } from '@/components/organisms/WipeChapter';
 import { introData } from '@/data/intro';
 import styles from './Outro.module.scss';
@@ -15,13 +16,13 @@ export const Outro = () => {
       ariaLabel="By the numbers"
     >
       <div className={styles.numbersInner}>
-        <Text as="h2" variant="display-2" className={styles.numbersHeading}>
+        <Text as="h2" variant="display-2" className={styles.numbersHeading} data-reveal>
           {numbers.heading}
         </Text>
         <ul className={styles.numbersGrid} role="list">
-          {numbers.cells.map((cell) => (
-            <li key={cell.value} className={styles.numbersCell}>
-              <Text variant="display-2" className={styles.numbersValue}>{cell.value}</Text>
+          {numbers.cells.map((cell, i) => (
+            <li key={cell.value} className={styles.numbersCell} data-reveal style={{ ['--reveal-i' as string]: i }}>
+              <Text variant="display-2" className={styles.numbersValue}><CountUp value={cell.value} /></Text>
               <Text variant="body-sm" muted>{cell.caption}</Text>
             </li>
           ))}

@@ -20,6 +20,12 @@ export type StatementGridProps = {
   statementColor?: string;
   /** id on the statement Text for aria-labelledby pairing. */
   statementId?: string;
+  /** Small mono line above the statement (e.g. "Case study / Fleetio"). */
+  eyebrow?: ReactNode;
+  /** Replaces the eyebrow's default red square (e.g. the Dagaz). */
+  eyebrowIcon?: ReactNode;
+  /** Extra class on the grid, for section-specific spacing. */
+  className?: string;
 };
 
 /**
@@ -36,6 +42,9 @@ export function IntroGrid({
   band,
   statementColor,
   statementId,
+  eyebrow,
+  eyebrowIcon,
+  className,
 }: StatementGridProps) {
   const statementStyle: CSSProperties | undefined = statementColor
     ? { color: statementColor }
@@ -46,17 +55,25 @@ export function IntroGrid({
       {band && (
         <SectionBand label={band.label} meta={band.meta} theme={band.theme} />
       )}
-      <div className={styles.grid}>
-        <Text
-          as="h2"
-          variant="display-2"
-          id={statementId}
-          className={styles.statement}
-          style={statementStyle}
-        >
-          {statement}
-        </Text>
-        <aside className={styles.rail}>{rail}</aside>
+      <div className={className ? `${styles.grid} ${className}` : styles.grid}>
+        <div className={styles.lead} data-reveal>
+          {eyebrow && (
+            <p className={eyebrowIcon ? `${styles.eyebrow} ${styles.eyebrowCustom}` : styles.eyebrow}>
+              {eyebrowIcon}
+              {eyebrow}
+            </p>
+          )}
+          <Text
+            as="h2"
+            variant="display-2"
+            id={statementId}
+            className={styles.statement}
+            style={statementStyle}
+          >
+            {statement}
+          </Text>
+        </div>
+        <aside className={styles.rail} data-reveal style={{ ['--reveal-i' as string]: 1 }}>{rail}</aside>
       </div>
     </>
   );

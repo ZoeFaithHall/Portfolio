@@ -30,3 +30,21 @@
     background: $color-accent;
   }
 }
+// Rune Lab nav: a red underline grows from the left on hover and focus.
+.root::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1px;
+  background: $color-accent;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 180ms $ease-out;
+}
+
+.root:hover::after,
+.root:focus-visible::after {
+  transform: scaleX(1);
+}

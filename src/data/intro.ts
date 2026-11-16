@@ -81,7 +81,7 @@ export const introData = {
 
   numbers: {
     band: { label: '04 By The Numbers' },
-    heading: 'what the work is worth',
+    heading: 'What the work is worth',
     cells: [
       { value: '+$67M', caption: 'revenue attainment in two quarters, 67% to 134% of target' },
       { value: '$6B', caption: 'valuation, from Series B, on a frontend I architected' },

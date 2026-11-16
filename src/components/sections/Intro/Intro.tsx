@@ -39,7 +39,7 @@ export const Intro = () => {
           </>
         }
       />
-      <div className={styles.marqueeStack}>
+      <div className={styles.marqueeStack} data-reveal style={{ ['--reveal-i' as string]: 2 }}>
         <LogoMarquee slugs={ROW_ONE} duration={120} direction="left" />
         <LogoMarquee slugs={ROW_TWO} duration={140} direction="right" />
       </div>
